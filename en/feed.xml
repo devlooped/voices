@@ -1,4 +1,4 @@
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
     <title>Voices from X</title>
     <description>Selected long-form posts and articles from the X community.</description>
@@ -6,8 +6,8 @@
     <docs>https://github.com/devlooped/voices</docs>
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
-    <pubDate>Thu, 18 Jun 2026 21:58:47 GMT</pubDate>
-    <lastBuildDate>Thu, 18 Jun 2026 21:58:47 GMT</lastBuildDate>
+    <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
+    <lastBuildDate>Thu, 18 Jun 2026 23:18:42 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,5 +27,20 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+    <item>
+      <title>SpaceX: Not an IPO — It's a Referendum</title>
+      <description>Brivael Le Pogam describes the abnormal retail rush for SpaceX shares. It's not investing or speculation — ordinary people are voting with their money for the camp of builders and makers over the gray bureaucracy of control and permission.</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3" length="2481408" type="audio/mpeg" />
+      <guid>2026-06-17-1-spacex-not-an-ipo-its-a-referendum</guid>
+      <link>https://x.com/brivael/status/2067308757307306269</link>
+      <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
+      <itunes:duration>2:35</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>1</itunes:episode>
+      <itunes:summary>Brivael Le Pogam describes the abnormal retail rush for SpaceX shares. It's not investing or speculation — ordinary people are voting with their money for the camp of builders and makers over the gray bureaucracy of control and permission.</itunes:summary>
+      <itunes:keywords>SpaceX,IPO,retail investors,Elon Musk,referendum,builders,future,belief</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <podcast:transcript url="https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.srt" type="text/srt" language="en" />
+    </item>
   </channel>
 </rss>

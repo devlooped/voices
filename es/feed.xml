@@ -1,4 +1,4 @@
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
     <title>Voces de X</title>
     <description>Publicaciones y artículos seleccionados de la comunidad de X.</description>
@@ -6,8 +6,8 @@
     <docs>https://github.com/devlooped/voices</docs>
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
-    <pubDate>Thu, 18 Jun 2026 21:58:47 GMT</pubDate>
-    <lastBuildDate>Thu, 18 Jun 2026 21:58:47 GMT</lastBuildDate>
+    <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
+    <lastBuildDate>Thu, 18 Jun 2026 23:18:42 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,5 +27,20 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+    <item>
+      <title>SpaceX: No fue una OPV, fue un referéndum</title>
+      <description>Brivael Le Pogam explica por qué la gente común que nunca ha invertido está comprando SpaceX. No es especulación, es elegir bando: los que construyen cohetes hacia las estrellas contra el control burocrático y la muerte lenta por aburrimiento.</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.mp3" length="2602368" type="audio/mpeg" />
+      <guid>2026-06-17-1-spacex-no-fue-una-opv-fue-un-referendum</guid>
+      <link>https://x.com/brivael/status/2067308757307306269</link>
+      <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
+      <itunes:duration>2:43</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>1</itunes:episode>
+      <itunes:summary>Brivael Le Pogam explica por qué la gente común que nunca ha invertido está comprando SpaceX. No es especulación, es elegir bando: los que construyen cohetes hacia las estrellas contra el control burocrático y la muerte lenta por aburrimiento.</itunes:summary>
+      <itunes:keywords>SpaceX,OPV,inversores minoristas,Elon Musk,referéndum,constructores,futuro</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <podcast:transcript url="https://kzu.blob.core.windows.net/voices/es/2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.srt" type="text/srt" language="es" />
+    </item>
   </channel>
 </rss>
