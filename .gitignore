@@ -26,6 +26,7 @@ local.settings.json
 *.metaproj
 *.tmp
 *.log
+*.tsv
 *.cache
 *.binlog
 *.zip
