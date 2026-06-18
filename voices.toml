@@ -1,6 +1,8 @@
 [azure]
 rg = "audiobookr"
 speech = "audiobookr"
+storage = "kzu"
+container = "voices"
 
 [podcast]
 author = "Daniel Cazzulino"

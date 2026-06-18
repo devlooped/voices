@@ -2,12 +2,12 @@
   <channel>
     <title>{{title}}</title>
     <description>{{description}}</description>
-    <link>{{link}}</link>
+    <link>https://github.com/devlooped/voices</link>
+    <docs>https://github.com/devlooped/voices</docs>
     <language>{{language}}</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>{{pubDate}}</pubDate>
     <lastBuildDate>{{lastBuildDate}}</lastBuildDate>
-    <docs>{{link}}</docs>
     <webMaster>{{email}}</webMaster>
     <managingEditor>{{email}}</managingEditor>
     <generator>{{author}}</generator>
@@ -19,7 +19,7 @@
       <itunes:email>{{email}}</itunes:email>
     </itunes:owner>
     <itunes:explicit>no</itunes:explicit>
-    <itunes:image href="{{image}}" />
+    <itunes:image href="https://{{storage}}.blob.core.windows.net/{{container}}/{{language}}/cover.png" />
     <itunes:category text="Business">
       <itunes:category text="Entrepreneurship" />
     </itunes:category>

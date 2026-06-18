@@ -1,0 +1,31 @@
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <channel>
+    <title>Voices from X</title>
+    <description>Selected long-form posts and articles from the X community.</description>
+    <link>https://github.com/devlooped/voices</link>
+    <docs>https://github.com/devlooped/voices</docs>
+    <language>en</language>
+    <copyright>Copyright © Kzu</copyright>
+    <pubDate>Thu, 18 Jun 2026 21:58:47 GMT</pubDate>
+    <lastBuildDate>Thu, 18 Jun 2026 21:58:47 GMT</lastBuildDate>
+    <webMaster>daniel@cazzulino.com</webMaster>
+    <managingEditor>daniel@cazzulino.com</managingEditor>
+    <generator>Daniel Cazzulino</generator>
+    <itunes:author>Daniel Cazzulino</itunes:author>
+    <itunes:subtitle>Voices from X</itunes:subtitle>
+    <itunes:summary>Selected long-form posts and articles from the X community.</itunes:summary>
+    <itunes:owner>
+      <itunes:name>Daniel Cazzulino</itunes:name>
+      <itunes:email>daniel@cazzulino.com</itunes:email>
+    </itunes:owner>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/cover.png" />
+    <itunes:category text="Business">
+      <itunes:category text="Entrepreneurship" />
+    </itunes:category>
+    <itunes:category text="Technology" />
+    <itunes:category text="News">
+      <itunes:category text="Business News" />
+    </itunes:category>
+  </channel>
+</rss>
