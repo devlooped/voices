@@ -1,0 +1,40 @@
+[azure]
+rg = "audiobookr"
+speech = "audiobookr"
+
+[podcast]
+author = "Daniel Cazzulino"
+email = "daniel@cazzulino.com"
+
+[podcast.en]
+title = "Voices from X"
+description = "Selected long-form posts and articles from the X community."
+language = "en"
+
+[podcast.es]
+title = "Voces de X"
+description = "Publicaciones y artículos seleccionados de la comunidad de X."
+language = "es"
+
+[voices]
+temperature = 0.85
+top_p = 1.0
+top_k = 45
+
+[voices.en]
+cfg_scale = 1.8
+
+[voices.en.male]
+voice = "en-us-Andrew3:DragonHDLatestNeural"
+
+[voices.en.female]
+voice = "en-us-Serena:DragonHDLatestNeural"
+
+[voices.es]
+cfg_scale = 1.6
+
+[voices.es.male]
+voice = "es-us-alonso:DragonHDOmniLatestNeural"
+
+[voices.es.female]
+voice = "es-mx-coralpasteque:DragonHDOmniLatestNeural"
