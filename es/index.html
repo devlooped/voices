@@ -6,9 +6,11 @@
   <title>Voces de X</title>
   <style>
     body { font-family: system-ui, sans-serif; margin: 2rem; background: #111; color: #eee; }
-    table { border-collapse: collapse; width: 100%; max-width: 900px; }
-    th, td { padding: 0.5rem; border-bottom: 1px solid #333; text-align: left; }
-    audio { width: 100%; max-width: 360px; }
+    table { border-collapse: collapse; width: 100%; max-width: 900px; table-layout: fixed; }
+    th, td { padding: 0.5rem; border-bottom: 1px solid #333; text-align: left; vertical-align: middle; }
+    th:first-child, td:first-child { width: 3rem; }
+    th:last-child, td:last-child { width: 360px; }
+    audio { display: block; width: 100%; min-height: 40px; }
     a { color: #8cf; }
   </style>
 </head>

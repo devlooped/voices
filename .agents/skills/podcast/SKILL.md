@@ -350,8 +350,17 @@ Do **not** change the per-item pubDates.
 Create or overwrite `<lang>/index.html` with a minimal, self-contained page for local testing:
 
 - Title with the podcast name from config.
-- Table (newest first): Episode | Title | .mp3 link | `<audio controls src="relative/path/to/<N>-<slug>.mp3">`
+- Table (newest first): Episode | Title | `<audio controls src="relative/path/to/<N>-<slug>.mp3">`
 - Scan the year/month subdirs or parse the just-updated feed.xml to keep the list accurate.
+- Use this CSS so the native `<audio controls>` player stays full-size (reserve the Audio column width; `width: 100%` alone collapses the control in a narrow table cell):
+
+```css
+table { border-collapse: collapse; width: 100%; max-width: 900px; table-layout: fixed; }
+th, td { padding: 0.5rem; border-bottom: 1px solid #333; text-align: left; vertical-align: middle; }
+th:first-child, td:first-child { width: 3rem; }
+th:last-child, td:last-child { width: 360px; }
+audio { display: block; width: 100%; min-height: 40px; }
+```
 
 This file is never uploaded to the podcast feed; it is for human convenience when testing locally.
 
