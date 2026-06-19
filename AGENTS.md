@@ -15,4 +15,4 @@ dnx Microsoft.CognitiveServices.Speech.CLI
 
 Use the az CLI to access the Azure speech service keys and resources.
 
-Temporary files should be generated in the `temp` directory and cleaned up after use.
+Temporary files and logs should use the `temp` directory and be cleaned up after use.
