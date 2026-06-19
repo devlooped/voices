@@ -3,9 +3,10 @@ title: "SpaceX: Not an IPO — It's a Referendum"
 summary: "Brivael Le Pogam describes the abnormal retail rush for SpaceX shares. It's not investing or speculation — ordinary people are voting with their money for the camp of builders and makers over the gray bureaucracy of control and permission."
 date: "2026-06-17"
 link: "https://x.com/brivael/status/2067308757307306269"
-author: "By Brivael Le Pogam (@brivael)"
+author: "By Brivael Le Pogam"
 ---
-By Brivael Le Pogam (@brivael)
+SpaceX: Not an IPO — It's a Referendum
+By Brivael Le Pogam, posted on June 17, 2026
 
 Retail activity on SpaceX is abnormal. And it's just the beginning.
 

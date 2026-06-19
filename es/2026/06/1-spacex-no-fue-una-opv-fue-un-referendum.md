@@ -3,9 +3,10 @@ title: "SpaceX: No fue una OPV, fue un referéndum"
 summary: "Brivael Le Pogam explica por qué la gente común que nunca ha invertido está comprando SpaceX. No es especulación, es elegir bando: los que construyen cohetes hacia las estrellas contra el control burocrático y la muerte lenta por aburrimiento."
 date: "2026-06-17"
 link: "https://x.com/brivael/status/2067308757307306269"
-author: "By Brivael Le Pogam (@brivael)"
+author: "By Brivael Le Pogam"
 ---
-By Brivael Le Pogam (@brivael)
+SpaceX: No fue una OPV, fue un referéndum
+por Brivael Le Pogam, publicado el 17 de junio de 2026
 
 La actividad minorista en SpaceX es anormal. Y apenas está comenzando.
 

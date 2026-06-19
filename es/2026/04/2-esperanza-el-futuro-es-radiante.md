@@ -3,11 +3,11 @@ title: "Esperanza: El futuro es radiante"
 summary: "Brivael Le Pogam, cofundador y CTO de Argil respaldado por Y Combinator, defiende el tecno-optimismo: quienes construyen sin pedir permiso, la hostilidad del sistema francés al emprendimiento, y por qué la IA multiplica la capacidad humana en lugar de racionar el futuro."
 date: "2026-04-03"
 link: "https://x.com/brivael/status/2040000831425028322"
-author: "By Brivael Le Pogam (@brivael)"
+author: "By Brivael Le Pogam"
 ---
-By Brivael Le Pogam (@brivael)
+Esperanza: El futuro es radiante
+por Brivael Le Pogam, Publicado el 3 de abril de 2026
 
-Esperanza, el futuro es radiante
 
 El chico frente a la pantalla
 Tenía 15 años, sin dinero, sin red de contactos, sin una gran escuela a la vista. Solo un ordenador y una obsesión: construir cosas. Aprendí a programar solo, de noche, leyendo documentación en inglés que entendía a medias. Mi primer proyecto real fue un juego multijugador en línea. 50.000 jugadores acabaron jugándolo. Nadie me había dado permiso. Nadie me había validado. Simplemente lo hice.

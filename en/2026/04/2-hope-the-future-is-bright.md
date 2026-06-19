@@ -3,11 +3,11 @@ title: "Hope: The Future Is Bright"
 summary: "Brivael Le Pogam, YC-backed CTO of Argil, makes the case for techno-optimism: builders who act without permission, the French system's hostility to enterprise, and why AI multiplies human capacity rather than rationing the future."
 date: "2026-04-03"
 link: "https://x.com/brivael/status/2040000831425028322"
-author: "By Brivael Le Pogam (@brivael)"
+author: "By Brivael Le Pogam"
 ---
-By Brivael Le Pogam (@brivael)
+Hope: The Future Is Bright
+By Brivael Le Pogam, Posted on April 3, 2026
 
-Hope, the Future Is Bright
 
 The kid in front of the screen
 I was 15 years old, with no money, no network, no prestigious school in sight. Just a computer and an obsession: building things. I taught myself to code alone, at night, reading English documentation I only half understood. My first real project was an online multiplayer game. 50,000 players ended up playing it. Nobody had given me permission. Nobody had validated me. I just did it.

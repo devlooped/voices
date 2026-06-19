@@ -1,4 +1,5 @@
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
     <title>Voices from X</title>
     <description>Selected long-form posts and articles from the X community.</description>
@@ -7,7 +8,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Fri, 19 Jun 2026 15:49:16 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 19 Jun 2026 16:30:00 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,14 +28,14 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-        <item>
+    <item>
       <title>Hope: The Future Is Bright</title>
       <description>Brivael Le Pogam, YC-backed CTO of Argil, makes the case for techno-optimism: builders who act without permission, the French system&apos;s hostility to enterprise, and why AI multiplies human capacity rather than rationing the future.</description>
-      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/04/2-hope-the-future-is-bright.mp3" length="9599040" type="audio/mpeg" />
+      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/04/2-hope-the-future-is-bright.mp3" length="17285229" type="audio/mpeg" />
       <guid>2026-04-03-2-hope-the-future-is-bright</guid>
       <link>https://x.com/brivael/status/2040000831425028322</link>
       <pubDate>Fri, 03 Apr 2026 09:37:54 GMT</pubDate>
-      <itunes:duration>9:59</itunes:duration>
+      <itunes:duration>12:00</itunes:duration>
       <itunes:season>2026</itunes:season>
       <itunes:episode>2</itunes:episode>
       <itunes:summary>Brivael Le Pogam, YC-backed CTO of Argil, makes the case for techno-optimism: builders who act without permission, the French system&apos;s hostility to enterprise, and why AI multiplies human capacity rather than rationing the future.</itunes:summary>
@@ -43,14 +44,14 @@
       <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/04/2-hope-the-future-is-bright.jpg" />
       <podcast:transcript url="https://kzu.blob.core.windows.net/voices/en/2026/04/2-hope-the-future-is-bright.srt" type="text/srt" language="en" />
     </item>
-<item>
+    <item>
       <title>SpaceX: Not an IPO — It's a Referendum</title>
       <description>Brivael Le Pogam describes the abnormal retail rush for SpaceX shares. It's not investing or speculation — ordinary people are voting with their money for the camp of builders and makers over the gray bureaucracy of control and permission.</description>
-      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3" length="2481408" type="audio/mpeg" />
+      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3" length="3559104" type="audio/mpeg" />
       <guid>2026-06-17-1-spacex-not-an-ipo-its-a-referendum</guid>
       <link>https://x.com/brivael/status/2067308757307306269</link>
       <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-      <itunes:duration>2:35</itunes:duration>
+      <itunes:duration>2:28</itunes:duration>
       <itunes:season>2026</itunes:season>
       <itunes:episode>1</itunes:episode>
       <itunes:summary>Brivael Le Pogam describes the abnormal retail rush for SpaceX shares. It's not investing or speculation — ordinary people are voting with their money for the camp of builders and makers over the gray bureaucracy of control and permission.</itunes:summary>
