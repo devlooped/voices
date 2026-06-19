@@ -1,6 +1,6 @@
 ---
 name: podcast
-description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder, translate if needed, generate short title + summary + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date/link/author-name-only + spoken content with localized byline date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image), and maintain lang/index.html (episode table + local audio players). Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
+description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder, translate if needed, generate short title + summary + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date/link/author-name-only + spoken content with localized byline date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, embed ID3v2.3 tags (title/artist/album/comment/track/date/genre) via ffmpeg -c copy, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image), and maintain lang/index.html (episode table + local audio players). Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
 ---
 
 # Podcast — X Post to Multi-Language Local Episode Generator
@@ -22,7 +22,7 @@ When finished, all of the following must be true:
      <content>
      ```
      (`<spoken-date>` is localized long form — **not** `yyyy-MM-dd`; see §4.4.)
-   - `<N>-<slug>.mp3` was synthesized using the gender-appropriate voice (inferred from post author name, default male) resolved from the effective `voices.<lang>.<gender>` section, encoded as **48 kHz mono MP3 at 192 kbps** (`audio-48khz-192kbitrate-mono-mp3`). Long episodes are split into sentence-boundary chunks of **≤ ~2200 characters** (Azure hard-caps each synthesis call at ~10 minutes of audio), synthesized per chunk, then merged with `ffmpeg -f concat -c copy`. A single-call output of exactly `10:00` / `600.000000` seconds on long text is a truncation failure — re-chunk and re-synthesize.
+   - `<N>-<slug>.mp3` was synthesized using the gender-appropriate voice (inferred from post author name, default male) resolved from the effective `voices.<lang>.<gender>` section, encoded as **48 kHz mono MP3 at 192 kbps** (`audio-48khz-192kbitrate-mono-mp3`). Long episodes are split into sentence-boundary chunks of **≤ ~2200 characters** (Azure hard-caps each synthesis call at ~10 minutes of audio), synthesized per chunk, then merged with `ffmpeg -f concat -c copy`. After merge (or direct copy for single-chunk episodes), **ID3v2.3 tags are embedded** with `ffmpeg -c copy -id3v2_version 3` (Azure output has no ID3 header — feed validators require it). A single-call output of exactly `10:00` / `600.000000` seconds on long text is a truncation failure — re-chunk and re-synthesize.
    - Artwork is determined once (if a post cover image hasn't been determined *yet*, the LLM is asked for an English "imagine" prompt which is used to generate an initial one; the same artwork is then copied for all languages): if the fetched post JSON has `data.article.cover_media`, the corresponding photo URL from `includes.media` is downloaded and center-cropped to square (1024x1024) via ffmpeg and saved as `<N>-<slug>.jpg`; otherwise an "imagine" prompt from the LLM JSON is used to launch `/imagine <prompt>, 1:1` and the result is saved the same way. The jpg (using each language's own slug) sits next to the mp3 in *every* language directory. Every language's feed item includes the corresponding `<itunes:image>`.
    - `<lang>/feed.xml` contains the new episode as the **first** `<item>` under `<channel>`, with:
      - Correct `<enclosure>` using `https://{{storage}}.blob.core.windows.net/{{container}}/<lang>/<yyyy>/<MM>/<N>-<slug>.mp3`
@@ -114,8 +114,9 @@ When the user asks to re-render/regen MP3s for existing `.md` files (no new X fe
 1. Read each `<N>-<slug>.md`; extract spoken body (everything after the closing `---` frontmatter delimiter).
 2. Resolve voice from `voices.toml` for that language + author gender (infer from YAML `author` or prior episode).
 3. Run the §4.5 chunk → synthesize → concat pipeline into the existing `<N>-<slug>.mp3` path.
-4. Re-probe duration/size; update `itunes:duration` and enclosure `length` in feed if they changed.
-5. Skip translation, artwork, archive, and feed prepend — only replace the audio (and feed duration/length if needed).
+4. Re-apply §4.6 ID3 tags from the episode `.md` frontmatter + feed metadata.
+5. Re-probe duration/size; update `itunes:duration` and enclosure `length` in feed if they changed.
+6. Skip translation, artwork, archive, and feed prepend — only replace the audio (and feed duration/length if needed).
 
 ## Workflow checklist
 
@@ -134,7 +135,8 @@ When the user asks to re-render/regen MP3s for existing `.md` files (no new X fe
     - [ ] Write <lang>/<yyyy>/<MM>/<N>-<slug>.md (yaml `date` = yyyy-MM-dd; spoken body: title + localized byline with long-form date, e.g. en `by <name>, posted on April 3rd, 2026` / es `por <name>, publicado el 3 de Abril de 2026`, then content)
     - [ ] If no artwork determined yet: if article cover photo URL was resolved earlier, download it and center-crop to square 1024x1024 via ffmpeg as <N>-<slug>.jpg (skip /imagine); else (if imagine in this JSON) start subagent `/imagine <imagine>, 1:1 aspect ratio`; copy result (or cover-derived jpg) as <N>-<slug>.jpg into *this* language's dir (and later for other langs too)
     - [ ] Resolve voices.<lang>.<gender> + chunk spoken body (≤ ~2200 chars, sentence boundaries) + synthesize each chunk via dnx (`--format audio-48khz-192kbitrate-mono-mp3`) + ffmpeg-concat into final .mp3; verify per-chunk char counts and total duration is not exactly 10:00 on long posts
-    - [ ] Probe duration/size with ffprobe
+    - [ ] Embed ID3v2.3 tags (§4.6) into final .mp3; verify file starts with `ID3` magic bytes
+    - [ ] Probe duration/size with ffprobe (after tagging — file size includes ID3 header)
     - [ ] Update <lang>/feed.xml (prepend item + itunes:image + current lastBuildDate)
     - [ ] Update <lang>/index.html (newest-first table + <audio> players)
 - [ ] Report episode details + future blob URLs per language
@@ -446,7 +448,61 @@ Synthesis produces many "SYNTHESIZING: ..." progress lines. Redirect to a log fi
 
 **Never** use plain `--text --voice` for HD voices — parameters must be on the `<voice>` element.
 
-### 4.6 Post-synthesis metadata
+### 4.6 Embed ID3v2 tags and probe metadata
+
+Azure Speech outputs bare MPEG frames with **no ID3v2 header**. Podcast feed validators (and many players) require ID3 tags; without them you get errors like `No ID3v2 headers found` and `Could not detect bitrate mode (no ID3 tags)`.
+
+**Immediately after** concat or single-chunk copy — and **before** probing size for the feed enclosure — write ID3v2.3 tags with ffmpeg stream copy (no re-encode):
+
+```pwsh
+function Add-EpisodeId3Tags {
+    param(
+        [string]$Mp3,
+        [string]$Title,
+        [string]$Author,      # YAML author; strip leading "By " for TPE1 if present
+        [string]$Album,       # [podcast.<lang>].title
+        [string]$AlbumArtist, # [podcast].author
+        [string]$Summary,
+        [int]$Episode,        # N from filename / itunes:episode
+        [string]$Year         # yyyy from episode date
+    )
+    $artist = $Author -replace '^By\s+', ''
+    $tmp = Join-Path $env:TEMP ("id3-" + [guid]::NewGuid().ToString() + ".mp3")
+    ffmpeg -y -i $Mp3 -c copy -id3v2_version 3 `
+        -metadata "title=$Title" `
+        -metadata "artist=$artist" `
+        -metadata "album=$Album" `
+        -metadata "album_artist=$AlbumArtist" `
+        -metadata "date=$Year" `
+        -metadata "comment=$Summary" `
+        -metadata "genre=Podcast" `
+        -metadata "track=$Episode" `
+        $tmp 2>&1 | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw "ffmpeg ID3 tagging failed for $Mp3" }
+    Move-Item -Force $tmp $Mp3
+}
+```
+
+| ID3 frame | ffmpeg `-metadata` | Source |
+|-----------|-------------------|--------|
+| TIT2 | `title` | generated episode title |
+| TPE1 | `artist` | YAML `author` (name only; strip `By ` prefix) |
+| TALB | `album` | `[podcast.<lang>].title` |
+| TPE2 | `album_artist` | `[podcast].author` |
+| TYER/TDRC | `date` | episode year (`yyyy` from YAML `date`) |
+| COMM | `comment` | generated `summary` |
+| TRCK | `track` | episode number `N` |
+| TCON | `genre` | `Podcast` |
+
+**Verify** tagging succeeded before probing enclosure length:
+
+```pwsh
+$magic = [System.Text.Encoding]::ASCII.GetString([System.IO.File]::ReadAllBytes($mp3)[0..2])
+if ($magic -ne 'ID3') { throw "Missing ID3v2 header on $mp3" }
+ffprobe -v quiet -show_entries format_tags $mp3   # optional sanity check
+```
+
+Tagging adds a small ID3 header (~0.5–1.5 KB); always probe file size **after** tagging for the enclosure `length` attribute.
 
 Probe the MP3 (robust PowerShell):
 ```pwsh
@@ -548,7 +604,7 @@ Agent:
 **Re-render existing episode:**
 "re-render en/2026/06/1-spacex-not-an-ipo-its-a-referendum.md"
 
-Agent: extracts spoken body from the .md, runs §4.5 with `return ,@($chunks.ToArray())`, verifies chunk char counts (expect ~2000 for a short article, not `1`), writes the .mp3 in place, re-probes duration.
+Agent: extracts spoken body from the .md, runs §4.5 with `return ,@($chunks.ToArray())`, verifies chunk char counts (expect ~2000 for a short article, not `1`), writes the .mp3 in place, re-applies §4.6 ID3 tags, re-probes duration/size.
 
 ---
 
@@ -601,6 +657,7 @@ Always insert newest item first.
 | One chunk has >9000 chars, others tiny | Paragraph-based splitting failed — switch to sentence-boundary splitting (see §4.5). |
 | Log shows `chunk 0 : 1 chars` or ~0:00 audio on a full article | PowerShell single-element array unwrap (see §4.5). Fix `return ,@($chunks.ToArray())` and `$chunks = @(Split-TextChunks $body)`; re-run. |
 | ffmpeg concat fails | Use `concat.txt` with `file 'path/with/forward/slashes'` and `-safe 0`. All parts must share the same codec/format (identical `--format` on every synthesize call). |
+| Feed validation: `No ID3v2 headers found` / `Could not detect bitrate mode` | Azure output lacks ID3. Run §4.6 `Add-EpisodeId3Tags` with `ffmpeg -c copy -id3v2_version 3`, then re-probe size and update enclosure `length`. |
 | Wrong episode number | Check that feed parsing looks only at items with matching `itunes:season` year. When the feed has no `<item>` yet, N=1. |
 | index.html stale | Re-run the language pass or manually re-scan dirs after adding episodes |
 | Secret leakage risk | Never pass --bearer* etc.; never cat ~/.xurl |
@@ -611,7 +668,7 @@ Always insert newest item first.
 This skill specifies **outcomes**. Implement with pwsh, Python, direct string/ DOM XML edits, etc., as long as:
 - Local files match the exact naming, locations, and content rules (including <N>-<slug>.jpg next to the mp3 for every language)
 - feed.xml remains valid RSS with correct namespaces and newest-first ordering, and includes <itunes:image> in each new item
-- .mp3 is produced via sentence-boundary chunking (≤ ~2200 chars) + per-chunk synthesis + ffmpeg concat when needed; duration verified not truncated at exactly 10:00; single-chunk returns use the array-unwrap-safe pattern
+- .mp3 is produced via sentence-boundary chunking (≤ ~2200 chars) + per-chunk synthesis + ffmpeg concat when needed; ID3v2.3 tags embedded via §4.6; duration verified not truncated at exactly 10:00; single-chunk returns use the array-unwrap-safe pattern
 - No upload or git side-effects
 - The same visual artwork is used for all languages (copied by the lang-specific slug name)
 - No .srt files or `<podcast:transcript>` tags are generated
