@@ -1,14 +1,14 @@
 ---
 name: upload
-description: After the podcast skill has prepared local episode artifacts (posts/ archive, lang/yyyy/MM/#-slug.{md,mp3,srt}, updated lang/feed.xml + lang/index.html), upload the generated files to Azure Blob Storage using azcopy (to the paths referenced by the feed enclosures and transcript tags) and commit + push to git with message "Add episode [#] - [title]" (summary in body). Resolves storage/container from voices.toml [azure]. Use when publishing a newly generated episode from the podcast skill.
+description: After the podcast skill has prepared local episode artifacts (posts/ archive, lang/yyyy/MM/#-slug.{md,mp3,srt,jpg}, updated lang/feed.xml + lang/index.html with itunes:image), upload the generated files to Azure Blob Storage using azcopy (to the paths referenced by the feed enclosures, itunes:image, and transcript tags) and commit + push to git with message "Add episode [#] - [title]" (summary in body). Resolves storage/container from voices.toml [azure]. Use when publishing a newly generated episode from the podcast skill.
 ---
 
 # Upload — Azure Storage + Git Commit & Push for Podcast Episodes
 
-This skill takes the local output of the `podcast` skill (new episode files + updated per-language feeds and indexes) and publishes it:
+This skill takes the local output of the `podcast` skill (new episode files including artwork jpgs + updated per-language feeds and indexes) and publishes it:
 
-- Uploads the assets to Azure Blob Storage so the podcast RSS (with correct enclosures and Podcasting 2.0 transcripts) becomes live.
-- Creates a git commit and pushes the source changes (markdowns, feeds, indexes, original post archive).
+- Uploads the assets to Azure Blob Storage so the podcast RSS (with correct enclosures, itunes:image artwork, and Podcasting 2.0 transcripts) becomes live.
+- Creates a git commit and pushes the source changes (markdowns, feeds, indexes, jpg artwork, original post archive).
 
 The `podcast` skill only writes locally. This skill performs the actual publication to blob + git.
 
@@ -19,6 +19,7 @@ When finished, all of the following must be true:
 1. The new episode files are publicly reachable on Azure:
    - `https://<storage>.blob.core.windows.net/<container>/<lang>/<yyyy>/<MM>/<N>-<slug>.mp3`
    - Matching `.srt` for transcripts
+   - Matching `.jpg` for itunes:image artwork (one per language, using that language's slug)
    - `.md` files (for indexes)
 2. The language `feed.xml` files on blob have been updated with the new `<item>` (first in channel).
 3. `lang/index.html` (if used for local/blob testing) is uploaded.
@@ -43,6 +44,7 @@ When finished, all of the following must be true:
 <base>/<lang>/<yyyy>/<MM>/<N>-<slug>.mp3
 <base>/<lang>/<yyyy>/<MM>/<N>-<slug>.srt
 <base>/<lang>/<yyyy>/<MM>/<N>-<slug>.md
+<base>/<lang>/<yyyy>/<MM>/<N>-<slug>.jpg
 <base>/posts/<yyyy-MM-dd>-<post-id>.md   (optional but recommended for archive)
 ```
 
@@ -83,8 +85,8 @@ This approach avoids hanging on `azcopy login` device code flows entirely. The e
 ```
 - [ ] Read voices.toml for storage + container; compute blob base URL
 - [ ] Discover the episode to publish (parse first <item> from en/feed.xml or scan git status + episode dirs)
-- [ ] Extract N, title, summary, slug, yyyy, MM, post link, and affected languages
-- [ ] Verify all expected local files exist (md, mp3, srt under each lang, updated feeds, index.html, posts archive)
+- [ ] Extract N, title, summary, slug, yyyy, MM, post link, affected languages, and any itunes:image references (for the jpg paths)
+- [ ] Verify all expected local files exist (md, mp3, srt, jpg under each lang using the lang's slug for the jpg, updated feeds, index.html, posts archive)
 - [ ] Upload via azcopy (episode assets, feeds, indexes; optionally posts/)
 - [ ] git add the generated files
 - [ ] git commit -m "Add episode [#] - [title]" -m "[summary]\n\n[link]"
@@ -130,7 +132,7 @@ Preferred methods (in order):
 
 **B. From filesystem + git status (fallback)**
 - Run `git status --porcelain` (or `git ls-files --others --modified`).
-- Find files matching `*/20[0-9][0-9]/[0-1][0-9]/*.(md|mp3|srt)`
+- Find files matching `*/20[0-9][0-9]/[0-1][0-9]/*.(md|mp3|srt|jpg)`
 - Group by the `#-slug` portion.
 - For each unique episode base, locate the matching feed entry by scanning the `lang/feed.xml` first item.
 
@@ -148,6 +150,7 @@ For the discovered episode:
 - `<lang>/<yyyy>/<MM>/<N>-<slug>.md`
 - `<lang>/<yyyy>/<MM>/<N>-<slug>.mp3`
 - `<lang>/<yyyy>/<MM>/<N>-<slug>.srt`
+- `<lang>/<yyyy>/<MM>/<N>-<slug>.jpg` (artwork; present for each language)
 - `<lang>/feed.xml` (modified)
 - `<lang>/index.html` (if present and updated)
 - `posts/<yyyy-MM-dd>-<post-id>.md`
@@ -176,7 +179,7 @@ For each language:
    azcopy copy "en/2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3" `
      "https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3"
    ```
-   Repeat for `.srt` and `.md`.
+   Repeat for `.srt`, `.md`, and `.jpg`.
 
    Alternative (recursive for the month dir):
    ```
@@ -243,6 +246,7 @@ Tell the user:
 
 - Live enclosure URL(s) (mp3) — they can be copied from the local feed or reconstructed.
 - Live transcript URL(s) (.srt)
+- Live artwork image URL(s) (.jpg per language) — from the <itunes:image> in the local feed
 - Blob feed URL(s): e.g. `https://kzu.blob.core.windows.net/voices/en/feed.xml`
 - Git commit subject and short SHA (run `git log -1 --oneline` after commit).
 - Any files that were uploaded.
@@ -265,7 +269,7 @@ Agent:
 2. Parses en/feed.xml → episode 1, title="SpaceX: Not an IPO — It's a Referendum", summary=..., guid=2026-06-17-1-..., link=...
 3. Same for es.
 4. Confirms files exist.
-5. Sets AZCOPY_AUTO_LOGIN_TYPE=AZCLI + AZCOPY_TENANT_ID, then azcopy the 3 files × 2 langs + 2× feed.xml + 2× index.html + the posts/ file.
+5. Sets AZCOPY_AUTO_LOGIN_TYPE=AZCLI + AZCOPY_TENANT_ID, then azcopy the 4 files (md+mp3+srt+jpg) × 2 langs + 2× feed.xml + 2× index.html + the posts/ file.
 6. git add ... ; git commit -m "Add episode 1 - ..." -m "..."; git push.
 7. "Episode 1 is now live at https://kzu.blob.../en/2026/06/1-....mp3 . Pushed commit abc1234."
 
@@ -302,4 +306,4 @@ The local `en/feed.xml` / `es/feed.xml` (after the `podcast` run) are the source
 
 ## Related skills
 
-- **podcast** (`.agents/skills/podcast/SKILL.md`) — The generator that must be run first to produce the local files and update the feeds locally.
+- **podcast** (`.agents/skills/podcast/SKILL.md`) — The generator that must be run first to produce the local files (including per-lang .jpg artwork) and update the feeds locally (with itunes:image).
