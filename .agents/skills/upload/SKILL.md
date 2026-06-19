@@ -1,13 +1,13 @@
 ---
 name: upload
-description: After the podcast skill has prepared local episode artifacts (posts/ archive, lang/yyyy/MM/#-slug.{md,mp3,srt,jpg}, updated lang/feed.xml + lang/index.html with itunes:image), upload the generated files to Azure Blob Storage using azcopy (to the paths referenced by the feed enclosures, itunes:image, and transcript tags) and commit + push to git with message "Add episode [#] - [title]" (summary in body). Resolves storage/container from voices.toml [azure]. Use when publishing a newly generated episode from the podcast skill.
+description: After the podcast skill has prepared local episode artifacts (posts/ archive, lang/yyyy/MM/#-slug.{md,mp3,jpg}, updated lang/feed.xml + lang/index.html with itunes:image), upload the generated files to Azure Blob Storage using azcopy (to the paths referenced by the feed enclosures and itunes:image) and commit + push to git with message "Add episode [#] - [title]" (summary in body). Resolves storage/container from voices.toml [azure]. Use when publishing a newly generated episode from the podcast skill.
 ---
 
 # Upload — Azure Storage + Git Commit & Push for Podcast Episodes
 
 This skill takes the local output of the `podcast` skill (new episode files including artwork jpgs + updated per-language feeds and indexes) and publishes it:
 
-- Uploads the assets to Azure Blob Storage so the podcast RSS (with correct enclosures, itunes:image artwork, and Podcasting 2.0 transcripts) becomes live.
+- Uploads the assets to Azure Blob Storage so the podcast RSS (with correct enclosures and itunes:image artwork) becomes live.
 - Creates a git commit and pushes the source changes (markdowns, feeds, indexes, jpg artwork, original post archive).
 
 The `podcast` skill only writes locally. This skill performs the actual publication to blob + git.
@@ -18,7 +18,6 @@ When finished, all of the following must be true:
 
 1. The new episode files are publicly reachable on Azure:
    - `https://<storage>.blob.core.windows.net/<container>/<lang>/<yyyy>/<MM>/<N>-<slug>.mp3`
-   - Matching `.srt` for transcripts
    - Matching `.jpg` for itunes:image artwork (one per language, using that language's slug)
    - `.md` files (for indexes)
 2. The language `feed.xml` files on blob have been updated with the new `<item>` (first in channel).
@@ -42,7 +41,6 @@ When finished, all of the following must be true:
 <base>/<lang>/feed.xml
 <base>/<lang>/index.html
 <base>/<lang>/<yyyy>/<MM>/<N>-<slug>.mp3
-<base>/<lang>/<yyyy>/<MM>/<N>-<slug>.srt
 <base>/<lang>/<yyyy>/<MM>/<N>-<slug>.md
 <base>/<lang>/<yyyy>/<MM>/<N>-<slug>.jpg
 <base>/posts/<yyyy-MM-dd>-<post-id>.md   (optional but recommended for archive)
@@ -85,9 +83,10 @@ This approach avoids hanging on `azcopy login` device code flows entirely. The e
 ```
 - [ ] Read voices.toml for storage + container; compute blob base URL
 - [ ] Discover the episode to publish (parse first <item> from en/feed.xml or scan git status + episode dirs)
-- [ ] Extract N, title, summary, slug, yyyy, MM, post link, affected languages, and any itunes:image references (for the jpg paths)
-- [ ] Verify all expected local files exist (md, mp3, srt, jpg under each lang using the lang's slug for the jpg, updated feeds, index.html, posts archive)
-- [ ] Upload via azcopy (episode assets, feeds, indexes; optionally posts/)
+- [ ] Extract N, title, summary, slug, yyyy, MM, post link, affected languages, and the exact `<itunes:image>` href(s) per language (jpg artwork paths)
+- [ ] Verify all expected local files exist (md, mp3, jpg under each lang using the lang's slug for the jpg, updated feeds, index.html, posts archive)
+- [ ] Upload via azcopy **including the .jpg** (episode assets: mp3 + md + jpg, feeds, indexes; optionally posts/)
+- [ ] Verify the artwork .jpg URLs return HTTP 200 (critical for itunes:image)
 - [ ] git add the generated files
 - [ ] git commit -m "Add episode [#] - [title]" -m "[summary]\n\n[link]"
 - [ ] git push
@@ -128,11 +127,12 @@ Preferred methods (in order):
   - `<description>` or `<itunes:summary>` for commit body.
   - `<link>` (X post).
 - From the enclosure or guid + pubDate, determine `yyyy`, `MM`, `slug`.
-- Repeat for `es/feed.xml` if it also contains a matching first item (same X link or guid date).
+- Also capture the `<itunes:image href="...">` value for the item (this is the exact remote .jpg URL for this language's artwork).
+- Repeat for `es/feed.xml` if it also contains a matching first item (same X link or guid date). Extract its own `<itunes:image>` (uses the Spanish slug for the .jpg).
 
 **B. From filesystem + git status (fallback)**
 - Run `git status --porcelain` (or `git ls-files --others --modified`).
-- Find files matching `*/20[0-9][0-9]/[0-1][0-9]/*.(md|mp3|srt|jpg)`
+- Find files matching `*/20[0-9][0-9]/[0-1][0-9]/*.(md|mp3|jpg)`
 - Group by the `#-slug` portion.
 - For each unique episode base, locate the matching feed entry by scanning the `lang/feed.xml` first item.
 
@@ -149,7 +149,6 @@ For the discovered episode:
 
 - `<lang>/<yyyy>/<MM>/<N>-<slug>.md`
 - `<lang>/<yyyy>/<MM>/<N>-<slug>.mp3`
-- `<lang>/<yyyy>/<MM>/<N>-<slug>.srt`
 - `<lang>/<yyyy>/<MM>/<N>-<slug>.jpg` (artwork; present for each language)
 - `<lang>/feed.xml` (modified)
 - `<lang>/index.html` (if present and updated)
@@ -174,14 +173,16 @@ $env:AZCOPY_TENANT_ID = (az account show --query tenantId -o tsv)
 
 For each language:
 
-1. Upload the episode directory contents (or files individually):
-   ```
-   azcopy copy "en/2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3" `
-     "https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3"
-   ```
-   Repeat for `.srt`, `.md`, and `.jpg`.
+**Important:** The episode `.jpg` (referenced by `<itunes:image>` in the feed item) is required for artwork in podcast clients. It must be uploaded along with the audio and markdown.
 
-   Alternative (recursive for the month dir):
+1. Upload the episode files (recommended: explicit or recursive on the month dir so the jpg is never skipped):
+   ```
+   azcopy copy "en/2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3" "https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3"
+   azcopy copy "en/2026/06/1-spacex-not-an-ipo-its-a-referendum.md"  "https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.md"
+   azcopy copy "en/2026/06/1-spacex-not-an-ipo-its-a-referendum.jpg" "https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.jpg"
+   ```
+
+   Alternative (simpler, covers all files including .jpg automatically):
    ```
    azcopy copy "en/2026/06" "https://kzu.blob.core.windows.net/voices/en/2026/06" --recursive
    ```
@@ -200,9 +201,14 @@ For each language:
 
 Do the equivalent for `es/`.
 
-Use `--overwrite` if azcopy prompts, or let it default to overwrite for these paths.
+Omit `--overwrite` (it defaults to true and will overwrite existing blobs as needed).
 
-After uploads, the enclosure URLs that were already written into the local feed by the `podcast` skill are now live.
+**After azcopy for episode files, verify the itunes:image artwork URLs return 200** (using the exact href values from the local feed.xml):
+```powershell
+curl -I "https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.jpg"
+```
+
+After uploads, the enclosure URLs + itunes:image that were already written into the local feed by the `podcast` skill are now live.
 
 **Outcome:** All generated files reachable at their final blob locations.
 
@@ -245,7 +251,6 @@ After uploads, the enclosure URLs that were already written into the local feed 
 Tell the user:
 
 - Live enclosure URL(s) (mp3) — they can be copied from the local feed or reconstructed.
-- Live transcript URL(s) (.srt)
 - Live artwork image URL(s) (.jpg per language) — from the <itunes:image> in the local feed
 - Blob feed URL(s): e.g. `https://kzu.blob.core.windows.net/voices/en/feed.xml`
 - Git commit subject and short SHA (run `git log -1 --oneline` after commit).
@@ -253,7 +258,7 @@ Tell the user:
 
 Suggest:
 - Refresh the podcast in a client using the blob feed URL.
-- Verify the audio plays and the transcript is available.
+- Verify the audio plays.
 - Check the commit on GitHub.
 
 ---
@@ -269,7 +274,7 @@ Agent:
 2. Parses en/feed.xml → episode 1, title="SpaceX: Not an IPO — It's a Referendum", summary=..., guid=2026-06-17-1-..., link=...
 3. Same for es.
 4. Confirms files exist.
-5. Sets AZCOPY_AUTO_LOGIN_TYPE=AZCLI + AZCOPY_TENANT_ID, then azcopy the 4 files (md+mp3+srt+jpg) × 2 langs + 2× feed.xml + 2× index.html + the posts/ file.
+5. Sets AZCOPY_AUTO_LOGIN_TYPE=AZCLI + AZCOPY_TENANT_ID, then azcopy the 3 files (md+mp3+jpg) × 2 langs + 2× feed.xml + 2× index.html + the posts/ file.
 6. git add ... ; git commit -m "Add episode 1 - ..." -m "..."; git push.
 7. "Episode 1 is now live at https://kzu.blob.../en/2026/06/1-....mp3 . Pushed commit abc1234."
 
@@ -286,6 +291,7 @@ Agent:
 | Push rejected (non-fast-forward) | Pull first or rebase. |
 | Feed on blob still shows old episode | The feed.xml upload step was skipped or used wrong path. |
 | index.html broken after upload | Relative links inside it assume it lives at `<lang>/index.html` — make sure the dir structure matches. |
+| itunes:image artwork 404 on blob (or broken in clients) | The .jpg was not uploaded for that language. Always azcopy the .jpg (or use --recursive on the yyyy/MM dir) and verify the exact URL from feed's <itunes:image href> returns 200. |
 
 ## Agent freedom
 
