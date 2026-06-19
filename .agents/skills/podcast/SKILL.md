@@ -1,6 +1,6 @@
 ---
 name: podcast
-description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder, translate if needed, generate short title + summary + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date/link/author-name-only + spoken content with localized byline date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), convert MP3 to WAV then generate #-slug.srt via speech recognition (--continuous) + post-processing of RECOGNIZED output, update the language feed.xml (newest-first item with enclosure + itunes:image + Podcasting 2.0 <podcast:transcript>), and maintain lang/index.html (episode table + local audio players). Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
+description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder, translate if needed, generate short title + summary + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date/link/author-name-only + spoken content with localized byline date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image), and maintain lang/index.html (episode table + local audio players). Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
 ---
 
 # Podcast — X Post to Multi-Language Local Episode Generator
@@ -23,13 +23,11 @@ When finished, all of the following must be true:
      ```
      (`<spoken-date>` is localized long form — **not** `yyyy-MM-dd`; see §4.4.)
    - `<N>-<slug>.mp3` was synthesized using the gender-appropriate voice (inferred from post author name, default male) resolved from the effective `voices.<lang>.<gender>` section, encoded as **48 kHz mono MP3 at 192 kbps** (`audio-48khz-192kbitrate-mono-mp3`). Long episodes are split into sentence-boundary chunks of **≤ ~2200 characters** (Azure hard-caps each synthesis call at ~10 minutes of audio), synthesized per chunk, then merged with `ffmpeg -f concat -c copy`. A single-call output of exactly `10:00` / `600.000000` seconds on long text is a truncation failure — re-chunk and re-synthesize.
-   - `<N>-<slug>.srt` transcript was generated reliably: MP3 → 16 kHz mono WAV (ffmpeg) → `dnx ... recognize --continuous` (log capture) → parse `RECOGNIZED:` lines → timed .srt using probed duration (proportional char length or fixed). The .srt sits next to the .mp3.
    - Artwork is determined once (if a post cover image hasn't been determined *yet*, the LLM is asked for an English "imagine" prompt which is used to generate an initial one; the same artwork is then copied for all languages): if the fetched post JSON has `data.article.cover_media`, the corresponding photo URL from `includes.media` is downloaded and center-cropped to square (1024x1024) via ffmpeg and saved as `<N>-<slug>.jpg`; otherwise an "imagine" prompt from the LLM JSON is used to launch `/imagine <prompt>, 1:1` and the result is saved the same way. The jpg (using each language's own slug) sits next to the mp3 in *every* language directory. Every language's feed item includes the corresponding `<itunes:image>`.
    - `<lang>/feed.xml` contains the new episode as the **first** `<item>` under `<channel>`, with:
      - Correct `<enclosure>` using `https://{{storage}}.blob.core.windows.net/{{container}}/<lang>/<yyyy>/<MM>/<N>-<slug>.mp3`
      - `itunes:season` = year, `itunes:episode` = N (per-language TV-series numbering)
      - Accurate `itunes:duration`, file length, MIME `audio/mpeg`
-     - `<podcast:transcript>` (Podcasting 2.0) pointing at the future blob `.srt` URL
      - `<itunes:image>` (for the per-language copy of the episode artwork jpg)
    - `<lang>/index.html` exists or is updated with a simple table of episodes (newest/highest N first) including HTML5 `<audio controls>` players for local testing.
 3. GUIDs are always `yyyy-MM-dd-N-slug`.
@@ -39,7 +37,7 @@ When finished, all of the following must be true:
 
 ## Architecture & Layout
 
-**Episode file naming:** `<N>-<slug>.md`, `<N>-<slug>.mp3`, `<N>-<slug>.srt`, `<N>-<slug>.jpg` (N = sequential episode within year for that language feed). The .jpg (episode artwork) uses the *same* visual for every language but is named using that language's title-derived slug so it sits next to its mp3.
+**Episode file naming:** `<N>-<slug>.md`, `<N>-<slug>.mp3`, `<N>-<slug>.jpg` (N = sequential episode within year for that language feed). The .jpg (episode artwork) uses the *same* visual for every language but is named using that language's title-derived slug so it sits next to its mp3.
 
 **Directory layout per language:**
 ```
@@ -51,7 +49,6 @@ When finished, all of the following must be true:
     <MM>/
       <N>-<slug>.md
       <N>-<slug>.mp3
-      <N>-<slug>.srt
       <N>-<slug>.jpg
 ```
 
@@ -63,7 +60,7 @@ posts/
 
 **Enclosure + artwork URLs (written into feed):**  
 `https://<storage>.blob.core.windows.net/<container>/<lang>/<yyyy>/<MM>/<N>-<slug>.mp3`  
-(and matching `.srt` for the transcript tag, and `.jpg` for `<itunes:image>`).
+(and matching `.jpg` for `<itunes:image>`).
 
 **Episode numbering (TV-series model):**  
 `itunes:season` = calendar year of the post date  
@@ -76,9 +73,9 @@ posts/
 | Tool | Purpose | Verify | Install (Windows) |
 |------|---------|--------|-------------------|
 | xurl (required fork) | Fetch full X post content (note_tweet / article / text) | `xurl version` ends with "by @kzu" | `go install github.com/kzu/xurl@v0.1.0` |
-| dnx / .NET 10 SDK | Run Azure Speech CLI (synthesize + recognize) | `dotnet --version` (≥ 10) and presence of `dnx` (e.g. `Get-Command dnx` or `C:\Program Files\dotnet\dnx.cmd`) | Install .NET 10.0 SDK (dnx is included as `dotnet dnx`) |
+| dnx / .NET 10 SDK | Run Azure Speech CLI (synthesize) | `dotnet --version` (≥ 10) and presence of `dnx` (e.g. `Get-Command dnx` or `C:\Program Files\dotnet\dnx.cmd`) | Install .NET 10.0 SDK (dnx is included as `dotnet dnx`) |
 | az CLI | Fetch Azure Speech key + region from voices.toml `[azure]` | `az account show` | `winget install Microsoft.AzureCLI` |
-| ffmpeg + ffprobe | Convert MP3→WAV for reliable recognition + probe duration/size | `ffmpeg -version` and `ffprobe -version` | `winget install ffmpeg` (includes ffprobe) |
+| ffmpeg + ffprobe | Artwork crop, MP3 concat, probe duration/size | `ffmpeg -version` and `ffprobe -version` | `winget install ffmpeg` (includes ffprobe) |
 | jq (recommended) | Parse JSON (xurl responses, ffprobe) | `jq --version` | `winget install jqlang.jq` |
 
 **xurl setup & secret safety (MANDATORY — inline from ecosystem patterns):**
@@ -92,7 +89,7 @@ Before running:
 1. `command -v xurl` (install via go if missing).
 2. `xurl version` — must end with `by @kzu`. If not, ask user permission to replace and re-install the fork.
 3. `xurl auth status` — detect available auth. **Prefer `app`** (bearer: ✓). Fall back only if needed. Use `--auth app` for reads when available.
-4. `ffmpeg -version` (required for MP3→WAV conversion for recognition).
+4. `ffmpeg -version` (required for artwork crop and MP3 concat).
 5. Run `xurl read <url>` (never with inline secrets).
 
 If no usable auth: tell the user to run `xurl auth oauth2` (or appropriate) **outside** the agent session.
@@ -101,11 +98,23 @@ If no usable auth: tell the user to run `xurl auth oauth2` (or appropriate) **ou
 
 - **Capture noisy / long output first**: For `dnx ...`, `az ...`, and help commands, use `... 2>&1 | Out-File $tmp` (or `> $tmp`), then inspect with `Get-Content $tmp`. Direct `| cat`, `| head`, `| Select` on dnx often triggers harness "Get-Content cannot bind" spam.
 - **Prefer PowerShell cmdlets**: `Get-ChildItem` / `Get-Content -Raw` / `Out-File -Encoding utf8` / `ConvertFrom-Json` / `Select-String` over `ls`, `cat`, Unix pipes for reliability on Windows pwsh.
-- **UTF-8**: When writing SSML, transcripts, or .md files use `-Encoding utf8`. When reading xurl JSON use `-Raw | ConvertFrom-Json`.
+- **Run synthesis in the current pwsh session**: Define helper functions inline and call them directly. Avoid spawning a nested `powershell -File` for TTS — it adds failure modes and makes chunk-array bugs harder to spot.
+- **UTF-8**: When writing SSML or .md files use `-Encoding utf8` (or `[System.IO.File]::WriteAllText` with UTF-8 no BOM for SSML). When reading xurl JSON use `-Raw | ConvertFrom-Json`.
 - **Duration**: Use `[TimeSpan]::FromSeconds([double]$raw).ToString("m\:ss")`.
-- **Temporary files**: Use `$env:TEMP\...` for ssml, wav, logs, and json. Clean up in 4.9 unless debugging.
+- **Temporary files**: Use `$env:TEMP\...` for ssml, logs, and json. Clean up in §4.8 unless debugging.
 - **Long synthesis**: Expect many "SYNTHESIZING: audio.length=..." messages — redirect or tail as needed. Always chunk long text (see §4.5); never feed the full `.md` body in one SSML call when it exceeds ~2200 chars.
-- **Chunked TTS temp files**: Keep per-chunk `.ssml` / `part-*.mp3` / `concat.txt` under `$env:TEMP` until merge succeeds; delete in §4.9.
+- **Chunked TTS temp files**: Keep per-chunk `.ssml` / `part-*.mp3` / `concat.txt` under `$env:TEMP` until merge succeeds; delete in §4.8.
+- **Verify before synthesizing**: Log each chunk's character count. If a chunk reports `1` char (or audio is ~0:00) on a multi-paragraph article, the PowerShell single-element array unwrap bug fired — see §4.5 and Troubleshooting.
+
+## Re-rendering an existing episode MP3
+
+When the user asks to re-render/regen MP3s for existing `.md` files (no new X fetch):
+
+1. Read each `<N>-<slug>.md`; extract spoken body (everything after the closing `---` frontmatter delimiter).
+2. Resolve voice from `voices.toml` for that language + author gender (infer from YAML `author` or prior episode).
+3. Run the §4.5 chunk → synthesize → concat pipeline into the existing `<N>-<slug>.mp3` path.
+4. Re-probe duration/size; update `itunes:duration` and enclosure `length` in feed if they changed.
+5. Skip translation, artwork, archive, and feed prepend — only replace the audio (and feed duration/length if needed).
 
 ## Workflow checklist
 
@@ -123,11 +132,9 @@ If no usable auth: tell the user to run `xurl auth oauth2` (or appropriate) **ou
     - [ ] Compute yyyy/MM, slug (kebab), next N for (lang, year) from feed
     - [ ] Write <lang>/<yyyy>/<MM>/<N>-<slug>.md (yaml `date` = yyyy-MM-dd; spoken body: title + localized byline with long-form date, e.g. en `by <name>, posted on April 3rd, 2026` / es `por <name>, publicado el 3 de Abril de 2026`, then content)
     - [ ] If no artwork determined yet: if article cover photo URL was resolved earlier, download it and center-crop to square 1024x1024 via ffmpeg as <N>-<slug>.jpg (skip /imagine); else (if imagine in this JSON) start subagent `/imagine <imagine>, 1:1 aspect ratio`; copy result (or cover-derived jpg) as <N>-<slug>.jpg into *this* language's dir (and later for other langs too)
-    - [ ] Resolve voices.<lang>.<gender> + chunk spoken body (≤ ~2200 chars, sentence boundaries) + synthesize each chunk via dnx (`--format audio-48khz-192kbitrate-mono-mp3`) + ffmpeg-concat into final .mp3; verify duration is not exactly 10:00 on long posts
+    - [ ] Resolve voices.<lang>.<gender> + chunk spoken body (≤ ~2200 chars, sentence boundaries) + synthesize each chunk via dnx (`--format audio-48khz-192kbitrate-mono-mp3`) + ffmpeg-concat into final .mp3; verify per-chunk char counts and total duration is not exactly 10:00 on long posts
     - [ ] Probe duration/size with ffprobe
-    - [ ] Convert .mp3 to 16 kHz mono .wav (ffmpeg) for reliable recognition
-    - [ ] Run recognize --continuous on the .wav (capture to temp log file first), extract RECOGNIZED: lines, build timed .srt using total duration + proportional lengths
-    - [ ] Update <lang>/feed.xml (prepend item + itunes:image + podcast:transcript tag + current lastBuildDate)
+    - [ ] Update <lang>/feed.xml (prepend item + itunes:image + current lastBuildDate)
     - [ ] Update <lang>/index.html (newest-first table + <audio> players)
 - [ ] Report episode details + future blob URLs per language
 - [ ] Confirm zero upload / git activity
@@ -257,7 +264,7 @@ Use the translated attributed text as the source for generating the episode titl
   - `N = (max for this year) + 1` (or 1 if none)
   - Practical pattern (simple feeds): load as text or `[xml]`, look for `<itunes:episode>` / `<itunes:season>` (or `episode`/`season` after casting). When no items exist for the year, use 1. Fall back to directory scan of `<lang>/<yyyy>/` subfolders + filenames if feed parsing is painful.
 - Target directory: `<lang>/<yyyy>/<MM>/`
-- Files: `<N>-<slug>.md`, `<N>-<slug>.mp3`, `<N>-<slug>.srt`, `<N>-<slug>.jpg`
+- Files: `<N>-<slug>.md`, `<N>-<slug>.mp3`, `<N>-<slug>.jpg`
 
 ### 4.3.1 Generate episode artwork (once, shared visual)
 Performed the first time an episode needs artwork (cover or generated) during language processing. The resulting image is language-agnostic and will be copied for every language.
@@ -374,7 +381,7 @@ Escape only `& < >`. Write each chunk to its own temp `.ssml` file.
 audio-48khz-192kbitrate-mono-mp3
 ```
 
-(48 kHz sample rate, 192 kbps mono — best MP3 option in `spx help synthesize mp3`.) The transcript pipeline still down-converts to 16 kHz mono WAV for recognition, so this does not affect `.srt` generation.
+(48 kHz sample rate, 192 kbps mono — best MP3 option in `spx help synthesize mp3`.)
 
 #### Azure 10-minute synthesis limit (mandatory chunking)
 
@@ -392,9 +399,14 @@ Each `dnx ... synthesize` call has a **hard ~10-minute audio cap** (~600.000000 
    file 'C:/Users/.../TEMP/synth-.../part-1.mp3'
    ffmpeg -y -f concat -safe 0 -i concat.txt -c copy "<lang>/<yyyy>/<MM>/<N>-<slug>.mp3"
    ```
-5. **Verify**: log per-chunk duration + char count; for bodies > ~4000 chars, expect multiple chunks and total duration **> 10:00**. Exactly `10:00` on long text means truncation — reduce chunk size and re-run.
+5. **Verify**: log per-chunk **character count** and duration before moving on. For bodies > ~4000 chars, expect multiple chunks and total duration **> 10:00**. Exactly `10:00` on long text means truncation — reduce chunk size and re-run.
 
-**Chunk-split reference (PowerShell):**
+#### PowerShell single-chunk array unwrap (critical)
+
+When a function `return $chunks` and `$chunks` is a one-element list, **PowerShell unwraps it to a plain string**. The synthesis loop then treats that string as a scalar: `$chunks.Count` is `1`, but `$chunks[0]` is the **first character only** — producing ~0:00 audio (or a nonsense clip) despite the body being thousands of characters. Multi-chunk episodes (5–6 parts) are unaffected; short single-chunk episodes hit this every time.
+
+**Always prevent unwrapping** in both the function return and the call site:
+
 ```pwsh
 function Split-TextChunks([string]$text, [int]$maxChars = 2200) {
     $sentences = [regex]::Split($text, '(?<=[.!?])\s+')
@@ -411,11 +423,17 @@ function Split-TextChunks([string]$text, [int]$maxChars = 2200) {
         }
     }
     if ($current.Length -gt 0) { $chunks.Add($current.ToString().Trim()) }
-    return $chunks
+    return ,@($chunks.ToArray())   # unary comma — never return $chunks bare
+}
+
+# Call site — keep as array even for one chunk:
+$chunks = @(Split-TextChunks $body)
+for ($i = 0; $i -lt $chunks.Count; $i++) {
+    # $chunks[$i] is the full chunk string
 }
 ```
 
-Short posts (single chunk under the limit) write directly to the final `.mp3` — no concat step needed.
+Short posts (single chunk under the limit) copy `part-0.mp3` directly to the final `.mp3` — no concat step needed.
 
 **Per-chunk synthesize** (exact form required by AGENTS.md):
 ```pwsh
@@ -427,7 +445,7 @@ Synthesis produces many "SYNTHESIZING: ..." progress lines. Redirect to a log fi
 
 **Never** use plain `--text --voice` for HD voices — parameters must be on the `<voice>` element.
 
-### 4.6 Post-synthesis metadata + .srt transcript
+### 4.6 Post-synthesis metadata
 
 Probe the MP3 (robust PowerShell):
 ```pwsh
@@ -437,39 +455,13 @@ $duration = $ts.ToString("m\:ss")     # e.g. "2:35"  (avoid :D2 format specifier
 $size = (Get-Item $mp3).Length
 ```
 
-**Reliable transcript generation (required on Windows without GStreamer):**
-
-1. Convert the synthesized MP3 to a recognition-friendly WAV:
-   ```pwsh
-   $wav = "$env:TEMP\<N>-<slug>.wav"
-   ffmpeg -y -i $mp3 -acodec pcm_s16le -ar 16000 -ac 1 $wav 2>&1 | Out-Null
-   ```
-
-2. Run recognition with `--continuous` (capture output to a file first — heavy piping of dnx can trigger harness errors). Use a language code that matches the voice roughly (`en-US`, `es-ES`, or `es-US`):
-   ```pwsh
-   $log = "$env:TEMP\recog-<N>.log"
-   dnx Microsoft.CognitiveServices.Speech.CLI -- recognize `
-     --key $key --region $region `
-     --file $wav --language en-US --continuous 2>&1 | Out-File $log
-   ```
-
-3. Extract segments and build timed .srt (use recognized lines + proportional timing based on total duration):
-   ```pwsh
-   $lines = Get-Content $log | Select-String '^RECOGNIZED:' | ForEach-Object { ($_ -replace '^RECOGNIZED:\s*','').Trim() } | Where-Object { $_ }
-   # Then compute per-segment durations proportional to char length (or use fixed increments) and emit
-   # standard .srt blocks: index\nHH:MM:SS,fff --> HH:MM:SS,fff\ntext\n
-   ```
-
-Direct `--file *.mp3` almost always requires `--format mp3` (or `any`) and frequently fails with `SPXERR_GSTREAMER_NOT_FOUND_ERROR`. The WAV path above is the reliable cross-run method.
-
-Result must be `<N>-<slug>.srt` sitting next to the .mp3. Use the clean structured spoken text (title + byline + content) for the `.md` body; the .srt may contain ASR imperfections — that's acceptable for captions.
+Use `$duration` for `itunes:duration` and `$size` for the enclosure `length` attribute.
 
 ### 4.7 Update <lang>/feed.xml
 
 Load the existing `<lang>/feed.xml`.
 
 - Ensure root has `xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"`
-- Add `xmlns:podcast="https://podcastindex.org/namespace/1.0"` if missing.
 
 Prepend a new `<item>` as the **first** child of `<channel>`.
 
@@ -478,11 +470,12 @@ Item fields (match reference style):
 - `<enclosure url="https://<storage>.blob.../<lang>/.../<N>-<slug>.mp3" length="..." type="audio/mpeg" />`
 - `<itunes:season>`, `<itunes:episode>`, `<itunes:duration>`, `<itunes:summary>`, `<itunes:keywords>`, `<itunes:explicit>No</itunes:explicit>`
 - `<itunes:image href="https://<storage>.blob.../<lang>/.../<N>-<slug>.jpg" />` (present for every language because artwork was copied using the language's slug)
-- `<podcast:transcript url="https://<storage>.blob.../<lang>/.../<N>-<slug>.srt" type="text/srt" language="<lang>" />`
 
 Update channel `<lastBuildDate>` to the current GMT time.
 
 Do **not** change the per-item pubDates.
+
+Do **not** add `<podcast:transcript>` tags — Spotify does not consume them for this feed.
 
 ### 4.8 Update <lang>/index.html
 
@@ -504,7 +497,7 @@ audio { display: block; width: 100%; min-height: 40px; }
 This file is never uploaded to the podcast feed; it is for human convenience when testing locally.
 
 ### 4.9 Cleanup
-Delete temporary SSML, per-chunk `part-*.mp3`, `concat.txt`, synth chunk logs, WAV, JSON, recognition logs, downloaded cover photos (`$env:TEMP\cover-*.jpg`), and any intermediate image files from the subagent unless the user wants them kept for debugging. Keep the final merged .mp3 + .srt + .md + .jpg (the .jpg must remain next to the mp3 for every language).
+Delete temporary SSML, per-chunk `part-*.mp3`, `concat.txt`, synth chunk logs, JSON, downloaded cover photos (`$env:TEMP\cover-*.jpg`), and any intermediate image files from the subagent unless the user wants them kept for debugging. Keep the final merged .mp3 + .md + .jpg (the .jpg must remain next to the mp3 for every language).
 
 ---
 
@@ -513,9 +506,9 @@ Delete temporary SSML, per-chunk `part-*.mp3`, `concat.txt`, synth chunk logs, W
 For each language report:
 - Episode number N and GUID
 - Title + summary + keywords
-- Paths to .md, .mp3, .srt (and .jpg for the artwork if generated)
+- Paths to .md, .mp3 (and .jpg for the artwork if generated)
 - Path to updated feed.xml and index.html
-- Future blob enclosure URL for mp3 and .srt (and jpg image URL)
+- Future blob enclosure URL for mp3 (and jpg image URL)
 - Author gender / voice chosen
 - The imagine prompt that was used (if any, always English) and the artwork source: "X article cover photo (center-cropped to square)" or "generated via /imagine" (or none)
 
@@ -531,9 +524,14 @@ Confirm that only local files were created/modified and nothing was uploaded or 
 Agent:
 1. Fetches post with xurl, archives original to `posts/2026-06-18-1234567890123456789.md`
 2. Infers author gender (e.g. male)
-3. For the first language processed: generates title/summary/keywords; if no cover photo has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media`, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md (`author` = name only; spoken byline uses long-form localized date per §4.4), chunks + synthesizes + ffmpeg-merges .mp3, produces .srt, updates its feed (incl. itunes:image) + index.html.
-4. For subsequent languages: translate as needed, generate title/summary/keywords (3-field, no imagine since artwork already determined), copy the same artwork jpg using the language-specific slug next to the mp3, write .md + chunked .mp3 + .srt + .jpg, update feed + index.html.
+3. For the first language processed: generates title/summary/keywords; if no cover photo has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media`, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md (`author` = name only; spoken byline uses long-form localized date per §4.4), chunks + synthesizes + ffmpeg-merges .mp3, updates its feed (incl. itunes:image) + index.html.
+4. For subsequent languages: translate as needed, generate title/summary/keywords (3-field, no imagine since artwork already determined), copy the same artwork jpg using the language-specific slug next to the mp3, write .md + chunked .mp3 + .jpg, update feed + index.html.
 5. Reports everything (including per-lang jpg paths + image blob URLs); all local.
+
+**Re-render existing episode:**
+"re-render en/2026/06/1-spacex-not-an-ipo-its-a-referendum.md"
+
+Agent: extracts spoken body from the .md, runs §4.5 with `return ,@($chunks.ToArray())`, verifies chunk char counts (expect ~2000 for a short article, not `1`), writes the .mp3 in place, re-probes duration.
 
 ---
 
@@ -556,17 +554,17 @@ Default podcast MP3 encoding: `audio-48khz-192kbitrate-mono-mp3` (see §4.5). Do
 
 **Long-form posts:** always chunk at ~2200 chars (sentence boundaries) before building SSML, synthesize per chunk, ffmpeg-concat (see §4.5). Never assume one SSML file covers the full article.
 
+**Short single-chunk posts:** always use the array-unwrap-safe return/call pattern (see §4.5). This is the most common re-render failure mode.
+
 Full escaping, language mapping, chunking, merge, and command shape are described in the steps above.
 
 ---
 
-## Feed Item & Podcasting 2.0
+## Feed Item shape
 
 Follow the item structure from the reference `C:\Code\podcast\feed.xml`.
 
 Always insert newest item first.
-
-Add the `podcast:` namespace when using `<podcast:transcript>`.
 
 ---
 
@@ -577,8 +575,6 @@ Add the `podcast:` namespace when using `<podcast:transcript>`.
 | `xurl version` missing "by @kzu" | Install/replace with `go install github.com/kzu/xurl@v0.1.0` |
 | No xurl auth | User runs `xurl auth ...` outside session; prefer app |
 | dnx not found / `dnx --version` fails | Use `dotnet --version`; dnx is invoked as `dnx <Package>` (it is `dotnet dnx` under the hood). Confirm `C:\Program Files\dotnet\dnx.cmd` exists. |
-| GStreamer error (`SPXERR_GSTREAMER_NOT_FOUND_ERROR`) on recognize | Do **not** run recognize directly on .mp3. Always convert to 16 kHz mono WAV with ffmpeg first. |
-| Only first few words in transcript | Use `--continuous` instead of `--once` for long-form posts. |
 | dnx help or output piped with `| cat` / `| head` produces repeated "Get-Content cannot be bound" spam | Always redirect first: `... 2>&1 | Out-File $tmp`; then `Get-Content $tmp`. The harness is sensitive to certain pipe patterns with verbose CLIs. |
 | Duration formatting error in PowerShell (`Format specifier was invalid`) | Use `[TimeSpan]::FromSeconds($dur).ToString("m\:ss")` instead of custom `{0}:{1:D2}` -f patterns. |
 | xurl JSON looks garbled (├⌐ etc.) in terminal | Save to file (`> $json`), then `Get-Content $json -Raw | ConvertFrom-Json`. Never trust raw console for accented text. |
@@ -586,9 +582,9 @@ Add the `podcast:` namespace when using `<podcast:transcript>`.
 | MP3 sounds muffled / low fidelity | Confirm `--format audio-48khz-192kbitrate-mono-mp3`, not bare `--format mp3` (16 kHz / 128 kbps default). Verify with `ffprobe` (expect `sample_rate=48000`, `bit_rate=192000`). |
 | MP3 duration exactly `10:00` / `600.000000` s on a long article | Azure truncated the synthesis. Re-chunk at sentence boundaries (≤ ~2200 chars); do **not** rely on paragraph splits (X articles use single newlines). Merge parts with `ffmpeg -f concat -c copy`. |
 | One chunk has >9000 chars, others tiny | Paragraph-based splitting failed — switch to sentence-boundary splitting (see §4.5). |
+| Log shows `chunk 0 : 1 chars` or ~0:00 audio on a full article | PowerShell single-element array unwrap (see §4.5). Fix `return ,@($chunks.ToArray())` and `$chunks = @(Split-TextChunks $body)`; re-run. |
 | ffmpeg concat fails | Use `concat.txt` with `file 'path/with/forward/slashes'` and `-safe 0`. All parts must share the same codec/format (identical `--format` on every synthesize call). |
 | Wrong episode number | Check that feed parsing looks only at items with matching `itunes:season` year. When the feed has no `<item>` yet, N=1. |
-| Transcript tag ignored | Ensure namespace on `<rss>` and correct url/type |
 | index.html stale | Re-run the language pass or manually re-scan dirs after adding episodes |
 | Secret leakage risk | Never pass --bearer* etc.; never cat ~/.xurl |
 | `ls -la`, `cat`, Unix pipes failing | This is PowerShell on Windows (pwsh). Prefer `Get-ChildItem`, `Get-Content`, `Out-File`, `Select-String`. |
@@ -596,12 +592,12 @@ Add the `podcast:` namespace when using `<podcast:transcript>`.
 ## Agent freedom
 
 This skill specifies **outcomes**. Implement with pwsh, Python, direct string/ DOM XML edits, etc., as long as:
-- Local files match the exact naming, locations, and content rules (including <N>-<slug>.jpg next to the other three files for every language)
+- Local files match the exact naming, locations, and content rules (including <N>-<slug>.jpg next to the mp3 for every language)
 - feed.xml remains valid RSS with correct namespaces and newest-first ordering, and includes <itunes:image> in each new item
-- .mp3 is produced via sentence-boundary chunking (≤ ~2200 chars) + per-chunk synthesis + ffmpeg concat when needed; duration verified not truncated at exactly 10:00
-- .srt is produced reliably: merged MP3 → WAV (ffmpeg) → recognize --continuous (log capture) → parsed RECOGNIZED lines + timing from ffprobe duration
+- .mp3 is produced via sentence-boundary chunking (≤ ~2200 chars) + per-chunk synthesis + ffmpeg concat when needed; duration verified not truncated at exactly 10:00; single-chunk returns use the array-unwrap-safe pattern
 - No upload or git side-effects
 - The same visual artwork is used for all languages (copied by the lang-specific slug name)
+- No .srt files or `<podcast:transcript>` tags are generated
 
 The existing `en/feed.xml` / `es/feed.xml` and `C:\Code\podcast\feed.xml` are the shape references.
 
