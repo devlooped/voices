@@ -1,0 +1,312 @@
+1
+00:00:00,000 --> 00:00:02,217
+By Brivail Lipogam at Brivail.
+
+2
+00:00:02,217 --> 00:00:04,140
+Hope the future is bright.
+
+3
+00:00:04,140 --> 00:00:06,431
+The kid in front of the screen.
+
+4
+00:00:06,431 --> 00:00:15,747
+I was 15 years old with no money, no network, no prestigious school insight, just a computer and an obsession building things.
+
+5
+00:00:15,747 --> 00:00:33,564
+I taught myself to code alone at night, reading English documentation. I only half understood. My first real project was an online multiplayer game. 50,000 players ended up playing it. Nobody had given me permission, Nobody had validated me.
+
+6
+00:00:33,564 --> 00:00:34,599
+I just did it.
+
+7
+00:00:34,599 --> 00:00:40,291
+That is the first lesson life taught me, and probably the most important one.
+
+8
+00:00:40,291 --> 00:00:45,245
+The world belongs to those who build without asking for permission.
+
+9
+00:00:45,245 --> 00:01:14,816
+Today I am co-founder and CTO of Argyll AY, Combinator backed startup building the infrastructure for AI video generation. We serve 10s of thousands of users in more than 40 countries. We have raised funds, we hire, we sign paychecks. And every morning I feel exactly the same sensation as that 15 year old kid in front of his screen. The thrill of making something that did not exist the day before.
+
+10
+00:01:14,816 --> 00:01:16,221
+If I tell you this.
+
+11
+00:01:16,221 --> 00:01:18,291
+It is not out of narcissism.
+
+12
+00:01:18,291 --> 00:01:24,575
+It is because my journey is living proof of the thesis I will defend in this article.
+
+13
+00:01:24,575 --> 00:01:28,419
+The future is bright as long as we let people build.
+
+14
+00:01:28,419 --> 00:01:31,303
+The France that punishes those who act.
+
+15
+00:01:31,303 --> 00:01:34,704
+Before being optimistic, you have to be lucid.
+
+16
+00:01:34,704 --> 00:01:40,322
+France has a structural problem. It is not a talent problem. We have plenty.
+
+17
+00:01:40,322 --> 00:02:00,061
+It is not a capital problem. It exists. It is a philosophy problem. The French system rests on an implicit belief deeply rooted in its institutions. Wealth is suspect, business is guilty until proven innocent, and the state knows better than you what is good for you.
+
+18
+00:02:00,061 --> 00:02:30,447
+When you start a company in France, you are not only fighting the market, you are fighting an administrative apparatus that considers you first as a taxpayer, then as an employer to be monitored, and only as a last resort, perhaps as a creator of value. Taxes, regulations, forms, inspections, everything is designed as if entrepreneurship were a dangerous activity that must be framed, regulated and contained.
+
+19
+00:02:30,447 --> 00:02:42,941
+We know the result. The best leave capital fleas and those who stay must deploy colossal energy just to exist, energy that should go into innovation, product and growth.
+
+20
+00:02:42,941 --> 00:02:53,956
+I'm not saying this from a Parisian cafe while sipping an espresso. I live it every month, every paycheck, every interaction with the administration.
+
+21
+00:02:53,956 --> 00:02:56,396
+Hayek and the Lesson of Humility.
+
+22
+00:02:56,396 --> 00:03:03,641
+Reading Friedrich Hayek The Road to Serfdom gave me the words to describe what I felt intuitively.
+
+23
+00:03:03,641 --> 00:03:08,742
+Hayek formulated an idea of formidable power. Knowledge is dispersed.
+
+24
+00:03:08,742 --> 00:03:35,135
+No individual, no committee, no ministry can concentrate in one place all the information needed to make the right economic and social decisions. Relevant knowledge is scattered across millions of brains, local contexts and particular situations. The free market is not a dogma, it is a mechanism for processing information. The price of a good is a signal.
+
+25
+00:03:35,135 --> 00:03:44,155
+Supply and demand are a language, and every central intervention that distorts these signals produces effects that nobody.
+
+26
+00:03:44,155 --> 00:03:46,372
+He wanted and nobody controls.
+
+27
+00:03:46,372 --> 00:04:14,614
+When I look at French economic policy through this lens, everything becomes clear. The wealth tax does not punish the rich, it destroys a signal. The minimum wage does not protect workers, it prevents some of them from accessing the market. The Social Security system for the self-employed does not secure independence. It drowns them in complexity that only the largest can absorb.
+
+28
+00:04:14,614 --> 00:04:16,092
+This is not cruelty.
+
+29
+00:04:16,092 --> 00:04:17,201
+It is lucidity.
+
+30
+00:04:17,201 --> 00:04:23,189
+And lucidity is the first duty of anyone who claims to want to improve the world.
+
+31
+00:04:23,189 --> 00:04:23,707
+Gerard.
+
+32
+00:04:23,707 --> 00:04:26,516
+Or why everyone thinks the same thing.
+
+33
+00:04:26,516 --> 00:04:33,392
+There is a reason these ideas are a minority in France, and it is not because they are false.
+
+34
+00:04:33,392 --> 00:04:39,528
+Renee Girard described A fundamental mechanism of human psychology, mimetic desire.
+
+35
+00:04:39,528 --> 00:04:42,633
+We do not desire things for what they are.
+
+36
+00:04:42,633 --> 00:04:49,361
+We desire them because others desire them, and what applies to objects applies to opinions.
+
+37
+00:04:49,361 --> 00:05:18,563
+In France the intellectual consensus is anti liberal not because the arguments were weighed and liberalism lost, but because the media, academic and political world functions like an echo chamber where it is socially costly to think differently. Saying I am a liberal at a Parisian dinner is to exclude yourself. So people stay silent and the silence of some reinforces the conviction of others.
+
+38
+00:05:18,563 --> 00:05:32,314
+Gerard teaches us that most convictions are not convictions, they are disguised conformism. Intellectual courage begins when you accept having an opinion that pleases no one in the room.
+
+39
+00:05:32,314 --> 00:05:34,606
+Taleb and the Art of not dying.
+
+40
+00:05:34,606 --> 00:05:40,298
+Nassim Nicholas Taleb added a decisive piece to my framework, Anti fragility.
+
+41
+00:05:40,298 --> 00:05:44,660
+Fragile systems are those that try to eliminate volatility.
+
+42
+00:05:44,660 --> 00:05:49,392
+Robust systems tolerate it. Antifragile systems benefit from it.
+
+43
+00:05:49,392 --> 00:06:08,096
+The entrepreneur is anti fragile by nature. Every failure is information. Every crisis is a filter that eliminates the weak and strengthens the adaptable. The free market, with its apparent brutality, is a machine for producing collective antifragility.
+
+44
+00:06:08,096 --> 00:06:15,932
+The French welfare state does the opposite. It absorbs short-term shocks by piling up long-term fragility.
+
+45
+00:06:15,932 --> 00:06:31,236
+Public debt is volatility swept under the rug. Subsidies to dying sectors are therapeutic obstinacy on fragile structures. Job protection, when excessive, is a prohibition on the system reconfiguring itself.
+
+46
+00:06:31,236 --> 00:06:37,520
+To lead taught me that wanting to control everything is the purest form of fragility.
+
+47
+00:06:37,520 --> 00:06:46,317
+And that those who build the future are those who accept chaos, not those who spend their lives trying to eliminate it.
+
+48
+00:06:46,317 --> 00:06:48,683
+Nietzsche or the Duty to create?
+
+49
+00:06:48,683 --> 00:06:51,714
+One last brick remains the most personal.
+
+50
+00:06:51,714 --> 00:07:10,788
+Nietzsche wrote that the superior man is the one who creates his own values. Not the one who inherits A moral system, not the one who follows the herd, but the one who looks at the world as it is and decides in full consciousness what he wants to make of it.
+
+51
+00:07:10,788 --> 00:07:17,072
+When I left the comfortable position to start Argyll, I did not make a career choice.
+
+52
+00:07:17,072 --> 00:07:26,609
+I made an existential choice. I decided that I preferred risk and creation to security and repetition, not because it is smarter.
+
+53
+00:07:26,609 --> 00:07:30,971
+Because it is the only way to live that seems worthy to me.
+
+54
+00:07:30,971 --> 00:07:36,220
+And that is the real techno optimist manifesto. It is not a prediction.
+
+55
+00:07:36,220 --> 00:07:37,329
+It is a choice.
+
+56
+00:07:37,329 --> 00:07:48,566
+The choice to believe that human beings, when left free, when not crushed under the weight of norms and mediocrity, are capable of extraordinary things.
+
+57
+00:07:48,566 --> 00:07:50,119
+The future is bright.
+
+58
+00:07:50,119 --> 00:07:52,854
+Now let us talk about what is coming.
+
+59
+00:07:52,854 --> 00:08:01,504
+Artificial intelligence is the deepest rupture since the printing press, and I am not saying that as a startup pitch.
+
+60
+00:08:01,504 --> 00:08:08,010
+I say it as someone who builds these systems every day, line of code after line of code.
+
+61
+00:08:08,010 --> 00:08:36,547
+What AI will do is not replace jobs. It is to multiply the capacity of every individual. A single developer today can build what required a team of 20 people five years ago. A content creator can produce professional quality videos without a studio, without a team, without a budget. An entrepreneur in a village in Senegal has access to the same tools as an engineer in Silicon Valley.
+
+62
+00:08:36,547 --> 00:08:46,749
+That is real democratization, not the forced redistribution of finite wealth, the infinite multiplication of the capacity to create value.
+
+63
+00:08:46,749 --> 00:08:50,815
+And AI is only the beginning. Longevity is progressing.
+
+64
+00:08:50,815 --> 00:08:52,885
+Gene therapies are arriving.
+
+65
+00:08:52,885 --> 00:09:11,811
+Clean energy is becoming competitive. Access to knowledge is nearly universal. Every fundamental indicator of the human condition, infant mortality, extreme poverty, access to education, life expectancy has been pointing in the right direction for decades.
+
+66
+00:09:11,811 --> 00:09:13,733
+But nobody tells you that.
+
+67
+00:09:13,733 --> 00:09:16,469
+Because optimism does not get clicks.
+
+68
+00:09:16,469 --> 00:09:18,908
+Because fear is a business model.
+
+69
+00:09:18,908 --> 00:09:24,897
+Because merchants of decline need you to be terrified to justify their existence.
+
+70
+00:09:24,897 --> 00:09:27,189
+Degrowth is collective suicide.
+
+71
+00:09:27,189 --> 00:09:31,477
+It must be said clearly, degrowth is an ideology of death.
+
+72
+00:09:31,477 --> 00:09:33,621
+Not immediate physical death.
+
+73
+00:09:33,621 --> 00:09:34,212
+Slowdef.
+
+74
+00:09:34,212 --> 00:09:35,099
+Resignation.
+
+75
+00:09:35,099 --> 00:09:36,060
+Renunciation.
+
+76
+00:09:36,060 --> 00:09:44,192
+Telling people they must produce less, consume less, innovate less is telling them that the best is behind us.
+
+77
+00:09:44,192 --> 00:09:48,480
+That humanity is a problem whose solution is to fade away.
+
+78
+00:09:48,480 --> 00:09:59,939
+That is the exact opposite of everything history teaches us. Every great period of human progress has been driven by expansion, innovation and risk taking.
+

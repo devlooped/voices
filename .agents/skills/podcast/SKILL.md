@@ -1,6 +1,6 @@
 ---
 name: podcast
-description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder, translate if needed, generate short title + summary + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date/link/author + plain-text full content), synthesize #-slug.mp3 using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), convert MP3 to WAV then generate #-slug.srt via speech recognition (--continuous) + post-processing of RECOGNIZED output, update the language feed.xml (newest-first item with enclosure + itunes:image + Podcasting 2.0 <podcast:transcript>), and maintain lang/index.html (episode table + local audio players). Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
+description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder, translate if needed, generate short title + summary + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date/link/author + spoken content in `title\nby <author>, posted on <date>\n\n<content>` structure), synthesize #-slug.mp3 using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), convert MP3 to WAV then generate #-slug.srt via speech recognition (--continuous) + post-processing of RECOGNIZED output, update the language feed.xml (newest-first item with enclosure + itunes:image + Podcasting 2.0 <podcast:transcript>), and maintain lang/index.html (episode table + local audio players). Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
 ---
 
 # Podcast — X Post to Multi-Language Local Episode Generator
@@ -14,7 +14,13 @@ When finished, all of the following must be true:
 1. The X post was fetched via `xurl read` and its original (attributed) content archived to `posts/<yyyy-MM-dd>-<post-id>.md` with YAML frontmatter (original metadata + link + author + date) + raw text.
 2. For every supported podcast language (en, es from voices.toml):
    - Directory structure `<lang>/<yyyy>/<MM>/` exists for the post date.
-   - `<N>-<slug>.md` exists with YAML frontmatter (`title`, `summary`, `date`, `link`, `author`) followed by plain-text translated full content (no markdown formatting).
+   - `<N>-<slug>.md` exists with YAML frontmatter (`title`, `summary`, `date`, `link`, `author`) followed by the spoken post content in this exact structure (plain text, no markdown):
+     ```
+     <title>
+     by <author>, posted on <date>
+
+     <content>
+     ```
    - `<N>-<slug>.mp3` was synthesized using the gender-appropriate voice (inferred from post author name, default male) resolved from the effective `voices.<lang>.<gender>` section.
    - `<N>-<slug>.srt` transcript was generated reliably: MP3 → 16 kHz mono WAV (ffmpeg) → `dnx ... recognize --continuous` (log capture) → parse `RECOGNIZED:` lines → timed .srt using probed duration (proportional char length or fixed). The .srt sits next to the .mp3.
    - Artwork is determined once (if a post cover image hasn't been determined *yet*, the LLM is asked for an English "imagine" prompt which is used to generate an initial one; the same artwork is then copied for all languages): if the fetched post JSON has `data.article.cover_media`, the corresponding photo URL from `includes.media` is downloaded and center-cropped to square (1024x1024) via ffmpeg and saved as `<N>-<slug>.jpg`; otherwise an "imagine" prompt from the LLM JSON is used to launch `/imagine <prompt>, 1:1` and the result is saved the same way. The jpg (using each language's own slug) sits next to the mp3 in *every* language directory. Every language's feed item includes the corresponding `<itunes:image>`.
@@ -113,7 +119,7 @@ If no usable auth: tell the user to run `xurl auth oauth2` (or appropriate) **ou
     - [ ] Translate full text if source lang != target (one pass per lang)
     - [ ] Single LLM call → JSON {title, summary, keywords} (if no post cover image has been determined yet, also request an English "imagine" prompt)
     - [ ] Compute yyyy/MM, slug (kebab), next N for (lang, year) from feed
-    - [ ] Write <lang>/<yyyy>/<MM>/<N>-<slug>.md (yaml frontmatter + plain body)
+    - [ ] Write <lang>/<yyyy>/<MM>/<N>-<slug>.md (yaml frontmatter + spoken body using the required structure: title\nby <author>, posted on <date>\n\n<content>)
     - [ ] If no artwork determined yet: if article cover photo URL was resolved earlier, download it and center-crop to square 1024x1024 via ffmpeg as <N>-<slug>.jpg (skip /imagine); else (if imagine in this JSON) start subagent `/imagine <imagine>, 1:1 aspect ratio`; copy result (or cover-derived jpg) as <N>-<slug>.jpg into *this* language's dir (and later for other langs too)
     - [ ] Resolve voices.<lang>.<gender> + build SSML + synthesize .mp3 via dnx
     - [ ] Probe duration/size with ffprobe
@@ -163,15 +169,19 @@ $coverPhotoUrl = if ($coverMediaKey -and $json.includes.media) {
 Store `$coverPhotoUrl` (may be $null). Plain `xurl read` (with the @kzu fork) already includes `article` + `includes.media` for qualifying posts.
 
 **Author line:** From `includes.users` matching `data.author_id`:
-- `By {name} (@{username})` or `By @{username}`
+- `By {name} (@{username})` or `By @{username}` (store this for the YAML `author` field)
 
-Prepend author line + blank line + body.
+Also capture the raw post date (`data.created_at` as `yyyy-MM-dd`) and keep the main post body.
+
+**Attributed source text (for archive + translation + title generation input):** prepend author line + blank line + body.
+
+**Spoken/read-aloud content (for episode .md body and TTS):** constructed *after* title generation (see 4.4).
 
 **Date & link:**
 - Use `data.created_at` for episode date (folders + item pubDate).
 - Canonical link: the input URL or construct `https://x.com/{username}/status/{id}`.
 
-**Outcome:** Attributed full source text + post date + link + author info.
+**Outcome:** Attributed full source text (for archive/translate) + post date + link + author info. The spoken content structure is applied later using the generated title + `by <author>, posted on <date>` + main content.
 
 ---
 
@@ -195,7 +205,7 @@ Prepend author line + blank line + body.
   ```
 - This file is committed later by the upload skill.
 
-**Outcome:** Permanent original-language archive.
+**Outcome:** Permanent original-language archive (uses original author + body attribution; this is *not* the spoken/read-aloud version).
 
 ---
 
@@ -215,7 +225,7 @@ Supported languages are discovered from `voices.toml` (`[podcast.en]`, `[podcast
 For each `lang`:
 
 ### 4.1 Translate (if needed)
-If the detected source language differs from the target, translate the full attributed text into the target language. Preserve paragraphs and structure. The resulting text becomes the input for title/summary generation and TTS.
+If the detected source language differs from the target, translate the full attributed text (author line + main post body) into the target language. Preserve paragraphs and structure. The resulting translated text is used as input for title/summary generation. The main translated content (without the author prefix) will be used later when assembling the spoken content for TTS.
 
 ### 4.2 Generate title, summary, keywords (and imagine prompt if needed)
 For every language, ask the LLM once for a JSON object.
@@ -233,7 +243,7 @@ If a post cover image has not been determined yet, request the 4-field form (the
 
 Once an artwork source (cover or generated) has been determined, use the 3-field form for any remaining languages (no imagine).
 
-Use the translated full content as source. The imagine value (when present) will be used immediately after this step to generate artwork **unless** an X article cover photo URL was resolved in Step 1 (in which case the cover photo is used instead and the imagine value is ignored). The imagine prompt is always requested/produced in English.
+Use the translated attributed text as the source for generating the episode title/summary/keywords. The imagine value (when present) will be used immediately after this step to generate artwork **unless** an X article cover photo URL was resolved in Step 1 (in which case the cover photo is used instead and the imagine value is ignored). The imagine prompt is always requested/produced in English.
 
 ### 4.3 Compute paths and episode number
 - `yyyy`, `MM` (zero-padded) from post `created_at`.
@@ -274,7 +284,7 @@ After artwork is successfully produced (cover or generated), remember the source
 ### 4.4 Write the episode .md (plain text)
 Create the directory.
 
-Write:
+Write YAML frontmatter, then the spoken post content with this exact structure (the body is what gets synthesized):
 ```yaml
 ---
 title: "..."
@@ -283,10 +293,22 @@ date: "2026-06-18"
 link: "https://x.com/..."
 author: "By Name (@username)"
 ---
-<full translated content — plain text only, no **bold**, no markdown lists, no formatting>
+<title>
+by <author>, posted on <date>
+
+<full translated post content — plain text only, no **bold**, no markdown lists, no formatting>
 ```
 
-The body after the frontmatter is the complete text that will be spoken.
+Example body:
+```
+SpaceX: Not an IPO — It's a Referendum
+by Brivael Le Pogam (@brivael), posted on 2026-06-17
+
+Retail activity on SpaceX is abnormal. And it's just the beginning.
+...
+```
+
+The body after the frontmatter is the complete text that will be spoken (starting with the generated title, the exact byline, then the content). Use the generated `title` for the first line, reformat the author (drop leading "By " if present) for the byline, and use the post date in `yyyy-MM-dd`. The main content is the translated substantive post text.
 
 ### 4.5 Synthesize the MP3 (Azure Dragon HD voices)
 
@@ -368,7 +390,7 @@ $size = (Get-Item $mp3).Length
 
 Direct `--file *.mp3` almost always requires `--format mp3` (or `any`) and frequently fails with `SPXERR_GSTREAMER_NOT_FOUND_ERROR`. The WAV path above is the reliable cross-run method.
 
-Result must be `<N>-<slug>.srt` sitting next to the .mp3. Use the clean original translated text for the `.md` body; the .srt may contain ASR imperfections — that's acceptable for captions.
+Result must be `<N>-<slug>.srt` sitting next to the .mp3. Use the clean structured spoken text (title + byline + content) for the `.md` body; the .srt may contain ASR imperfections — that's acceptable for captions.
 
 ### 4.7 Update <lang>/feed.xml
 
@@ -437,7 +459,7 @@ Confirm that only local files were created/modified and nothing was uploaded or 
 Agent:
 1. Fetches post with xurl, archives original to `posts/2026-06-18-1234567890123456789.md`
 2. Infers author gender (e.g. male)
-3. For the first language processed: generates title/summary/keywords; if no cover photo has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media`, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md, synthesizes, produces .srt, updates its feed (incl. itunes:image) + index.html.
+3. For the first language processed: generates title/summary/keywords; if no cover photo has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media`, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md (with spoken body in the required `title\nby <author>, posted on <date>\n\n<content>` structure), synthesizes, produces .srt, updates its feed (incl. itunes:image) + index.html.
 4. For subsequent languages: translate as needed, generate title/summary/keywords (3-field, no imagine since artwork already determined), copy the same artwork jpg using the language-specific slug next to the mp3, write .md + .mp3 + .srt + .jpg, update feed + index.html.
 5. Reports everything (including per-lang jpg paths + image blob URLs); all local.
 

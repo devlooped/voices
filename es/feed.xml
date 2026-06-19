@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Thu, 18 Jun 2026 23:18:42 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 19 Jun 2026 15:57:14 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,23 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-    <item>
+        <item>
+      <title>Esperanza: El futuro es radiante</title>
+      <description>Brivael Le Pogam, cofundador y CTO de Argil respaldado por Y Combinator, defiende el tecno-optimismo: quienes construyen sin pedir permiso, la hostilidad del sistema francés al emprendimiento, y por qué la IA multiplica la capacidad humana en lugar de racionar el futuro.</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/04/2-esperanza-el-futuro-es-radiante.mp3" length="9599040" type="audio/mpeg" />
+      <guid>2026-04-03-2-esperanza-el-futuro-es-radiante</guid>
+      <link>https://x.com/brivael/status/2040000831425028322</link>
+      <pubDate>Fri, 03 Apr 2026 09:37:54 GMT</pubDate>
+      <itunes:duration>9:59</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>2</itunes:episode>
+      <itunes:summary>Brivael Le Pogam, cofundador y CTO de Argil respaldado por Y Combinator, defiende el tecno-optimismo: quienes construyen sin pedir permiso, la hostilidad del sistema francés al emprendimiento, y por qué la IA multiplica la capacidad humana en lugar de racionar el futuro.</itunes:summary>
+      <itunes:keywords>tecno-optimismo,emprendimiento,Francia,IA,Hayek,libertad,constructores,futuro,Argil</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/04/2-esperanza-el-futuro-es-radiante.jpg" />
+      <podcast:transcript url="https://kzu.blob.core.windows.net/voices/es/2026/04/2-esperanza-el-futuro-es-radiante.srt" type="text/srt" language="es" />
+    </item>
+<item>
       <title>SpaceX: No fue una OPV, fue un referéndum</title>
       <description>Brivael Le Pogam explica por qué la gente común que nunca ha invertido está comprando SpaceX. No es especulación, es elegir bando: los que construyen cohetes hacia las estrellas contra el control burocrático y la muerte lenta por aburrimiento.</description>
       <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.mp3" length="2602368" type="audio/mpeg" />
