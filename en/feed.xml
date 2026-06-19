@@ -42,7 +42,6 @@
       <itunes:keywords>techno-optimism,entrepreneurship,France,AI,Hayek,freedom,builders,future,Argil</itunes:keywords>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/04/2-hope-the-future-is-bright.jpg" />
-      <podcast:transcript url="https://kzu.blob.core.windows.net/voices/en/2026/04/2-hope-the-future-is-bright.srt" type="text/srt" language="en" />
     </item>
     <item>
       <title>SpaceX: Not an IPO — It's a Referendum</title>
@@ -58,7 +57,6 @@
       <itunes:keywords>SpaceX,IPO,retail investors,Elon Musk,referendum,builders,future,belief</itunes:keywords>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.jpg" />
-      <podcast:transcript url="https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.srt" type="text/srt" language="en" />
     </item>
   </channel>
 </rss>

@@ -42,7 +42,6 @@
       <itunes:keywords>tecno-optimismo,emprendimiento,Francia,IA,Hayek,libertad,constructores,futuro,Argil</itunes:keywords>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/04/2-esperanza-el-futuro-es-radiante.jpg" />
-      <podcast:transcript url="https://kzu.blob.core.windows.net/voices/es/2026/04/2-esperanza-el-futuro-es-radiante.srt" type="text/srt" language="es" />
     </item>
     <item>
       <title>SpaceX: No fue una OPV, fue un referéndum</title>
@@ -58,7 +57,6 @@
       <itunes:keywords>SpaceX,OPV,inversores minoristas,Elon Musk,referéndum,constructores,futuro</itunes:keywords>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.jpg" />
-      <podcast:transcript url="https://kzu.blob.core.windows.net/voices/es/2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.srt" type="text/srt" language="es" />
     </item>
   </channel>
 </rss>
