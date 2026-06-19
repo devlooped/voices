@@ -21,7 +21,7 @@ When finished, all of the following must be true:
 
      <content>
      ```
-   - `<N>-<slug>.mp3` was synthesized using the gender-appropriate voice (inferred from post author name, default male) resolved from the effective `voices.<lang>.<gender>` section.
+   - `<N>-<slug>.mp3` was synthesized using the gender-appropriate voice (inferred from post author name, default male) resolved from the effective `voices.<lang>.<gender>` section, encoded as **48 kHz mono MP3 at 192 kbps** (`audio-48khz-192kbitrate-mono-mp3` — the highest quality MP3 preset the Azure Speech CLI offers).
    - `<N>-<slug>.srt` transcript was generated reliably: MP3 → 16 kHz mono WAV (ffmpeg) → `dnx ... recognize --continuous` (log capture) → parse `RECOGNIZED:` lines → timed .srt using probed duration (proportional char length or fixed). The .srt sits next to the .mp3.
    - Artwork is determined once (if a post cover image hasn't been determined *yet*, the LLM is asked for an English "imagine" prompt which is used to generate an initial one; the same artwork is then copied for all languages): if the fetched post JSON has `data.article.cover_media`, the corresponding photo URL from `includes.media` is downloaded and center-cropped to square (1024x1024) via ffmpeg and saved as `<N>-<slug>.jpg`; otherwise an "imagine" prompt from the LLM JSON is used to launch `/imagine <prompt>, 1:1` and the result is saved the same way. The jpg (using each language's own slug) sits next to the mp3 in *every* language directory. Every language's feed item includes the corresponding `<itunes:image>`.
    - `<lang>/feed.xml` contains the new episode as the **first** `<item>` under `<channel>`, with:
@@ -121,7 +121,7 @@ If no usable auth: tell the user to run `xurl auth oauth2` (or appropriate) **ou
     - [ ] Compute yyyy/MM, slug (kebab), next N for (lang, year) from feed
     - [ ] Write <lang>/<yyyy>/<MM>/<N>-<slug>.md (yaml frontmatter + spoken body using the required structure: title\nby <author>, posted on <date>\n\n<content>)
     - [ ] If no artwork determined yet: if article cover photo URL was resolved earlier, download it and center-crop to square 1024x1024 via ffmpeg as <N>-<slug>.jpg (skip /imagine); else (if imagine in this JSON) start subagent `/imagine <imagine>, 1:1 aspect ratio`; copy result (or cover-derived jpg) as <N>-<slug>.jpg into *this* language's dir (and later for other langs too)
-    - [ ] Resolve voices.<lang>.<gender> + build SSML + synthesize .mp3 via dnx
+    - [ ] Resolve voices.<lang>.<gender> + build SSML + synthesize .mp3 via dnx (`--format audio-48khz-192kbitrate-mono-mp3`)
     - [ ] Probe duration/size with ffprobe
     - [ ] Convert .mp3 to 16 kHz mono .wav (ffmpeg) for reliable recognition
     - [ ] Run recognize --continuous on the .wav (capture to temp log file first), extract RECOGNIZED: lines, build timed .srt using total duration + proportional lengths
@@ -342,13 +342,22 @@ Template:
 
 Escape only `& < >`. Write to a temp `.ssml` file.
 
+**Audio output format (podcast default):** Use the highest-quality MP3 preset, not bare `--format mp3` (which defaults to 16 kHz / 128 kbps). The recommended podcast setting is:
+
+```
+audio-48khz-192kbitrate-mono-mp3
+```
+
+(48 kHz sample rate, 192 kbps mono — best MP3 option in `spx help synthesize mp3`.) File size is larger than the CLI default, but compression artifacts are minimized. The transcript pipeline still down-converts to 16 kHz mono WAV for recognition, so this does not affect `.srt` generation.
+
 Synthesize (exact form required by AGENTS.md):
 ```pwsh
 $key = az cognitiveservices account keys list --name $speech --resource-group $rg --query key1 -o tsv
 $region = az cognitiveservices account show --name $speech --resource-group $rg --query location -o tsv
 $ssml = "$env:TEMP\ep.ssml"
 $out = "<lang>/<yyyy>/<MM>/<N>-<slug>.mp3"
-dnx Microsoft.CognitiveServices.Speech.CLI -- synthesize --key $key --region $region --file $ssml --audio output $out --format mp3 2>&1 | Out-File "$env:TEMP\synth.log"
+$format = "audio-48khz-192kbitrate-mono-mp3"
+dnx Microsoft.CognitiveServices.Speech.CLI -- synthesize --key $key --region $region --file $ssml --audio output $out --format $format 2>&1 | Out-File "$env:TEMP\synth.log"
 ```
 
 Synthesis produces many "SYNTHESIZING: ..." progress lines. Redirect to a log file (or use `| Select -Last 5`) for cleaner sessions.
@@ -480,6 +489,8 @@ See current file. Hierarchical:
 
 HD parameters go on the `parameters` attribute of `<voice>`. Always use `dnx Microsoft.CognitiveServices.Speech.CLI -- ...` form.
 
+Default podcast MP3 encoding: `audio-48khz-192kbitrate-mono-mp3` (see §4.5). Do not use bare `--format mp3`.
+
 Full escaping, language mapping, and command shape are described in the steps above.
 
 ---
@@ -507,6 +518,7 @@ Add the `podcast:` namespace when using `<podcast:transcript>`.
 | Duration formatting error in PowerShell (`Format specifier was invalid`) | Use `[TimeSpan]::FromSeconds($dur).ToString("m\:ss")` instead of custom `{0}:{1:D2}` -f patterns. |
 | xurl JSON looks garbled (├⌐ etc.) in terminal | Save to file (`> $json`), then `Get-Content $json -Raw | ConvertFrom-Json`. Never trust raw console for accented text. |
 | Voice not found / flat output | Verify full voice name from voices.toml includes `:DragonHDLatestNeural` / `:DragonHDOmniLatestNeural`; parameters on `<voice>` |
+| MP3 sounds muffled / low fidelity | Confirm `--format audio-48khz-192kbitrate-mono-mp3`, not bare `--format mp3` (16 kHz / 128 kbps default). Verify with `ffprobe` (expect `sample_rate=48000`, `bit_rate=192000`). |
 | Wrong episode number | Check that feed parsing looks only at items with matching `itunes:season` year. When the feed has no `<item>` yet, N=1. |
 | Transcript tag ignored | Ensure namespace on `<rss>` and correct url/type |
 | index.html stale | Re-run the language pass or manually re-scan dirs after adding episodes |
