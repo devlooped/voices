@@ -44,6 +44,7 @@ When finished, all of the following must be true:
 <lang>/
   feed.xml
   index.html
+  logo.jpg
   cover.png
   <yyyy>/
     <MM>/
@@ -481,12 +482,28 @@ Do **not** add `<podcast:transcript>` tags — Spotify does not consume them for
 
 Create or overwrite `<lang>/index.html` with a minimal, self-contained page for local testing:
 
-- Title with the podcast name from config.
+- Header row with `<lang>/logo.jpg` at the top-left, to the left of the podcast title and description from `[podcast.<lang>]` in `voices.toml`.
 - Table (newest first): Episode | Title | `<audio controls src="relative/path/to/<N>-<slug>.mp3">`
 - Scan the year/month subdirs or parse the just-updated feed.xml to keep the list accurate.
+- Use this header markup (title/description from config; logo path is always `logo.jpg` relative to `<lang>/index.html`):
+
+```html
+<header class="site-header">
+  <img src="logo.jpg" alt="" class="logo">
+  <div>
+    <h1><!-- podcast title --></h1>
+    <p><!-- podcast description --></p>
+  </div>
+</header>
+```
+
 - Use this CSS so the native `<audio controls>` player stays full-size (reserve the Audio column width; `width: 100%` alone collapses the control in a narrow table cell):
 
 ```css
+.site-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.site-header .logo { width: 64px; height: 64px; flex-shrink: 0; }
+.site-header h1 { margin: 0; }
+.site-header p { margin: 0.25rem 0 0; }
 table { border-collapse: collapse; width: 100%; max-width: 900px; table-layout: fixed; }
 th, td { padding: 0.5rem; border-bottom: 1px solid #333; text-align: left; vertical-align: middle; }
 th:first-child, td:first-child { width: 3rem; }

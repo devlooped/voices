@@ -12,11 +12,20 @@
     th:last-child, td:last-child { width: 360px; }
     audio { display: block; width: 100%; min-height: 40px; }
     a { color: #8cf; }
+    .site-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .site-header .logo { width: 64px; height: 64px; flex-shrink: 0; }
+    .site-header h1 { margin: 0; }
+    .site-header p { margin: 0.25rem 0 0; }
   </style>
 </head>
 <body>
-  <h1>Voces de X</h1>
-  <p>Publicaciones y artículos seleccionados de la comunidad de X.</p>
+  <header class="site-header">
+    <img src="logo.jpg" alt="" class="logo">
+    <div>
+      <h1>Voces de X</h1>
+      <p>Publicaciones y artículos seleccionados de la comunidad de X.</p>
+    </div>
+  </header>
   <table>
     <thead><tr><th>#</th><th>Title</th><th>Audio</th></tr></thead>
     <tbody>
