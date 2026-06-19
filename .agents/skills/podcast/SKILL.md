@@ -1,6 +1,6 @@
 ---
 name: podcast
-description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder, translate if needed, generate short title + summary + keywords (single JSON pass; for English also an "imagine" prompt), for English launch `/imagine` subagent with the prompt + 1:1, copy the resulting image as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date/link/author + plain-text full content), synthesize #-slug.mp3 using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), convert MP3 to WAV then generate #-slug.srt via speech recognition (--continuous) + post-processing of RECOGNIZED output, update the language feed.xml (newest-first item with enclosure + itunes:image + Podcasting 2.0 <podcast:transcript>), and maintain lang/index.html (episode table + local audio players). Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
+description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder, translate if needed, generate short title + summary + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date/link/author + plain-text full content), synthesize #-slug.mp3 using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), convert MP3 to WAV then generate #-slug.srt via speech recognition (--continuous) + post-processing of RECOGNIZED output, update the language feed.xml (newest-first item with enclosure + itunes:image + Podcasting 2.0 <podcast:transcript>), and maintain lang/index.html (episode table + local audio players). Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
 ---
 
 # Podcast — X Post to Multi-Language Local Episode Generator
@@ -17,7 +17,7 @@ When finished, all of the following must be true:
    - `<N>-<slug>.md` exists with YAML frontmatter (`title`, `summary`, `date`, `link`, `author`) followed by plain-text translated full content (no markdown formatting).
    - `<N>-<slug>.mp3` was synthesized using the gender-appropriate voice (inferred from post author name, default male) resolved from the effective `voices.<lang>.<gender>` section.
    - `<N>-<slug>.srt` transcript was generated reliably: MP3 → 16 kHz mono WAV (ffmpeg) → `dnx ... recognize --continuous` (log capture) → parse `RECOGNIZED:` lines → timed .srt using probed duration (proportional char length or fixed). The .srt sits next to the .mp3.
-   - For English only, the LLM JSON call also returns an "imagine" prompt; a `/imagine <prompt>, 1:1 aspect ratio` subagent is started; the resulting image is copied as `<N>-<slug>.jpg` (using each language's own slug) so the jpg sits next to the mp3 in *every* language directory. Every language's feed item includes the corresponding `<itunes:image>`.
+   - Artwork is determined once (if a post cover image hasn't been determined *yet*, the LLM is asked for an English "imagine" prompt which is used to generate an initial one; the same artwork is then copied for all languages): if the fetched post JSON has `data.article.cover_media`, the corresponding photo URL from `includes.media` is downloaded and center-cropped to square (1024x1024) via ffmpeg and saved as `<N>-<slug>.jpg`; otherwise an "imagine" prompt from the LLM JSON is used to launch `/imagine <prompt>, 1:1` and the result is saved the same way. The jpg (using each language's own slug) sits next to the mp3 in *every* language directory. Every language's feed item includes the corresponding `<itunes:image>`.
    - `<lang>/feed.xml` contains the new episode as the **first** `<item>` under `<channel>`, with:
      - Correct `<enclosure>` using `https://{{storage}}.blob.core.windows.net/{{container}}/<lang>/<yyyy>/<MM>/<N>-<slug>.mp3`
      - `itunes:season` = year, `itunes:episode` = N (per-language TV-series numbering)
@@ -105,15 +105,16 @@ If no usable auth: tell the user to run `xurl auth oauth2` (or appropriate) **ou
 - [ ] Accept X post URL (or ID); extract ID if needed
 - [ ] Ensure xurl (@kzu fork) + auth (app preferred); verify version ends "by @kzu"
 - [ ] xurl read the post; save JSON; check for errors
+- [ ] Inspect JSON for `data.article.cover_media`; if present resolve photo URL from `includes.media` (store for artwork decision)
 - [ ] Extract full body (note_tweet priority → article → text) + author line
 - [ ] Archive original attributed text to posts/<date>-<id>.md (yaml + raw)
 - [ ] Infer author gender from name (default male) for voice selection
 - [ ] For each supported language (en, es):
     - [ ] Translate full text if source lang != target (one pass per lang)
-    - [ ] Single LLM call → JSON {title, summary, keywords} (English also gets "imagine")
+    - [ ] Single LLM call → JSON {title, summary, keywords} (if no post cover image has been determined yet, also request an English "imagine" prompt)
     - [ ] Compute yyyy/MM, slug (kebab), next N for (lang, year) from feed
     - [ ] Write <lang>/<yyyy>/<MM>/<N>-<slug>.md (yaml frontmatter + plain body)
-    - [ ] For English only: start subagent `/imagine <imagine>, 1:1 aspect ratio`; copy result as <N>-<slug>.jpg into *this* language's dir (and later for other langs too)
+    - [ ] If no artwork determined yet: if article cover photo URL was resolved earlier, download it and center-crop to square 1024x1024 via ffmpeg as <N>-<slug>.jpg (skip /imagine); else (if imagine in this JSON) start subagent `/imagine <imagine>, 1:1 aspect ratio`; copy result (or cover-derived jpg) as <N>-<slug>.jpg into *this* language's dir (and later for other langs too)
     - [ ] Resolve voices.<lang>.<gender> + build SSML + synthesize .mp3 via dnx
     - [ ] Probe duration/size with ffprobe
     - [ ] Convert .mp3 to 16 kHz mono .wav (ffmpeg) for reliable recognition
@@ -151,6 +152,15 @@ $body = if ($json.data.note_tweet) { $json.data.note_tweet.text }
         elseif ($json.data.article) { $json.data.article.title + "`n`n" + $json.data.article.plain_text }
         else { $json.data.text }
 ```
+
+**Cover photo for artwork (if X article):** Also extract once here for later use (before any language processing):
+```pwsh
+$coverMediaKey = $json.data.article.cover_media
+$coverPhotoUrl = if ($coverMediaKey -and $json.includes.media) {
+    ($json.includes.media | Where-Object { $_.media_key -eq $coverMediaKey -and $_.type -eq 'photo' } | Select-Object -First 1).url
+}
+```
+Store `$coverPhotoUrl` (may be $null). Plain `xurl read` (with the @kzu fork) already includes `article` + `includes.media` for qualifying posts.
 
 **Author line:** From `includes.users` matching `data.author_id`:
 - `By {name} (@{username})` or `By @{username}`
@@ -207,10 +217,10 @@ For each `lang`:
 ### 4.1 Translate (if needed)
 If the detected source language differs from the target, translate the full attributed text into the target language. Preserve paragraphs and structure. The resulting text becomes the input for title/summary generation and TTS.
 
-### 4.2 Generate title, summary, keywords (and imagine prompt for English)
+### 4.2 Generate title, summary, keywords (and imagine prompt if needed)
 For every language, ask the LLM once for a JSON object.
 
-For English (the initial pass), request the 4-field form that also yields a visual prompt:
+If a post cover image has not been determined yet, request the 4-field form (the "imagine" value must be written in English, as the resulting artwork is language-agnostic):
 
 ```json
 {
@@ -221,9 +231,9 @@ For English (the initial pass), request the 4-field form that also yields a visu
 }
 ```
 
-For other languages use the 3-field form (no imagine).
+Once an artwork source (cover or generated) has been determined, use the 3-field form for any remaining languages (no imagine).
 
-Use the translated full content as source. The imagine value (when present) will be used immediately after this step to drive artwork generation for all languages.
+Use the translated full content as source. The imagine value (when present) will be used immediately after this step to generate artwork **unless** an X article cover photo URL was resolved in Step 1 (in which case the cover photo is used instead and the imagine value is ignored). The imagine prompt is always requested/produced in English.
 
 ### 4.3 Compute paths and episode number
 - `yyyy`, `MM` (zero-padded) from post `created_at`.
@@ -236,16 +246,30 @@ Use the translated full content as source. The imagine value (when present) will
 - Target directory: `<lang>/<yyyy>/<MM>/`
 - Files: `<N>-<slug>.md`, `<N>-<slug>.mp3`, `<N>-<slug>.srt`, `<N>-<slug>.jpg`
 
-### 4.3.1 Generate episode artwork (English only — shared visual)
-Only performed when processing the English language.
+### 4.3.1 Generate episode artwork (once, shared visual)
+Performed the first time an episode needs artwork (cover or generated) during language processing. The resulting image is language-agnostic and will be copied for every language.
 
-- If the JSON from 4.2 contains a non-empty `imagine` value:
-  - Start a subagent with exactly: `/imagine <the imagine string>, 1:1 aspect ratio`
-  - Wait for the subagent to complete. It will follow the imagine skill and use image generation to produce an artwork file; the result will include the path to the generated image.
-  - Save the produced image (copy + rename as needed) as `<N>-<slug>.jpg` inside the **current** (English) episode directory.
-- After the English artwork step succeeds, remember the source image path. When later processing every *other* language (after computing its own N and slug), copy the same image bytes to that language's directory using its `<N>-<its-slug>.jpg`. This ensures the identical visual sits alongside every language's mp3 under that language's naming.
+**Precedence (decide once):**
+- If a `$coverPhotoUrl` was resolved in Step 1 (from `data.article.cover_media` + matching photo in `includes.media`):
+  - Download to a temp file: `Invoke-WebRequest -Uri $coverPhotoUrl -OutFile "$env:TEMP\cover-$postId.jpg"` (public pbs.twimg.com URLs; no auth needed).
+  - Ensure the target episode directory exists.
+  - Center-crop to square and scale to 1024x1024 (matching existing episode artwork) using ffmpeg:
+    ```pwsh
+    ffmpeg -y -i "$env:TEMP\cover-$postId.jpg" `
+      -vf "crop='min(iw,ih)':'min(iw,ih)':'(iw-min(iw,ih))/2':'(ih-min(iw,ih))/2',scale=1024:1024:flags=lanczos" `
+      "<lang>/<yyyy>/<MM>/<N>-<slug>.jpg"
+    ```
+  - Remember the produced local path as the artwork source.
+  - **Do not** start any `/imagine` subagent.
+  - On download or ffmpeg failure, log a warning and fall back to the imagine path below if an imagine value exists.
+- Else (no cover photo):
+  - If the JSON from 4.2 contains a non-empty `imagine` value (requested because no cover was determined yet):
+    - Start a subagent with exactly: `/imagine <the imagine string>, 1:1 aspect ratio`
+    - Wait for the subagent to complete. It will follow the imagine skill and use image generation to produce an artwork file; the result will include the path to the generated image.
+    - Save the produced image (copy + rename as needed) as `<N>-<slug>.jpg` inside the current episode directory.
+  - If no imagine value or the subagent yields no usable image, simply continue without a jpg for this episode (graceful; `<itunes:image>` will be omitted).
 
-If no imagine value or the subagent yields no usable image, simply continue without a jpg for this episode (graceful; `<itunes:image>` will be omitted).
+After artwork is successfully produced (cover or generated), remember the source image path. When later processing other languages (after computing their N and slug), copy the same image bytes using each language's `<N>-<its-slug>.jpg`. This ensures the identical visual sits alongside every language's mp3.
 
 ### 4.4 Write the episode .md (plain text)
 Create the directory.
@@ -386,7 +410,7 @@ audio { display: block; width: 100%; min-height: 40px; }
 This file is never uploaded to the podcast feed; it is for human convenience when testing locally.
 
 ### 4.9 Cleanup
-Delete temporary SSML, WAV, JSON, recognition logs, and any intermediate image files from the subagent unless the user wants them kept for debugging. Keep the final .mp3 + .srt + .md + .jpg (the .jpg must remain next to the mp3 for every language).
+Delete temporary SSML, WAV, JSON, recognition logs, downloaded cover photos (`$env:TEMP\cover-*.jpg`), and any intermediate image files from the subagent unless the user wants them kept for debugging. Keep the final .mp3 + .srt + .md + .jpg (the .jpg must remain next to the mp3 for every language).
 
 ---
 
@@ -399,7 +423,7 @@ For each language report:
 - Path to updated feed.xml and index.html
 - Future blob enclosure URL for mp3 and .srt (and jpg image URL)
 - Author gender / voice chosen
-- (For English) the imagine prompt that was used (and whether the subagent produced artwork)
+- The imagine prompt that was used (if any, always English) and the artwork source: "X article cover photo (center-cropped to square)" or "generated via /imagine" (or none)
 
 Confirm that only local files were created/modified and nothing was uploaded or committed.
 
@@ -413,8 +437,8 @@ Confirm that only local files were created/modified and nothing was uploaded or 
 Agent:
 1. Fetches post with xurl, archives original to `posts/2026-06-18-1234567890123456789.md`
 2. Infers author gender (e.g. male)
-3. For en: no translation, generates title/summary/keywords + imagine, starts `/imagine <imagine>, 1:1` subagent, receives image path, writes the jpg using the English slug, writes `en/2026/06/3-my-episode-title.md`, synthesizes with Andrew3, produces .srt, updates `en/feed.xml` (incl. itunes:image) + `en/index.html`
-4. For es: translates, generates title/summary/keywords (no imagine), copies the English artwork as the Spanish-slug .jpg next to the es mp3, writes Spanish .md + .mp3 + .srt + .jpg, updates `es/feed.xml` (incl. its itunes:image) + `es/index.html`
+3. For the first language processed: generates title/summary/keywords; if no cover photo has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media`, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md, synthesizes, produces .srt, updates its feed (incl. itunes:image) + index.html.
+4. For subsequent languages: translate as needed, generate title/summary/keywords (3-field, no imagine since artwork already determined), copy the same artwork jpg using the language-specific slug next to the mp3, write .md + .mp3 + .srt + .jpg, update feed + index.html.
 5. Reports everything (including per-lang jpg paths + image blob URLs); all local.
 
 ---
