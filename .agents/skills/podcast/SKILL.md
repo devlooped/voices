@@ -1,6 +1,6 @@
 ---
 name: podcast
-description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder, translate if needed, generate short title + summary + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date/link/author-name-only + spoken content with localized byline date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, embed ID3v2.3 tags (title/artist/album/comment/track/date/genre) via ffmpeg -c copy, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image), and maintain lang/index.html (episode table + local audio players). Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
+description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder (yyyy/MM = current date), translate if needed, generate short title + summary + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date=current/link/author-name-only + spoken content with localized byline using the X post date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, embed ID3v2.3 tags (title/artist/album/comment/track/date/genre) via ffmpeg -c copy, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image; item pubDate = current date), and maintain lang/index.html (episode table + local audio players). Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
 ---
 
 # Podcast — X Post to Multi-Language Local Episode Generator
@@ -13,7 +13,7 @@ When finished, all of the following must be true:
 
 1. The X post was fetched via `xurl read` and its original (attributed) content archived to `posts/<yyyy-MM-dd>-<post-id>.md` with YAML frontmatter (`author` = display name only; body retains `By Name (@user)` attribution line) + raw text.
 2. For every supported podcast language (en, es from voices.toml):
-   - Directory structure `<lang>/<yyyy>/<MM>/` exists for the post date.
+   - Directory structure `<lang>/<yyyy>/<MM>/` exists for the **episode date** (today's date when generating).
    - `<N>-<slug>.md` exists with YAML frontmatter (`title`, `summary`, `date`, `link`, `author` = display name only, no `@handle`) followed by the spoken post content in this exact structure (plain text, no markdown):
      ```
      <title>
@@ -26,12 +26,12 @@ When finished, all of the following must be true:
    - Artwork is determined once (if a post cover image hasn't been determined *yet*, the LLM is asked for an English "imagine" prompt which is used to generate an initial one; the same artwork is then copied for all languages): if the fetched post JSON has `data.article.cover_media`, the corresponding photo URL from `includes.media` is downloaded and center-cropped to square (1024x1024) via ffmpeg and saved as `<N>-<slug>.jpg`; otherwise an "imagine" prompt from the LLM JSON is used to launch `/imagine <prompt>, 1:1` and the result is saved the same way. The jpg (using each language's own slug) sits next to the mp3 in *every* language directory. Every language's feed item includes the corresponding `<itunes:image>`.
    - `<lang>/feed.xml` contains the new episode as the **first** `<item>` under `<channel>`, with:
      - Correct `<enclosure>` using `https://{{storage}}.blob.core.windows.net/{{container}}/<lang>/<yyyy>/<MM>/<N>-<slug>.mp3`
-     - `itunes:season` = year, `itunes:episode` = N (per-language TV-series numbering)
+     - `itunes:season` = episode year (today), `itunes:episode` = N (per-language TV-series numbering)
      - Accurate `itunes:duration`, file length, MIME `audio/mpeg`
      - `<itunes:image>` (for the per-language copy of the episode artwork jpg)
    - `<lang>/index.html` exists or is updated with a simple table of episodes (newest/highest N first) including HTML5 `<audio controls>` players for local testing.
-3. GUIDs are always `yyyy-MM-dd-N-slug`.
-4. Channel `lastBuildDate` is set to current GMT; per-item `pubDate` uses the X post's created_at.
+3. GUIDs are always `yyyy-MM-dd-N-slug` (date prefix = **`$episodeDate`**, not `$postDate`).
+4. Channel `lastBuildDate` is set to current GMT; per-item `pubDate` uses the **episode date** (today — not the X post's `created_at`), so feed ordering matches episode number (higher N = newer pubDate).
 5. No Azure upload, no git operations, and no remote changes occurred. All artifacts are local and ready for the upload skill.
 6. The user is given episode numbers, titles, file paths, and the future blob URLs for each language.
 
@@ -64,8 +64,12 @@ posts/
 (and matching `.jpg` for `<itunes:image>`).
 
 **Episode numbering (TV-series model):**  
-`itunes:season` = calendar year of the post date  
+`itunes:season` = calendar year of the **episode date** (current date when generating)  
 `itunes:episode` = next sequential number for that year **per language feed**.
+
+**Two dates — do not conflate:**
+- **Episode date** = today (when the episode is generated). Drives folder paths (`<lang>/<yyyy>/<MM>/`), YAML `date`, GUID, feed `pubDate`, `itunes:season` year, and episode numbering.
+- **Post date** = X `created_at`. Drives the `posts/` archive filename, archive YAML `date`, and the spoken byline (`posted on …` / `publicado el …`) only.
 
 **Reference feed:** Use patterns from `C:\Code\podcast\feed.xml` and the existing `en/feed.xml` / `es/feed.xml` for item shape, namespaces, and tone.
 
@@ -131,8 +135,8 @@ When the user asks to re-render/regen MP3s for existing `.md` files (no new X fe
 - [ ] For each supported language (en, es):
     - [ ] Translate full text if source lang != target (one pass per lang)
     - [ ] Single LLM call → JSON {title, summary, keywords} (if no post cover image has been determined yet, also request an English "imagine" prompt)
-    - [ ] Compute yyyy/MM, slug (kebab), next N for (lang, year) from feed
-    - [ ] Write <lang>/<yyyy>/<MM>/<N>-<slug>.md (yaml `date` = yyyy-MM-dd; spoken body: title + localized byline with long-form date, e.g. en `by <name>, posted on April 3rd, 2026` / es `por <name>, publicado el 3 de Abril de 2026`, then content)
+    - [ ] Compute yyyy/MM from **episode date** (today), slug (kebab), next N for (lang, episode-year) from feed
+    - [ ] Write <lang>/<yyyy>/<MM>/<N>-<slug>.md (yaml `date` = episode date yyyy-MM-dd; spoken body: title + localized byline with long-form **post date**, e.g. en `by <name>, posted on April 3rd, 2026` / es `por <name>, publicado el 3 de Abril de 2026`, then content)
     - [ ] If no artwork determined yet: if article cover photo URL was resolved earlier, download it and center-crop to square 1024x1024 via ffmpeg as <N>-<slug>.jpg (skip /imagine); else (if imagine in this JSON) start subagent `/imagine <imagine>, 1:1 aspect ratio`; copy result (or cover-derived jpg) as <N>-<slug>.jpg into *this* language's dir (and later for other langs too)
     - [ ] Resolve voices.<lang>.<gender> + chunk spoken body (≤ ~2200 chars, sentence boundaries) + synthesize each chunk via dnx (`--format audio-48khz-192kbitrate-mono-mp3`) + ffmpeg-concat into final .mp3; verify per-chunk char counts and total duration is not exactly 10:00 on long posts
     - [ ] Embed ID3v2.3 tags (§4.6) into final .mp3; verify file starts with `ID3` magic bytes
@@ -184,17 +188,20 @@ Store `$coverPhotoUrl` (may be $null). Plain `xurl read` (with the @kzu fork) al
 - `$authorName` — display `name` if present, else `username` (this is the YAML `author` value and the spoken byline name; **no `@handle`** — the handle is already in `link`).
 - `$authorLine` — for archive/translation attribution only: `By {name} (@{username})` or `By @{username}` when name is missing.
 
-Also capture the raw post date (`data.created_at` as `yyyy-MM-dd`) and keep the main post body.
+Also capture the **post date** (`$postDate` = `data.created_at` as `yyyy-MM-dd`) and keep the main post body.
+
+Set the **episode date** (`$episodeDate`) to today's date in `yyyy-MM-dd` (authoritative: the `Today's date:` field in the user/session context). Episode and post dates are independent — an old X post published as a podcast episode today uses today's date for folders/GUID/pubDate and the original `created_at` for the spoken byline.
 
 **Attributed source text (for archive + translation + title generation input):** prepend `$authorLine` + blank line + body.
 
 **Spoken/read-aloud content (for episode .md body and TTS):** constructed *after* title generation (see 4.4).
 
-**Date & link:**
-- Use `data.created_at` for episode date (folders + item pubDate).
+**Dates & link:**
+- `$postDate` (`data.created_at`) → `posts/` archive only + spoken byline `<spoken-date>`.
+- `$episodeDate` (today) → `<lang>/<yyyy>/<MM>/` folders, episode YAML `date`, GUID, feed `pubDate`, `itunes:season` year, episode numbering.
 - Canonical link: the input URL or construct `https://x.com/{username}/status/{id}`.
 
-**Outcome:** Attributed full source text (for archive/translate) + post date + link + `$authorName`. The spoken content structure is applied later using the generated title + localized byline (`by $authorName, posted on <spoken-date>` in en; `por $authorName, publicado el <spoken-date>` in es) + main content.
+**Outcome:** Attributed full source text (for archive/translate) + `$postDate` + `$episodeDate` + link + `$authorName`. The spoken content structure is applied later using the generated title + localized byline from `$postDate` (`by $authorName, posted on <spoken-date>` in en; `por $authorName, publicado el <spoken-date>` in es) + main content.
 
 ---
 
@@ -203,7 +210,7 @@ Also capture the raw post date (`data.created_at` as `yyyy-MM-dd`) and keep the 
 **Goal:** Persist the exact source (never translated) for future reference.
 
 - Create `posts/` directory if missing.
-- Write `posts/<yyyy-MM-dd>-<post-id>.md`:
+- Write `posts/<yyyy-MM-dd>-<post-id>.md` using **`$postDate`** (X `created_at`, not the episode date):
   ```yaml
   ---
   id: "<post-id>"
@@ -259,11 +266,11 @@ Once an artwork source (cover or generated) has been determined, use the 3-field
 Use the translated attributed text as the source for generating the episode title/summary/keywords. The imagine value (when present) will be used immediately after this step to generate artwork **unless** an X article cover photo URL was resolved in Step 1 (in which case the cover photo is used instead and the imagine value is ignored). The imagine prompt is always requested/produced in English.
 
 ### 4.3 Compute paths and episode number
-- `yyyy`, `MM` (zero-padded) from post `created_at`.
+- `yyyy`, `MM` (zero-padded) from **`$episodeDate`** (today — not `$postDate`).
 - Slug: kebab-case, lowercase, ascii, safe for filenames/URLs (derived from title). Sanitize: remove diacritics, replace non-alphanum with `-`, collapse multiple dashes, trim. Example: "SpaceX: Not an IPO — It's a Referendum" → `spacex-not-an-ipo-its-a-referendum`.
 - Next `N`:
   - Load `<lang>/feed.xml`
-  - Parse `<itunes:episode>` + `<itunes:season>` (or default to 0). Only consider items whose season matches the post year.
+  - Parse `<itunes:episode>` + `<itunes:season>` (or default to 0). Only consider items whose season matches the **episode** year (`$episodeDate`).
   - `N = (max for this year) + 1` (or 1 if none)
   - Practical pattern (simple feeds): load as text or `[xml]`, look for `<itunes:episode>` / `<itunes:season>` (or `episode`/`season` after casting). When no items exist for the year, use 1. Fall back to directory scan of `<lang>/<yyyy>/` subfolders + filenames if feed parsing is painful.
 - Target directory: `<lang>/<yyyy>/<MM>/`
@@ -302,7 +309,7 @@ Write YAML frontmatter, then the spoken post content with this exact structure (
 ---
 title: "..."
 summary: "..."
-date: "2026-06-18"
+date: "2026-06-22"
 link: "https://x.com/username/status/..."
 author: "Name"
 ---
@@ -312,9 +319,11 @@ by Name, posted on <spoken-date>
 <full translated post content — plain text only, no **bold**, no markdown lists, no formatting>
 ```
 
+(`date` in frontmatter is **`$episodeDate`** — today. `<spoken-date>` comes from **`$postDate`** — when the X post was written.)
+
 **Two date formats — do not confuse them:**
-- **YAML `date`** (frontmatter, folders, GUID, feed): ISO `yyyy-MM-dd` (e.g. `2026-04-03`).
-- **Spoken byline date** (`<spoken-date>`): localized long form for TTS, derived from the same post date:
+- **YAML `date`** (frontmatter, folders, GUID, feed `pubDate`): ISO `yyyy-MM-dd` from **`$episodeDate`** (e.g. `2026-06-22`).
+- **Spoken byline date** (`<spoken-date>`): localized long form for TTS, derived from **`$postDate`** (X `created_at`):
 
 | Lang | Byline template | `<spoken-date>` example |
 |------|-----------------|-------------------------|
@@ -523,9 +532,9 @@ Load the existing `<lang>/feed.xml`.
 Prepend a new `<item>` as the **first** child of `<channel>`.
 
 Item fields (match reference style):
-- `<title>`, `<description>` (use generated summary), `<guid>` (exactly `yyyy-MM-dd-N-slug`), `<link>` (original X URL), `<pubDate>` (RFC 822 from post date)
+- `<title>`, `<description>` (use generated summary), `<guid>` (exactly `yyyy-MM-dd-N-slug` using **`$episodeDate`**), `<link>` (original X URL), `<pubDate>` (RFC 822 from **`$episodeDate`** — today, not `$postDate`)
 - `<enclosure url="https://<storage>.blob.../<lang>/.../<N>-<slug>.mp3" length="..." type="audio/mpeg" />`
-- `<itunes:season>`, `<itunes:episode>`, `<itunes:duration>`, `<itunes:summary>`, `<itunes:keywords>`, `<itunes:explicit>No</itunes:explicit>`
+- `<itunes:season>` (episode year from `$episodeDate`), `<itunes:episode>`, `<itunes:duration>`, `<itunes:summary>`, `<itunes:keywords>`, `<itunes:explicit>No</itunes:explicit>`
 - `<itunes:image href="https://<storage>.blob.../<lang>/.../<N>-<slug>.jpg" />` (present for every language because artwork was copied using the language's slug)
 
 Update channel `<lastBuildDate>` to the current GMT time.
@@ -595,7 +604,7 @@ Confirm that only local files were created/modified and nothing was uploaded or 
 "podcast https://x.com/someone/status/1234567890123456789"
 
 Agent:
-1. Fetches post with xurl, archives original to `posts/2026-06-18-1234567890123456789.md`
+1. Fetches post with xurl, archives original to `posts/2026-06-18-1234567890123456789.md` (archive date = X post date; episode folder/pubDate would use today, e.g. `2026/06/` if generating on June 22nd)
 2. Infers author gender (e.g. male)
 3. For the first language processed: generates title/summary/keywords; if no cover photo has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media`, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md (`author` = name only; spoken byline uses long-form localized date per §4.4), chunks + synthesizes + ffmpeg-merges .mp3, updates its feed (incl. itunes:image) + index.html.
 4. For subsequent languages: translate as needed, generate title/summary/keywords (3-field, no imagine since artwork already determined), copy the same artwork jpg using the language-specific slug next to the mp3, write .md + chunked .mp3 + .jpg, update feed + index.html.
