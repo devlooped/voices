@@ -8,7 +8,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Mon, 23 Jun 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 01:10:01 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -28,6 +28,25 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+        <item>
+      <title>Es hora de celebrar a Elon Musk</title>
+      <description>Bill Ackman dice que es momento de celebrar a Elon Musk, quien ha creado un enorme valor para la sociedad a través de SpaceX al reducir drásticamente el costo de los lanzamientos de cohetes y crear una red global de comunicaciones satelitales que lleva internet de alta velocidad y bajo costo a cientos de millones — y eventualmente miles de millones — junto con ventajas críticas para la defensa militar. Las tecnologías de SpaceX aceleran salarios, riqueza, educación, negocios, medicina, cómputo e IA. 4.000 empleados incluyendo trabajadores por hora se convirtieron recientemente en millonarios. Musk reinvierte todo para avanzar a la humanidad. El socialismo nunca permitiría un SpaceX; necesitamos más constructores como este.
+
+https://x.com/BillAckman/status/2065847551400493112</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/06/4-es-hora-de-celebrar-a-elon-musk.mp3" length="3436500" type="audio/mpeg" />
+      <guid>2026-06-22-4-es-hora-de-celebrar-a-elon-musk</guid>
+      <link>https://x.com/BillAckman/status/2065847551400493112</link>
+      <pubDate>Mon, 22 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>2:23</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>4</itunes:episode>
+      <itunes:summary>Bill Ackman dice que es momento de celebrar a Elon Musk, quien ha creado un enorme valor para la sociedad a través de SpaceX al reducir drásticamente el costo de los lanzamientos de cohetes y crear una red global de comunicaciones satelitales que lleva internet de alta velocidad y bajo costo a cientos de millones — y eventualmente miles de millones — junto con ventajas críticas para la defensa militar. Las tecnologías de SpaceX aceleran salarios, riqueza, educación, negocios, medicina, cómputo e IA. 4.000 empleados incluyendo trabajadores por hora se convirtieron recientemente en millonarios. Musk reinvierte todo para avanzar a la humanidad. El socialismo nunca permitiría un SpaceX; necesitamos más constructores como este.
+
+https://x.com/BillAckman/status/2065847551400493112</itunes:summary>
+      <itunes:keywords>bill-ackman,elon-musk,spacex,emprendedores,innovacion,capitalismo,creacion-de-valor,starlink,cohetes,riqueza,constructores</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/4-es-hora-de-celebrar-a-elon-musk.jpg" />
+    </item>
         <item>
       <title>Por qué Elon Musk es odiado y demonizado por los medios</title>
       <description>Brivael Le Pogam explica por qué la prensa demoniza a Elon Musk no a pesar de sus logros construyendo cohetes, autos eléctricos y conectividad global, sino precisamente porque estos logros exponen los sistemas de amiguismo y los guardianes que él evita.
@@ -79,4 +98,6 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
+
+
 

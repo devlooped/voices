@@ -1,0 +1,33 @@
+---
+title: "It's Time to Celebrate Elon Musk"
+summary: "Bill Ackman calls it time to celebrate Elon Musk, who has created enormous value for society through SpaceX by driving down the cost of rocket launches and creating a global satellite communication network that brings high speed, low-cost internet to hundreds of millions — and will eventually billions — along with critical advantages for military and defense. SpaceX technologies accelerate wages, wealth, education, business, medicine, compute, and AI. 4,000 employees including hourly workers recently became millionaires. Musk reinvests everything to advance mankind. Socialism would never allow SpaceX; we need more builders like this.
+
+https://x.com/BillAckman/status/2065847551400493112"
+date: "2026-06-22"
+link: "https://x.com/BillAckman/status/2065847551400493112"
+author: "Bill Ackman"
+---
+It's Time to Celebrate Elon Musk
+by Bill Ackman, posted on June 13th, 2026
+
+.@BernieSanders , it is a time to celebrate. @elonmusk has created enormous value for society by building @SpaceX, driving down the cost of rocket launches and creating a global satellite communication network that has brought high speed, low-cost internet and communication access to hundreds of millions and eventually billions of people along with critical advantages for our military and our nationΓÇÖs defense. 
+
+SpaceX and its technologies will cause an acceleration in the growth of wages and wealth creation globally, including in some of the poorest communities in the U.S. and around the world. 
+
+Access to low-cost, high speed communications everywhere will allow children around the world to be educated, families to build businesses, and life-saving medical knowledge and care to be available everywhere. 
+
+SpaceX will materially bring down the cost of compute, advancing AI and humanity. 
+
+Meanwhile, 4,000 SpaceX employees yesterday became millionaires, including hourly wage employees who you claim you are trying to help. 
+
+The Elon Musks of the world drive growth, global GDP, and provide access to goods and services at lower cost that would otherwise not exist. 
+
+ElonΓÇÖs nominal trillionaire status is due to his ownership of SpaceX, Tesla, Neuralink, the Boring Company and his other initiatives that have brought new technologies that improve our everyday lives. 
+
+Elon is not sitting on a trillion dollar pile of cash, jewelry and gold. He is using his controlling stakes in his companies to advance mankind. ElonΓÇÖs companies donΓÇÖt pay dividends. They reinvest all of their capital to accelerate innovation and value creation.  
+
+Elon is working 24/7 for all of us. He deserves respect and appreciation, not smears. 
+
+Bernie, your socialism would never allow a SpaceX to be built. Socialism has only proven to impoverish mankind and lead to death and destruction. 
+
+We need to create the conditions for more SpaceXs to be built, not attack the great entrepreneurs who are helping to advance our country.
