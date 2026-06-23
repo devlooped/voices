@@ -1,5 +1,4 @@
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
-  xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
     <title>Voces de X</title>
     <description>Publicaciones y artículos seleccionados de la comunidad de X.</description>
@@ -8,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Tue, 23 Jun 2026 01:59:59 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 02:16:06 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -28,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-        <item>
+    <item>
+      <title>Starfall</title>
+      <description>Devon Eriksen describe la visión de 'Starfall': la minería de asteroides, la manufactura espacial y la industrialización completa fuera del planeta, que permitirá reservar la Tierra para vivir, cultivar y disfrutar de un alto nivel de vida, mientras la industria pesada y su infraestructura se trasladan al espacio donde la energía es gratuita y los materiales abundantes.
+
+https://x.com/Devon_Eriksen_/status/2068928868631667044</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/06/7-starfall.mp3" length="4018565" type="audio/mpeg" />
+      <guid>2026-06-22-7-starfall</guid>
+      <link>https://x.com/Devon_Eriksen_/status/2068928868631667044</link>
+      <pubDate>Mon, 22 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>2:47</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>7</itunes:episode>
+      <itunes:summary>Devon Eriksen describe la visión de 'Starfall': la minería de asteroides, la manufactura espacial y la industrialización completa fuera del planeta, que permitirá reservar la Tierra para vivir, cultivar y disfrutar de un alto nivel de vida, mientras la industria pesada y su infraestructura se trasladan al espacio donde la energía es gratuita y los materiales abundantes.
+
+https://x.com/Devon_Eriksen_/status/2068928868631667044</itunes:summary>
+      <itunes:keywords>starfall,mineria-de-asteroides,manufactura-espacial,industrializacion,heinlein,economia-espacial,abundancia</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/7-starfall.jpg" />
+    </item>
+    <item>
       <title>El reactor Valar</title>
       <description>Devon Eriksen explica las ventajas del material fisionable ('rocas picantes') para la energía en la Tierra frente a los paneles solares para el espacio, y describe el reactor nuclear modular Valar — plantas de energía compactas y transportables del tamaño de un vagón de tren que pueden producirse en masa y desplegarse en cualquier lugar.
 
@@ -47,7 +65,7 @@ https://x.com/Devon_Eriksen_/status/2069141400726208736</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/6-el-reactor-valar.jpg" />
     </item>
-        <item>
+    <item>
       <title>El truco es poner las semillas en la tierra</title>
       <description>Devon Eriksen argumenta que lo natural es el robo, el atraco y la violencia de los fuertes, y que el libre mercado solo es "libre" porque está deliberadamente liberado de la coerción y se mantiene usando la fuerza para detener a ladrones y bandidos. Sin proteger la propiedad y las inversiones futuras, la civilización compleja colapsa en el caos y el hambre.
 
@@ -66,7 +84,7 @@ https://x.com/Devon_Eriksen_/status/2068619135303508443</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/5-el-truco-es-poner-las-semillas-en-la-tierra.jpg" />
     </item>
-        <item>
+    <item>
       <title>Es hora de celebrar a Elon Musk</title>
       <description>Bill Ackman dice que es momento de celebrar a Elon Musk, quien ha creado un enorme valor para la sociedad a través de SpaceX al reducir drásticamente el costo de los lanzamientos de cohetes y crear una red global de comunicaciones satelitales que lleva internet de alta velocidad y bajo costo a cientos de millones — y eventualmente miles de millones — junto con ventajas críticas para la defensa militar. Las tecnologías de SpaceX aceleran salarios, riqueza, educación, negocios, medicina, cómputo e IA. 4.000 empleados incluyendo trabajadores por hora se convirtieron recientemente en millonarios. Musk reinvierte todo para avanzar a la humanidad. El socialismo nunca permitiría un SpaceX; necesitamos más constructores como este.
 
@@ -85,7 +103,7 @@ https://x.com/BillAckman/status/2065847551400493112</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/4-es-hora-de-celebrar-a-elon-musk.jpg" />
     </item>
-        <item>
+    <item>
       <title>Por qué Elon Musk es odiado y demonizado por los medios</title>
       <description>Brivael Le Pogam explica por qué la prensa demoniza a Elon Musk no a pesar de sus logros construyendo cohetes, autos eléctricos y conectividad global, sino precisamente porque estos logros exponen los sistemas de amiguismo y los guardianes que él evita.
 
@@ -136,9 +154,3 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
-
-
-
-
-
-

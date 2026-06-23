@@ -1,6 +1,14 @@
 {
   "episodes": [
     {
+      "n": 7,
+      "title": "Starfall",
+      "date": "2026-06-22",
+      "byline": "By Devon Eriksen (@Devon_Eriksen_)",
+      "md": "2026/06/7-starfall.md",
+      "mp3": "2026/06/7-starfall.mp3"
+    },
+    {
       "n": 6,
       "title": "El reactor Valar",
       "date": "2026-06-22",

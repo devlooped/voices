@@ -1,0 +1,53 @@
+---
+title: "Starfall"
+summary: "Devon Eriksen describes the vision of 'Starfall' — asteroid mining, space manufacturing and full industrialization off-planet that will allow Earth to be reserved for living, farming and a high standard of living while heavy industry and its infrastructure moves to space where power is free and materials abundant."
+date: "2026-06-22"
+link: "https://x.com/Devon_Eriksen_/status/2068928868631667044"
+author: "Devon Eriksen"
+---
+Starfall
+by Devon Eriksen, posted on June 22nd, 2026
+
+You might not have heard of Starfall. 
+
+Certainly there's more enthusiasm for arguing about AI data centers in space. 
+
+But this is more important. 
+
+This is the real game. The real game that starts when billionaires read Robert Heinlein, instead of the sports page. 
+
+It starts with asteroid mining. 
+
+Remember that all earthly mines for heavy elements are just ancient asteroid strikes. When you mine asteroids in space, you go from mining the tiny percentage that once hit Earth, to mining all of them. 
+
+The next step is space manufacturing.
+
+ If all the raw materials are in space, space is where you want to use them, because they are there already, and if you are close to the sun, power is free. No recurring costs.
+
+The next step is space industrialization. 
+
+Most of the things humanity makes are things we make so we can make other things. If we can make those things in space, there's no reason to bring them to Earth. Just use them to make other things right where they are. 
+
+This means that your entire industrial infrastructure and toolchain lives outside the gravity well. 
+
+The last step is ruralization and suburbification of Earth. 
+
+Once heavy industry is cheaper in space, Earth can be reserved for what it is actually best at, which is growing things, and being a nice place to live. 
+
+With the entire toolchain in space, only the end results of that toolchain, the consumer products themselves, have to make it down from space.  Everything else will only be needed on Earth in token amounts... enough to fix your truck, but not enough to run a uranium mine. 
+
+What this means is less pollution, cheaper land, cheaper food, cheaper consumer goods, cheaper everything and a higher standard of living for everyone. 
+
+Because you have all sorts of new ways to Have Nice Things. 
+
+You just need to get the Nice Things from space, where you built them, to Earth, where people want to enjoy them. 
+
+And you need a cheap way to do this at scale. 
+
+"Asteroid" means "like a star". That's that the Greeks thought they were, and they weren't entirely wrong. Because every atom of asteroid metal was forged in a supernova. That's what spacefaring species make their civilizations out of. 
+
+Fragments of ancient stars. 
+
+Brought to Earth. 
+
+Starfall.

@@ -1,5 +1,4 @@
-<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
-  xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
     <title>Voices from X</title>
     <description>Selected long-form posts and articles from the X community.</description>
@@ -8,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Tue, 23 Jun 2026 01:59:54 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 02:14:43 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -28,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-        <item>
+    <item>
+      <title>Starfall</title>
+      <description>Devon Eriksen describes the vision of 'Starfall' — asteroid mining, space manufacturing and full industrialization off-planet that will allow Earth to be reserved for living, farming and a high standard of living while heavy industry and its infrastructure moves to space where power is free and materials abundant.
+
+https://x.com/Devon_Eriksen_/status/2068928868631667044</description>
+      <enclosure type="audio/mpeg" url="https://kzu.blob.core.windows.net/voices/en/2026/06/7-starfall.mp3" length="3471254" />
+      <guid>2026-06-22-7-starfall</guid>
+      <link>https://x.com/Devon_Eriksen_/status/2068928868631667044</link>
+      <pubDate>Mon, 22 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>2:24</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>7</itunes:episode>
+      <itunes:summary>Devon Eriksen describes the vision of 'Starfall' — asteroid mining, space manufacturing and full industrialization off-planet that will allow Earth to be reserved for living, farming and a high standard of living while heavy industry and its infrastructure moves to space where power is free and materials abundant.
+
+https://x.com/Devon_Eriksen_/status/2068928868631667044</itunes:summary>
+      <itunes:keywords>starfall,asteroid,mining,space,manufacturing,industrialization,heinlein,space-economy,abundance,gravity-well,supernova</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/7-starfall.jpg" />
+    </item>
+    <item>
       <title>The Valar Reactor</title>
       <description>Devon Eriksen explains the advantages of fissionable material ('spicy rocks') for Earth-based power versus solar for space, and describes the Valar modular nuclear reactor — compact, transportable power plants the size of a train car that can be mass produced and deployed anywhere.
 
@@ -47,7 +65,7 @@ https://x.com/Devon_Eriksen_/status/2069141400726208736</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/6-the-valar-reactor.jpg" />
     </item>
-        <item>
+    <item>
       <title>The Trick Is To Put The Seeds In The Dirt</title>
       <description>Devon Eriksen argues that what is natural is theft, robbery, and violence by the strong, and that the free market is only "free" because it is deliberately freed from coercion and maintained by using force to stop thieves and bandits. Without protecting property and future investments, complex civilization collapses into chaos and starvation.
 
@@ -66,7 +84,7 @@ https://x.com/Devon_Eriksen_/status/2068619135303508443</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.jpg" />
     </item>
-        <item>
+    <item>
       <title>It's Time to Celebrate Elon Musk</title>
       <description>Bill Ackman calls it time to celebrate Elon Musk, who has created enormous value for society through SpaceX by driving down the cost of rocket launches and creating a global satellite communication network that brings high speed, low-cost internet to hundreds of millions — and will eventually billions — along with critical advantages for military and defense. SpaceX technologies accelerate wages, wealth, education, business, medicine, compute, and AI. 4,000 employees including hourly workers recently became millionaires. Musk reinvests everything to advance mankind. Socialism would never allow SpaceX; we need more builders like this.
 
@@ -85,7 +103,7 @@ https://x.com/BillAckman/status/2065847551400493112</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/4-its-time-to-celebrate-elon-musk.jpg" />
     </item>
-        <item>
+    <item>
       <title>Why Elon Musk Is Hated and Demonized by the Media</title>
       <description>Brivael Le Pogam explains why the press demonizes Elon Musk not despite his achievements building rockets, electric cars and global connectivity, but precisely because those achievements expose the crony systems and gatekeepers he bypasses.
 
@@ -106,7 +124,7 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
     <item>
       <title>Hope: The Future Is Bright</title>
-      <description>Brivael Le Pogam, YC-backed CTO of Argil, makes the case for techno-optimism: builders who act without permission, the French system&apos;s hostility to enterprise, and why AI multiplies human capacity rather than rationing the future.</description>
+      <description>Brivael Le Pogam, YC-backed CTO of Argil, makes the case for techno-optimism: builders who act without permission, the French system's hostility to enterprise, and why AI multiplies human capacity rather than rationing the future.</description>
       <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/04/2-hope-the-future-is-bright.mp3" length="17285646" type="audio/mpeg" />
       <guid>2026-04-03-2-hope-the-future-is-bright</guid>
       <link>https://x.com/brivael/status/2040000831425028322</link>
@@ -114,7 +132,7 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
       <itunes:duration>12:00</itunes:duration>
       <itunes:season>2026</itunes:season>
       <itunes:episode>2</itunes:episode>
-      <itunes:summary>Brivael Le Pogam, YC-backed CTO of Argil, makes the case for techno-optimism: builders who act without permission, the French system&apos;s hostility to enterprise, and why AI multiplies human capacity rather than rationing the future.</itunes:summary>
+      <itunes:summary>Brivael Le Pogam, YC-backed CTO of Argil, makes the case for techno-optimism: builders who act without permission, the French system's hostility to enterprise, and why AI multiplies human capacity rather than rationing the future.</itunes:summary>
       <itunes:keywords>techno-optimism,entrepreneurship,France,AI,Hayek,freedom,builders,future,Argil</itunes:keywords>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/04/2-hope-the-future-is-bright.jpg" />
@@ -136,9 +154,3 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
-
-
-
-
-
-
