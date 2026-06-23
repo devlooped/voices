@@ -1,7 +1,15 @@
 {
-  "title": "Voices from X",
   "description": "Selected long-form posts and articles from the X community.",
+  "title": "Voices from X",
   "episodes": [
+    {
+      "n": 6,
+      "title": "The Valar Reactor",
+      "date": "2026-06-22",
+      "byline": "By Devon Eriksen (@Devon_Eriksen_)",
+      "md": "2026/06/6-the-valar-reactor.md",
+      "mp3": "2026/06/6-the-valar-reactor.mp3"
+    },
     {
       "n": 5,
       "title": "The Trick Is To Put The Seeds In The Dirt",
@@ -11,36 +19,36 @@
       "mp3": "2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.mp3"
     },
     {
-      "title": "It's Time to Celebrate Elon Musk",
-      "md": "2026/06/4-its-time-to-celebrate-elon-musk.md",
-      "byline": "By Bill Ackman (@BillAckman)",
-      "mp3": "2026/06/4-its-time-to-celebrate-elon-musk.mp3",
       "n": 4,
-      "date": "2026-06-22"
+      "title": "It's Time to Celebrate Elon Musk",
+      "date": "2026-06-22",
+      "byline": "By Bill Ackman (@BillAckman)",
+      "md": "2026/06/4-its-time-to-celebrate-elon-musk.md",
+      "mp3": "2026/06/4-its-time-to-celebrate-elon-musk.mp3"
     },
     {
-      "title": "Why Elon Musk Is Hated and Demonized by the Media",
-      "md": "2026/06/3-why-the-media-demonizes-elon-musk.md",
-      "byline": "By Brivael Le Pogam (@brivael)",
-      "mp3": "2026/06/3-why-the-media-demonizes-elon-musk.mp3",
       "n": 3,
-      "date": "2026-06-22"
+      "title": "Why Elon Musk Is Hated and Demonized by the Media",
+      "date": "2026-06-22",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "md": "2026/06/3-why-the-media-demonizes-elon-musk.md",
+      "mp3": "2026/06/3-why-the-media-demonizes-elon-musk.mp3"
     },
     {
-      "title": "Hope: The Future Is Bright",
-      "md": "2026/04/2-hope-the-future-is-bright.md",
-      "byline": "By Brivael Le Pogam (@brivael)",
-      "mp3": "2026/04/2-hope-the-future-is-bright.mp3",
-      "n": 2,
-      "date": "2026-04-03"
-    },
-    {
-      "title": "SpaceX: Not an IPO — It's a Referendum",
-      "md": "2026/06/1-spacex-not-an-ipo-its-a-referendum.md",
-      "byline": "By Brivael Le Pogam (@brivael)",
-      "mp3": "2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3",
       "n": 1,
-      "date": "2026-06-17"
+      "title": "SpaceX: Not an IPO — It's a Referendum",
+      "date": "2026-06-17",
+      "byline": "By By Brivael Le Pogam (@brivael)",
+      "md": "2026/06/1-spacex-not-an-ipo-its-a-referendum.md",
+      "mp3": "2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3"
+    },
+    {
+      "n": 2,
+      "title": "Hope: The Future Is Bright",
+      "date": "2026-04-03",
+      "byline": "By By Brivael Le Pogam (@brivael)",
+      "md": "2026/04/2-hope-the-future-is-bright.md",
+      "mp3": "2026/04/2-hope-the-future-is-bright.mp3"
     }
   ]
 }

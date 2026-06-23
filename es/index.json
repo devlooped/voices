@@ -1,6 +1,14 @@
 {
   "episodes": [
     {
+      "n": 6,
+      "title": "El reactor Valar",
+      "date": "2026-06-22",
+      "byline": "By Devon Eriksen (@Devon_Eriksen_)",
+      "md": "2026/06/6-el-reactor-valar.md",
+      "mp3": "2026/06/6-el-reactor-valar.mp3"
+    },
+    {
       "n": 5,
       "title": "El truco es poner las semillas en la tierra",
       "date": "2026-06-22",
@@ -9,36 +17,36 @@
       "mp3": "2026/06/5-el-truco-es-poner-las-semillas-en-la-tierra.mp3"
     },
     {
-      "md": "2026/06/4-es-hora-de-celebrar-a-elon-musk.md",
       "n": 4,
       "title": "Es hora de celebrar a Elon Musk",
-      "mp3": "2026/06/4-es-hora-de-celebrar-a-elon-musk.mp3",
+      "date": "2026-06-22",
       "byline": "By Bill Ackman (@BillAckman)",
-      "date": "2026-06-22"
+      "md": "2026/06/4-es-hora-de-celebrar-a-elon-musk.md",
+      "mp3": "2026/06/4-es-hora-de-celebrar-a-elon-musk.mp3"
     },
     {
-      "md": "2026/06/3-por-que-los-medios-demonizan-a-elon-musk.md",
       "n": 3,
       "title": "Por qué Elon Musk es odiado y demonizado por los medios",
-      "mp3": "2026/06/3-por-que-los-medios-demonizan-a-elon-musk.mp3",
+      "date": "2026-06-22",
       "byline": "By Brivael Le Pogam (@brivael)",
-      "date": "2026-06-22"
+      "md": "2026/06/3-por-que-los-medios-demonizan-a-elon-musk.md",
+      "mp3": "2026/06/3-por-que-los-medios-demonizan-a-elon-musk.mp3"
     },
     {
-      "md": "2026/04/2-esperanza-el-futuro-es-radiante.md",
-      "n": 2,
-      "title": "Esperanza: El futuro es radiante",
-      "mp3": "2026/04/2-esperanza-el-futuro-es-radiante.mp3",
-      "byline": "By Brivael Le Pogam (@brivael)",
-      "date": "2026-04-03"
-    },
-    {
-      "md": "2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.md",
       "n": 1,
       "title": "SpaceX: No fue una OPV, fue un referéndum",
-      "mp3": "2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.mp3",
-      "byline": "By Brivael Le Pogam (@brivael)",
-      "date": "2026-06-17"
+      "date": "2026-06-17",
+      "byline": "By By Brivael Le Pogam (@brivael)",
+      "md": "2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.md",
+      "mp3": "2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.mp3"
+    },
+    {
+      "n": 2,
+      "title": "Esperanza: El futuro es radiante",
+      "date": "2026-04-03",
+      "byline": "By By Brivael Le Pogam (@brivael)",
+      "md": "2026/04/2-esperanza-el-futuro-es-radiante.md",
+      "mp3": "2026/04/2-esperanza-el-futuro-es-radiante.mp3"
     }
   ],
   "title": "Voces de X",

@@ -8,7 +8,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Tue, 23 Jun 2026 01:38:57 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 01:59:59 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -28,6 +28,25 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+        <item>
+      <title>El reactor Valar</title>
+      <description>Devon Eriksen explica las ventajas del material fisionable ('rocas picantes') para la energía en la Tierra frente a los paneles solares para el espacio, y describe el reactor nuclear modular Valar — plantas de energía compactas y transportables del tamaño de un vagón de tren que pueden producirse en masa y desplegarse en cualquier lugar.
+
+https://x.com/Devon_Eriksen_/status/2069141400726208736</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/06/6-el-reactor-valar.mp3" length="7073035" type="audio/mpeg" />
+      <guid>2026-06-22-6-el-reactor-valar</guid>
+      <link>https://x.com/Devon_Eriksen_/status/2069141400726208736</link>
+      <pubDate>Mon, 22 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>4:54</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>6</itunes:episode>
+      <itunes:summary>Devon Eriksen explica las ventajas del material fisionable ('rocas picantes') para la energía en la Tierra frente a los paneles solares para el espacio, y describe el reactor nuclear modular Valar — plantas de energía compactas y transportables del tamaño de un vagón de tren que pueden producirse en masa y desplegarse en cualquier lugar.
+
+https://x.com/Devon_Eriksen_/status/2069141400726208736</itunes:summary>
+      <itunes:keywords>valar,reactor,modular,nuclear,fision,isaiah-p-taylor,energia,poder,espacio,solar,haleu,portatil</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/6-el-reactor-valar.jpg" />
+    </item>
         <item>
       <title>El truco es poner las semillas en la tierra</title>
       <description>Devon Eriksen argumenta que lo natural es el robo, el atraco y la violencia de los fuertes, y que el libre mercado solo es "libre" porque está deliberadamente liberado de la coerción y se mantiene usando la fuerza para detener a ladrones y bandidos. Sin proteger la propiedad y las inversiones futuras, la civilización compleja colapsa en el caos y el hambre.
@@ -117,6 +136,8 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
+
+
 
 
 
