@@ -1,6 +1,6 @@
 ---
 name: podcast
-description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder (yyyy/MM = current date), translate if needed, determine title (prefer post's `data.article.title` if present, else generate) + summary (ending with original post URL on last line) + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date=current/link/author-name-only + spoken content with localized byline using the X post date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, embed ID3v2.3 tags (title/artist/album/comment/track/date/genre) via ffmpeg -c copy, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image; item pubDate = current date), and maintain lang/index.json (episodes data) + a lightweight self-contained index.html template. The data is embedded inside the HTML as a JSON data island (`<script type="application/json" id="podcast-data">`) so the page works when opened directly from the filesystem (no local HTTP server or fetch required). A small vanilla JS snippet renders the newest-first table + audio players from the embedded data. Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
+description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder (yyyy/MM = current date), translate if needed, determine title (prefer post's `data.article.title` if present, else generate) + summary (URL appended with blank line only for feed.xml <description>/<itunes:summary>) + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date=current/link/author-name-only + spoken content with localized byline using the X post date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, embed ID3v2.3 tags (title/artist/album/comment/track/date/genre) via ffmpeg -c copy, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image; item pubDate = current date), and maintain lang/index.json (episodes data) + a lightweight self-contained index.html template. The data is embedded inside the HTML as a JSON data island (`<script type="application/json" id="podcast-data">`) so the page works when opened directly from the filesystem (no local HTTP server or fetch required). A small vanilla JS snippet renders the newest-first table + audio players from the embedded data. Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
 ---
 
 # Podcast — X Post to Multi-Language Local Episode Generator
@@ -106,9 +106,20 @@ If no usable auth: tell the user to run `xurl auth oauth2` (or appropriate) **ou
 - **Capture noisy / long output first**: For `dnx ...`, `az ...`, and help commands, use `... 2>&1 | Out-File $tmp` (or `> $tmp`), then inspect with `Get-Content $tmp`. Direct `| cat`, `| head`, `| Select` on dnx often triggers harness "Get-Content cannot bind" spam.
 - **Prefer PowerShell cmdlets**: `Get-ChildItem` / `Get-Content -Raw` / `Out-File -Encoding utf8` / `ConvertFrom-Json` / `Select-String` over `ls`, `cat`, Unix pipes for reliability on Windows pwsh.
 - **Run synthesis in the current pwsh session**: Define helper functions inline and call them directly. Avoid spawning a nested `powershell -File` for TTS — it adds failure modes and makes chunk-array bugs harder to spot.
+- **Reliable dnx synthesize with keys**:
+  - Do **not** rely on `--key $key --region $region` on the synthesize command line. It often results in the input ( `--file` / `--ssml`) being ignored (`x.input.path=@none`) and a NullReferenceException inside the CLI.
+  - Instead: run `dnx ... config @key --set $key` and `@region --set $region` once, then invoke `dnx ... synthesize --file ...` without the key/region flags.
+- **SSML file writing**:
+  - Always start the file with `<?xml version="1.0" encoding="utf-8"?>`.
+  - Write with no-BOM UTF8: `[System.Text.UTF8Encoding]::new($false)`.
+  - Use `--file` (not `--ssml`) when pointing at a `.ssml` file in the config-based flow.
 - **UTF-8**: When writing SSML or .md files use `-Encoding utf8` (or `[System.IO.File]::WriteAllText` with UTF-8 no BOM for SSML). When reading xurl JSON use `-Raw | ConvertFrom-Json`.
+- **Non-ASCII / accented text in commands** (e.g. Spanish translation for .md or SSML): Embedding long strings with ó, í, ñ etc. directly inside a single long `run_terminal_command` can get mangled by the harness. Prefer:
+  - Write content to a small helper `.py` or `.ps1` file using `\u00f3` escapes (or Python raw strings), then execute the helper.
+  - Or build the file content inside PowerShell using here-strings in a file written with explicit `[System.Text.UTF8Encoding]::new($false)`.
 - **Duration**: Use `[TimeSpan]::FromSeconds([double]$raw).ToString("m\:ss")`.
 - **Temporary files**: Use `$env:TEMP\...` for ssml, logs, and json. Clean up in §4.8 unless debugging.
+- **Synth temp directories**: Create a fresh `$synthDir = Join-Path $env:TEMP ("synth-" + [guid]::NewGuid()...)` as a **local variable inside the same command/script block**. Do not write the path to a file with Out-File and read it back in a later command — whitespace/newlines can corrupt the path and produce errors like `synth-xxx\n\part-0.mp3`.
 - **Long synthesis**: Expect many "SYNTHESIZING: audio.length=..." messages — redirect or tail as needed. Always chunk long text (see §4.5); never feed the full `.md` body in one SSML call when it exceeds ~2200 chars.
 - **Chunked TTS temp files**: Keep per-chunk `.ssml` / `part-*.mp3` / `concat.txt` under `$env:TEMP` until merge succeeds; delete in §4.8.
 - **Verify before synthesizing**: Log each chunk's character count. If a chunk reports `1` char (or audio is ~0:00) on a multi-paragraph article, the PowerShell single-element array unwrap bug fired — see §4.5 and Troubleshooting.
@@ -136,7 +147,7 @@ When the user asks to re-render/regen MP3s for existing `.md` files (no new X fe
 - [ ] Infer author gender from name (default male) for voice selection
 - [ ] For each supported language (en, es):
     - [ ] Translate full text if source lang != target (one pass per lang)
-    - [ ] Determine episode title (use `$postTitle` / `data.article.title` localized if present; else LLM); LLM call for JSON {title?, summary, keywords} (summary must end with the original post URL as last line; if no post cover image has been determined yet, also request an English "imagine" prompt)
+    - [ ] Determine episode title (use `$postTitle` / `data.article.title` localized if present; else LLM); LLM call for JSON {title?, summary, keywords} (summary is concise description text only; the post URL + blank line separator is added only when generating feed.xml; if no post cover image has been determined yet, also request an English "imagine" prompt)
     - [ ] Compute yyyy/MM from **episode date** (today), slug (kebab), next N for (lang, episode-year) from feed
     - [ ] Write <lang>/<yyyy>/<MM>/<N>-<slug>.md (yaml `date` = episode date yyyy-MM-dd; spoken body: episode title (post title if present) + localized byline with long-form **post date**, e.g. en `by <name>, posted on April 3rd, 2026` / es `por <name>, publicado el 3 de Abril de 2026`, then content)
     - [ ] If no artwork determined yet: if article cover photo URL was resolved earlier, download it and center-crop to square 1024x1024 via ffmpeg as <N>-<slug>.jpg (skip /imagine); else (if imagine in this JSON) start subagent `/imagine <imagine>, 1:1 aspect ratio`; copy result (or cover-derived jpg) as <N>-<slug>.jpg into *this* language's dir (and later for other langs too)
@@ -265,7 +276,7 @@ For every language, ask the LLM once for a JSON object. The requested shape depe
 - If `$postTitle` is present (use it; no LLM title): request summary + keywords (+ imagine conditionally):
   ```json
   {
-    "summary": "Concise 1-2 sentence description for <description> and <itunes:summary>. The original post URL must be the last line of the summary.",
+    "summary": "Concise 1-2 sentence description for <description> and <itunes:summary> (post URL appended only at feed generation with blank line).",
     "keywords": "comma,separated,keywords,for,itunes",
     "imagine": "A vivid, self-contained prompt suitable for /imagine (grok imagine) describing a compelling square podcast artwork for this episode. Subject first, then mood/composition/lighting. No text in the image."
   }
@@ -274,7 +285,7 @@ For every language, ask the LLM once for a JSON object. The requested shape depe
   ```json
   {
     "title": "Short, clean podcast episode title",
-    "summary": "Concise 1-2 sentence description for <description> and <itunes:summary>. The original post URL must be the last line of the summary.",
+    "summary": "Concise 1-2 sentence description for <description> and <itunes:summary> (post URL appended only at feed generation with blank line).",
     "keywords": "comma,separated,keywords,for,itunes",
     "imagine": "A vivid, self-contained prompt suitable for /imagine (grok imagine) describing a compelling square podcast artwork for this episode. Subject first, then mood/composition/lighting. No text in the image."
   }
@@ -286,9 +297,9 @@ Use the translated attributed text as the source for generating the episode summ
 
 After the LLM response:
 - `$episodeTitle = if ($postTitle) { localized version of $postTitle for current lang } else { LLM "title" value }`
-- The `summary` handling is unchanged: the generated `summary` must contain the concise description with the **original post URL as its last line** (after a blank line). After the LLM returns the JSON, construct the final summary value by taking the LLM-provided summary and ensuring it ends with a trailing newline followed by the canonical post link (e.g. `https://x.com/.../status/...`). Apply this for every language (append to the localized summary). The same final summary (including trailing URL) is stored in the episode's YAML `summary`, written to `<description>` / `<itunes:summary>` in the feed, and used for the ID3 `comment` tag.
+- The `summary` is the concise description text only (no URL). The post URL is appended with an empty line separator **only during feed.xml generation** for the `<description>` and `<itunes:summary>` fields (not stored in .md front-matter or body). After the LLM returns the JSON, the summary value stored in YAML `summary` (and used for ID3 `comment`) is just the description text. When writing feed items, use `summary + "\n\n" + link`. Apply for every language. The example below shows the feed form.
 
-Example final `summary` value (English):
+Example of feed `<description>` / `<itunes:summary>` value (the YAML `summary` stores only the first paragraph; blank line + URL added only at feed generation):
 ```
 Elon Musk discusses the latest Starship test flight and its implications for Mars colonization.
 
@@ -447,8 +458,11 @@ Each `dnx ... synthesize` call has a **hard ~10-minute audio cap** (~600.000000 
 
 When a function `return $chunks` and `$chunks` is a one-element list, **PowerShell unwraps it to a plain string**. The synthesis loop then treats that string as a scalar: `$chunks.Count` is `1`, but `$chunks[0]` is the **first character only** — producing ~0:00 audio (or a nonsense clip) despite the body being thousands of characters. Multi-chunk episodes (5–6 parts) are unaffected; short single-chunk episodes hit this every time.
 
-**Always prevent unwrapping** in both the function return and the call site:
+**Always prevent unwrapping** in both the function return and the call site.
 
+The documented `return ,@(...)` + `@(call)` pattern can still produce a nested/wrapped array in some pwsh contexts (resulting in count=1 where element[0] is the inner array or only the first few characters).
+
+**More robust pattern used successfully**:
 ```pwsh
 function Split-TextChunks([string]$text, [int]$maxChars = 2200) {
     $sentences = [regex]::Split($text, '(?<=[.!?])\s+')
@@ -465,22 +479,54 @@ function Split-TextChunks([string]$text, [int]$maxChars = 2200) {
         }
     }
     if ($current.Length -gt 0) { $chunks.Add($current.ToString().Trim()) }
-    return ,@($chunks.ToArray())   # unary comma — never return $chunks bare
+    $arr = $chunks.ToArray()
+    return ,$arr   # return the array wrapped so it doesn't unwrap on 1-element case
 }
 
-# Call site — keep as array even for one chunk:
-$chunks = @(Split-TextChunks $body)
+# Call site (more reliable):
+$raw = Split-TextChunks $spokenBody 2200
+$chunks = @($raw)   # force collection into a fresh array
+
+Write-Host "Prepared $($chunks.Count) chunks"
 for ($i = 0; $i -lt $chunks.Count; $i++) {
-    # $chunks[$i] is the full chunk string
+    Write-Host "  chunk $i : $($chunks[$i].Length) chars"
+    # use $chunks[$i] ...
 }
 ```
 
+After creating `$chunks`, **always immediately log the count and per-chunk lengths** before any synthesis. This catches unwrap bugs early.
+
 Short posts (single chunk under the limit) copy `part-0.mp3` directly to the final `.mp3` — no concat step needed.
 
-**Per-chunk synthesize** (exact form required by AGENTS.md):
+**Per-chunk synthesize (reliable pattern)**:
+
+Inline `--key` / `--region` on the synthesize line frequently causes "x.input.path=@none" and "Object reference not set to an instance of an object." 
+
+**Preferred reliable flow** (config first, then plain synthesize):
 ```pwsh
+# Once per session (or once per language block)
+dnx Microsoft.CognitiveServices.Speech.CLI config @key --set $key
+dnx Microsoft.CognitiveServices.Speech.CLI config @region --set $region
+
 $format = "audio-48khz-192kbitrate-mono-mp3"
-dnx Microsoft.CognitiveServices.Speech.CLI -- synthesize --key $key --region $region --file $ssml --audio output $partMp3 --format $format 2>&1 | Out-File "$env:TEMP\synth-chunk-$i.log"
+dnx Microsoft.CognitiveServices.Speech.CLI synthesize `
+    --file $ssmlFile `
+    --audio output $partMp3 `
+    --format $format 2>&1 | Out-File "$env:TEMP\synth-chunk-$i.log"
+```
+
+Use `--file` (not `--ssml`) when the input is a `.ssml` file containing full SSML.
+
+Always write the SSML file with no BOM and an XML declaration:
+```pwsh
+$ssml = @"
+<?xml version="1.0" encoding="utf-8"?>
+<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis'
+       xmlns:mstts='http://www.w3.org/2001/mstts' xml:lang='$lang'>
+  <voice name='$voice' parameters='$params'>$escaped</voice>
+</speak>
+"@
+[System.IO.File]::WriteAllText($ssmlFile, $ssml, [System.Text.UTF8Encoding]::new($false))
 ```
 
 Synthesis produces many "SYNTHESIZING: ..." progress lines. Redirect to a log file (or use `| Select -Last 5`) for cleaner sessions.
@@ -562,9 +608,9 @@ Load the existing `<lang>/feed.xml`.
 Prepend a new `<item>` as the **first** child of `<channel>`.
 
 Item fields (match reference style):
-- `<title>` (episode title: post's title if present, else generated), `<description>` (use generated summary — which ends with the original post URL as its last line), `<guid>` (exactly `yyyy-MM-dd-N-slug` using **`$episodeDate`**), `<link>` (original X URL), `<pubDate>` (RFC 822 from **`$episodeDate`** — today, not `$postDate`)
+- `<title>` (episode title: post's title if present, else generated), `<description>` (use YAML summary + blank line + original post URL), `<guid>` (exactly `yyyy-MM-dd-N-slug` using **`$episodeDate`**), `<link>` (original X URL), `<pubDate>` (RFC 822 from **`$episodeDate`** — today, not `$postDate`)
 - `<enclosure url="https://<storage>.blob.../<lang>/.../<N>-<slug>.mp3" length="..." type="audio/mpeg" />`
-- `<itunes:season>` (episode year from `$episodeDate`), `<itunes:episode>`, `<itunes:duration>`, `<itunes:summary>` (same as description; ends with original post URL on last line), `<itunes:keywords>`, `<itunes:explicit>No</itunes:explicit>`
+- `<itunes:season>` (episode year from `$episodeDate`), `<itunes:episode>`, `<itunes:duration>`, `<itunes:summary>` (same as description; URL + blank line added only at feed generation), `<itunes:keywords>`, `<itunes:explicit>No</itunes:explicit>`
 - `<itunes:image href="https://<storage>.blob.../<lang>/.../<N>-<slug>.jpg" />` (present for every language because artwork was copied using the language's slug)
 
 Update channel `<lastBuildDate>` to the current GMT time.
@@ -759,7 +805,9 @@ See current file. Hierarchical:
 
 ## SSML & Synthesis Details (from TTS heritage)
 
-HD parameters go on the `parameters` attribute of `<voice>`. Always use `dnx Microsoft.CognitiveServices.Speech.CLI -- ...` form.
+HD parameters go on the `parameters` attribute of `<voice>`.
+
+**Invocation note**: Use the config-then-synthesize pattern documented in §4.5 (set `@key`/`@region` via config, then `dnx ... synthesize --file ...`). The literal `dnx ... -- synthesize --key ...` form is brittle.
 
 Default podcast MP3 encoding: `audio-48khz-192kbitrate-mono-mp3` (see §4.5). Do not use bare `--format mp3`.
 
@@ -793,7 +841,9 @@ Always insert newest item first.
 | MP3 sounds muffled / low fidelity | Confirm `--format audio-48khz-192kbitrate-mono-mp3`, not bare `--format mp3` (16 kHz / 128 kbps default). Verify with `ffprobe` (expect `sample_rate=48000`, `bit_rate=192000`). |
 | MP3 duration exactly `10:00` / `600.000000` s on a long article | Azure truncated the synthesis. Re-chunk at sentence boundaries (≤ ~2200 chars); do **not** rely on paragraph splits (X articles use single newlines). Merge parts with `ffmpeg -f concat -c copy`. |
 | One chunk has >9000 chars, others tiny | Paragraph-based splitting failed — switch to sentence-boundary splitting (see §4.5). |
-| Log shows `chunk 0 : 1 chars` or ~0:00 audio on a full article | PowerShell single-element array unwrap (see §4.5). Fix `return ,@($chunks.ToArray())` and `$chunks = @(Split-TextChunks $body)`; re-run. |
+| Log shows `chunk 0 : 1 chars` or ~0:00 audio on a full article | PowerShell single-element array unwrap (see §4.5). Use the robust call site: `$raw = Split-TextChunks $body; $chunks = @($raw)`. Immediately log count + lengths after assignment. |
+| `Object reference not set to an instance of an object` + `x.input.path=@none` during dnx synthesize | Inline `--key` / `--region` with the synthesize command is unreliable. Set config first (`dnx ... config @key --set $key; ... @region --set $region`), then run `dnx ... synthesize --file $ssml ...` without key/region flags. |
+| `Data at the root level is invalid. Line 1, position 1.` (SSML) | Add `<?xml version="1.0" encoding="utf-8"?>` at the very top of the SSML. Write the file with no-BOM UTF8. Try `--file` instead of `--ssml`. |
 | ffmpeg concat fails | Use `concat.txt` with `file 'path/with/forward/slashes'` and `-safe 0`. All parts must share the same codec/format (identical `--format` on every synthesize call). |
 | Feed validation: `No ID3v2 headers found` / `Could not detect bitrate mode` | Azure output lacks ID3. Run §4.6 `Add-EpisodeId3Tags` with `ffmpeg -c copy -id3v2_version 3`, then re-probe size and update enclosure `length`. |
 | Wrong episode number | Check that feed parsing looks only at items with matching `itunes:season` year. When the feed has no `<item>` yet, N=1. |
