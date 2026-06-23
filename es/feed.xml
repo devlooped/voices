@@ -8,7 +8,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Tue, 23 Jun 2026 01:10:01 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 01:38:57 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -28,6 +28,25 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+        <item>
+      <title>El truco es poner las semillas en la tierra</title>
+      <description>Devon Eriksen argumenta que lo natural es el robo, el atraco y la violencia de los fuertes, y que el libre mercado solo es "libre" porque está deliberadamente liberado de la coerción y se mantiene usando la fuerza para detener a ladrones y bandidos. Sin proteger la propiedad y las inversiones futuras, la civilización compleja colapsa en el caos y el hambre.
+
+https://x.com/Devon_Eriksen_/status/2068619135303508443</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/06/5-el-truco-es-poner-las-semillas-en-la-tierra.mp3" length="4294592" type="audio/mpeg" />
+      <guid>2026-06-22-5-el-truco-es-poner-las-semillas-en-la-tierra</guid>
+      <link>https://x.com/Devon_Eriksen_/status/2068619135303508443</link>
+      <pubDate>Mon, 22 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>2:58</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>5</itunes:episode>
+      <itunes:summary>Devon Eriksen argumenta que lo natural es el robo, el atraco y la violencia de los fuertes, y que el libre mercado solo es "libre" porque está deliberadamente liberado de la coerción y se mantiene usando la fuerza para detener a ladrones y bandidos. Sin proteger la propiedad y las inversiones futuras, la civilización compleja colapsa en el caos y el hambre.
+
+https://x.com/Devon_Eriksen_/status/2068619135303508443</itunes:summary>
+      <itunes:keywords>devon-eriksen,capitalismo,mercado-libre,coercion,violencia,civilizacion,derechos-de-propiedad,comunismo,anarquia,constructores</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/5-el-truco-es-poner-las-semillas-en-la-tierra.jpg" />
+    </item>
         <item>
       <title>Es hora de celebrar a Elon Musk</title>
       <description>Bill Ackman dice que es momento de celebrar a Elon Musk, quien ha creado un enorme valor para la sociedad a través de SpaceX al reducir drásticamente el costo de los lanzamientos de cohetes y crear una red global de comunicaciones satelitales que lleva internet de alta velocidad y bajo costo a cientos de millones — y eventualmente miles de millones — junto con ventajas críticas para la defensa militar. Las tecnologías de SpaceX aceleran salarios, riqueza, educación, negocios, medicina, cómputo e IA. 4.000 empleados incluyendo trabajadores por hora se convirtieron recientemente en millonarios. Musk reinvierte todo para avanzar a la humanidad. El socialismo nunca permitiría un SpaceX; necesitamos más constructores como este.
@@ -98,6 +117,7 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
+
 
 
 

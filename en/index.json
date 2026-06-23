@@ -3,6 +3,14 @@
   "description": "Selected long-form posts and articles from the X community.",
   "episodes": [
     {
+      "n": 5,
+      "title": "The Trick Is To Put The Seeds In The Dirt",
+      "date": "2026-06-22",
+      "byline": "By Devon Eriksen (@Devon_Eriksen_)",
+      "md": "2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.md",
+      "mp3": "2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.mp3"
+    },
+    {
       "title": "It's Time to Celebrate Elon Musk",
       "md": "2026/06/4-its-time-to-celebrate-elon-musk.md",
       "byline": "By Bill Ackman (@BillAckman)",

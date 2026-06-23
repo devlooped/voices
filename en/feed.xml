@@ -8,7 +8,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Tue, 23 Jun 2026 01:09:50 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 01:38:42 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -28,6 +28,25 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+        <item>
+      <title>The Trick Is To Put The Seeds In The Dirt</title>
+      <description>Devon Eriksen argues that what is natural is theft, robbery, and violence by the strong, and that the free market is only "free" because it is deliberately freed from coercion and maintained by using force to stop thieves and bandits. Without protecting property and future investments, complex civilization collapses into chaos and starvation.
+
+https://x.com/Devon_Eriksen_/status/2068619135303508443</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.mp3" length="3956613" type="audio/mpeg" />
+      <guid>2026-06-22-5-the-trick-is-to-put-the-seeds-in-the-dirt</guid>
+      <link>https://x.com/Devon_Eriksen_/status/2068619135303508443</link>
+      <pubDate>Mon, 22 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>2:44</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>5</itunes:episode>
+      <itunes:summary>Devon Eriksen argues that what is natural is theft, robbery, and violence by the strong, and that the free market is only "free" because it is deliberately freed from coercion and maintained by using force to stop thieves and bandits. Without protecting property and future investments, complex civilization collapses into chaos and starvation.
+
+https://x.com/Devon_Eriksen_/status/2068619135303508443</itunes:summary>
+      <itunes:keywords>devon-eriksen,capitalism,free-market,coercion,violence,civilization,property-rights,communism,anarchy,builders</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.jpg" />
+    </item>
         <item>
       <title>It's Time to Celebrate Elon Musk</title>
       <description>Bill Ackman calls it time to celebrate Elon Musk, who has created enormous value for society through SpaceX by driving down the cost of rocket launches and creating a global satellite communication network that brings high speed, low-cost internet to hundreds of millions — and will eventually billions — along with critical advantages for military and defense. SpaceX technologies accelerate wages, wealth, education, business, medicine, compute, and AI. 4,000 employees including hourly workers recently became millionaires. Musk reinvests everything to advance mankind. Socialism would never allow SpaceX; we need more builders like this.
@@ -98,6 +117,7 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
+
 
 
 
