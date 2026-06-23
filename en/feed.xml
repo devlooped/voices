@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Tue, 23 Jun 2026 02:14:43 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 17:23:13 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-    <item>
+        <item>
+      <title>The Great Liquidation</title>
+      <description>Brivael Le Pogam makes the case that corporate "bullshit" — middle management, bureaucracy, and status games — is a 70-year equilibrium that AI is about to liquidate by collapsing the cost of coordination. He warns founders never to wire their startups into legacy corporate structures that select for the wrong talent and culture.
+
+https://x.com/brivael/status/2069182900990570843</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/8-the-great-liquidation.mp3" length="19545158" type="audio/mpeg" />
+      <guid>2026-06-23-8-the-great-liquidation</guid>
+      <link>https://x.com/brivael/status/2069182900990570843</link>
+      <pubDate>Tue, 23 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>13:34</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>8</itunes:episode>
+      <itunes:summary>Brivael Le Pogam makes the case that corporate "bullshit" — middle management, bureaucracy, and status games — is a 70-year equilibrium that AI is about to liquidate by collapsing the cost of coordination. He warns founders never to wire their startups into legacy corporate structures that select for the wrong talent and culture.
+
+https://x.com/brivael/status/2069182900990570843</itunes:summary>
+      <itunes:keywords>corporate-bullshit,ai,coordination-costs,hierarchy,startups,builders,high-agency,liquidation,peter-principle,hayek,organizational-dna</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/8-the-great-liquidation.jpg" />
+    </item>
+<item>
       <title>Starfall</title>
       <description>Devon Eriksen describes the vision of 'Starfall' — asteroid mining, space manufacturing and full industrialization off-planet that will allow Earth to be reserved for living, farming and a high standard of living while heavy industry and its infrastructure moves to space where power is free and materials abundant.
 

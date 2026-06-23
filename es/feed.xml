@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Tue, 23 Jun 2026 02:16:06 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 17:27:39 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-    <item>
+        <item>
+      <title>La Gran Liquidación</title>
+      <description>Brivael Le Pogam argumenta que la "basura corporativa" — mandos intermedios, burocracia y juegos de estatus — es un equilibrio de 70 años que la IA está a punto de liquidar al colapsar el costo de la coordinación. Advierte a los fundadores que nunca integren sus startups en estructuras corporativas heredadas que seleccionan el talento y la cultura equivocados.
+
+https://x.com/brivael/status/2069182900990570843</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/06/8-la-gran-liquidacion.mp3" length="20745045" type="audio/mpeg" />
+      <guid>2026-06-23-8-la-gran-liquidacion</guid>
+      <link>https://x.com/brivael/status/2069182900990570843</link>
+      <pubDate>Tue, 23 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>14:24</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>8</itunes:episode>
+      <itunes:summary>Brivael Le Pogam argumenta que la "basura corporativa" — mandos intermedios, burocracia y juegos de estatus — es un equilibrio de 70 años que la IA está a punto de liquidar al colapsar el costo de la coordinación. Advierte a los fundadores que nunca integren sus startups en estructuras corporativas heredadas que seleccionan el talento y la cultura equivocados.
+
+https://x.com/brivael/status/2069182900990570843</itunes:summary>
+      <itunes:keywords>basura-corporativa,ia,costos-de-coordinacion,jerarquia,startups,constructores,alta-agencia,liquidacion,principio-de-peter,hayek,adn-organizacional</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/8-la-gran-liquidacion.jpg" />
+    </item>
+<item>
       <title>Starfall</title>
       <description>Devon Eriksen describe la visión de 'Starfall': la minería de asteroides, la manufactura espacial y la industrialización completa fuera del planeta, que permitirá reservar la Tierra para vivir, cultivar y disfrutar de un alto nivel de vida, mientras la industria pesada y su infraestructura se trasladan al espacio donde la energía es gratuita y los materiales abundantes.
 

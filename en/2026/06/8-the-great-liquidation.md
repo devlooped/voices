@@ -1,0 +1,76 @@
+---
+title: "The Great Liquidation"
+summary: "Brivael Le Pogam makes the case that corporate "bullshit" — middle management, bureaucracy, and status games — is a 70-year equilibrium that AI is about to liquidate by collapsing the cost of coordination. He warns founders never to wire their startups into legacy corporate structures that select for the wrong talent and culture."
+date: "2026-06-23"
+link: "https://x.com/brivael/status/2069182900990570843"
+author: "Brivael Le Pogam"
+---
+The Great Liquidation
+by Brivael Le Pogam, posted on June 22nd, 2026
+
+Why corporate bullshit has 3 to 5 years left to live ΓÇö and why you must never wire it into your startup
+Let me state the thesis dry, with no cushion:
+Corporate bullshit isn't going to be reformed. It's going to be liquidated.
+Not improved. Not "disrupted" in the soft, weightless sense of the word. Erased and replaced, on a 3-to-5-year horizon, by a kind of company most current executives are structurally incapable of imagining ΓÇö because they've spent their entire careers being its exact opposite.
+But before selling the future, one thing has to be understood, the thing almost everyone misses: bullshit was never a mistake. It was an equilibrium. And that's precisely why it held for 70 years, and why its collapse, when it comes, will be violent.
+I. Bullshit wasn't stupidity. It was a technology.
+The modern large company wasn't designed on lies out of malice. It was designed on lies because the truth was too expensive to move around.
+Coase understood this back in 1937: a firm exists to internalize what the market coordinates badly. You build a hierarchy because coordinating 10,000 people through individual contracts is impossible. But coordinating through hierarchy has a price ΓÇö and that price is exactly the bullshit.
+Hayek described the problem without naming it that way: useful information is dispersed, local, non-transferable. Inside a large structure, pushing that information up and down the floors requires an army. That army is middle management. These people produce nothing. They are the price paid for coordination in a world without AI.
+Once you see that, the entire folklore explains itself mechanically:
+The Peter Principle isn't a moral accident. In a hierarchy that promotes on competence, everyone rises until they hit their level of incompetence ΓÇö it's arithmetic, not tragedy.
+Parkinson's Law: work expands to fill the time available, and bureaucracy grows independently of the actual work to be done.
+Bullshit jobs (Graeber): entire roles that exist only to maintain hierarchy, signal status, occupy the void.
+Companies that survive on regulation rather than product: the strongest moat of the 20th century wasn't quality, it was regulatory capture. Stigler, public choice, capture of the regulator. You don't win because you're better. You win because you bought the rules of the game.
+Bullshit was the stable equilibrium of a given technological regime. That's why it was so hard to kill: it wasn't a bug, it was the optimal solution to the coordination problem of its era.
+Hold onto this. It's the key to everything else: you don't kill an equilibrium with willpower. You kill it by changing the technology underneath it.
+II. Why it breaks now (and not in the umpteenth hollow prediction)
+Bullshit has survived all its own obituaries. Flat management, holacracy, "the future of work" ΓÇö all fads that bounced off the wall, because they attacked the symptom without touching the cause. They asked the hierarchy to be less hierarchical while keeping the exact problem that created it in the first place.
+This time is different, and the reason is simple: the coordination technology has actually changed.
+AI doesn't "replace jobs" the way the press tells it. It does something deeper and more surgical: it collapses the cost of coordination. The whole reason for 50 middle managers was to move information up and down. When agents move that information at near-zero cost, the org chart compresses. The tax Hayek described is now paid by machines.
+Add three forces hitting at the same time:
+Leverage per head explodes. What took an army now takes a small team. Twelve engineers shipping what used to require 300 people. The large company loses its only structural advantage: mass.
+Distribution is democratized. You no longer need the corporate machine ΓÇö sales force, media budget, institutional relationships ΓÇö to reach your market. The channel is open to whoever has taste.
+Talent routes around bullshit. The best people no longer want to play status games. And now they have the choice. Talent flees entropy the way water seeks the bottom.
+On the 3 to 5 years: read it less as a dated prophecy than as a forcing function. The exact date is secondary. What matters is the direction and the irreversibility: an equilibrium that held for 70 years is cracking because its technological foundation changed. And a cracking equilibrium doesn't crack linearly. It holds, it holds, it holds ΓÇö then it gives way all at once.
+III. What replaces it ΓÇö and why "fun" isn't an HR footnote
+Here's where most serious people check out. "Fun," "no politics" ΓÇö it sounds like ping-pong tables and Friday beers. It's the exact opposite. Performative fun (the ping-pong table, precisely) is the most cynical form of bullshit. Never confuse the two.
+Real fun is an alignment signal. When work is fun, it means one precise, measurable thing: the friction between the person and their output is near zero. High agency, low friction, flow state. The fun company isn't the one that bolts entertainment on top of the work. It's the one where the work itself is the reward ΓÇö because there's no longer a layer of bullshit between you and the thing you're building.
+"No politics" is even more misunderstood. Office politics isn't a character flaw in employees. It's a structural symptom. And here Girard hands you the scalpel: when the external goal is blurry and output becomes unmeasurable, people stop comparing themselves to the world and start comparing themselves to each other. Mimetic desire fills the void. Rivalry turns inward. Office politics is exactly that: mimicry thriving in the vacuum left by a goal that's no longer clear.
+The consequence is liberating: you don't fight politics with charters and values posted on a wall. You fight it by removing the vacuum. Clear external goal + measurable output = politics evaporates on its own, starved of oxygen. A startup with a clear enemy has no internal politics. The day the enemy gets blurry, mimetic rivalry falls back on the colleague next to you.
+So what replaces bullshit isn't "nice companies." It's:
+structures driven by the taste and judgment of a core that owns its subjectivity (that's the real post-AI moat ΓÇö not the tech, which commoditizes, but taste, which can't be copied);
+structures aligned by clarity of mission rather than policed by procedure;
+structures where fun isn't a perk but a diagnostic: if it's not fun, there's bullshit somewhere in the system, and that's a bug to debug.
+IV. The masterclass: why you must NEVER wire your startup into corporate bullshit
+Now the part that actually matters ΓÇö the one separating those who'll survive from those who think they're safe.
+The trap never shows up as a trap. It shows up as pragmatism. You raise money, and the VC wants a VP Sales "who's proven it at a big company." You sell to enterprise, and it needs compliance theater, slides, a ritualized sales cycle. Each decision, taken on its own, is reasonable. That's what makes the trap lethal: there's no single moment where you sell your soul. You rent it, a little, a thousand times, and one day you no longer hold the keys.
+And here's the truth that has to be hammered in:
+A culture doesn't revert. Or it reverts so hard it never does, in practice.
+Why? Because most people believe culture is what's written on the wall. It's false. Culture is downstream of selection. Culture is who you hire, who that person hires in turn, and what all those people reward.
+Follow the chain:
+You optimize your young company for the bullshit metric (because that's what raises, or sells to early enterprise).
+To win that metric, you select people who are good at bullshit. Logical: they're the best on the field you chose.
+Those people, in turn, hire in their own image ΓÇö because that's what we do, we hire the profiles we know how to evaluate. They filter out, at the door, exactly the weird high-taste builders you'll need for the product of the future.
+The company becomes a machine for reproducing bullshit. Not out of malice. Out of selection. It's organizational genetics.
+This is where your sharpest point lands, and your truest: the trap of the first hundred million.
+Once you've made your first hundred million on corporate bullshit, you can't go back. Not out of cowardice ΓÇö out of structure. Your revenue now depends on the bullshit motion (theatrical selling, dependence on regulation, institutional cycles). Your shareholders expect it and have priced it in. Your employees are excellent at that specific game ΓÇö that's why you kept them. Reverting the culture would mean destroying the very thing that pays everyone at the end of the month.
+You're locked in. And the lock isn't financial, it's anthropological: to change the culture you'd have to re-select the entire organization. Fire the immune system that rejects precisely the talent you need. Nearly impossible past a certain size.
+Which gives the most counterintuitive conclusion in the whole thesis:
+A company wired into corporate bullshit doesn't become bad at product. It becomes structurally incapable of cool product.
+Not for lack of talent ΓÇö through the selection of talent. Its hiring machine filters out, upstream and invisibly, exactly the people capable of building the product that resonates with the future. It has, literally, lost the organ. IBM, Oracle, nearly all of legacy enterprise: these aren't dumb companies. They're companies that optimized their DNA for a world that no longer exists, and can no longer mutate.
+It's the organizational version of inverted antifragility: with each shock, they rigidify instead of learning.
+V. Where the thesis breaks (because a masterclass with no steelman is itself bullshit)
+If I sell you this without the flaws, I'm pulling the exact move this thesis condemns. So here, honestly, is where it bends:
+"Bullshit has survived all its obituaries. Why this time?" This is the strongest objection, and the only valid answer is the one from Section II: because this time the coordination technology really changed. If that isn't true, the thesis falls. Everything rests there.
+Some bullshit is load-bearing. Not all compliance is theater. In healthcare, finance, nuclear, much of the "heaviness" is real safety, written in blood. The risk is mistaking load-bearing for decorative and tearing out a structural wall thinking you're removing a partition. Chesterton's fence: before you take down the barrier, understand why someone put it up.
+Forced fun is the worst bullshit there is. If "fun company" becomes a new norm to signal, we'll just have swapped one theater for another ΓÇö the theater of mandatory casualness, which is even more dishonest. Fun as diagnostic (Section III), yes. Fun as a posted value, that's the ping-pong wall.
+3 to 5 years is aggressive. Regime transitions are non-linear: we always overestimate short-term speed and underestimate long-term magnitude. The date is a forcing function, not a forecast. Take the direction as certain and the timing as a wide band.
+This section doesn't weaken the thesis. It makes it defensible. A Taleb-compatible founder doesn't trust an argument with no edges.
+VI. The only choice that matters
+Here's what nobody tells you early enough: you're choosing your culture's DNA right now. Not in two years. Now. In your first 10 hires. In your first 10 customers. In the first metric you decide to optimize.
+Each of those decisions looks reversible. None of them really is. Culture is the most path-dependent variable in a company ΓÇö more than the code, more than the cap table. Code gets rewritten. Culture doesn't.
+So the question isn't "will corporate bullshit die?" It will die; that's mechanics, not opinion.
+The real question is: when the liquidation wave hits, will you be the thing that replaces ΓÇö or the thing that gets replaced?
+And that answer, you're writing it right now, line by line, hire by hire, this very moment.
+Choose the future. While you still can.
