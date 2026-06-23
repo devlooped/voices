@@ -28,29 +28,90 @@
   </header>
   <table>
     <thead><tr><th>#</th><th>Title</th><th>Audio</th></tr></thead>
-    <tbody>
-                        <tr>
-        <td>4</td>
-        <td><a href="2026/06/4-es-hora-de-celebrar-a-elon-musk.md">Es hora de celebrar a Elon Musk</a><br><small>2026-06-22 - By Bill Ackman (@BillAckman)</small></td>
-        <td><audio controls src="2026/06/4-es-hora-de-celebrar-a-elon-musk.mp3"></audio></td>
-      </tr>
-<tr>
-        <td>3</td>
-        <td><a href="2026/06/3-por-que-los-medios-demonizan-a-elon-musk.md">Por qué Elon Musk es odiado y demonizado por los medios</a><br><small>2026-06-22 — By Brivael Le Pogam (@brivael)</small></td>
-        <td><audio controls src="2026/06/3-por-que-los-medios-demonizan-a-elon-musk.mp3"></audio></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td><a href="2026/04/2-esperanza-el-futuro-es-radiante.md">Esperanza: El futuro es radiante</a><br><small>2026-04-03 — By Brivael Le Pogam (@brivael)</small></td>
-        <td><audio controls src="2026/04/2-esperanza-el-futuro-es-radiante.mp3"></audio></td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td><a href="2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.md">SpaceX: No fue una OPV, fue un referéndum</a><br><small>2026-06-17 — By Brivael Le Pogam (@brivael)</small></td>
-        <td><audio controls src="2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.mp3"></audio></td>
-      </tr>
-    </tbody>
+    <tbody id="episodes"></tbody>
   </table>
+
+  <script id="podcast-data" type="application/json">
+{
+  "episodes": [
+    {
+      "md": "2026/06/4-es-hora-de-celebrar-a-elon-musk.md",
+      "n": 4,
+      "title": "Es hora de celebrar a Elon Musk",
+      "mp3": "2026/06/4-es-hora-de-celebrar-a-elon-musk.mp3",
+      "byline": "By Bill Ackman (@BillAckman)",
+      "date": "2026-06-22"
+    },
+    {
+      "md": "2026/06/3-por-que-los-medios-demonizan-a-elon-musk.md",
+      "n": 3,
+      "title": "Por qué Elon Musk es odiado y demonizado por los medios",
+      "mp3": "2026/06/3-por-que-los-medios-demonizan-a-elon-musk.mp3",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "date": "2026-06-22"
+    },
+    {
+      "md": "2026/04/2-esperanza-el-futuro-es-radiante.md",
+      "n": 2,
+      "title": "Esperanza: El futuro es radiante",
+      "mp3": "2026/04/2-esperanza-el-futuro-es-radiante.mp3",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "date": "2026-04-03"
+    },
+    {
+      "md": "2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.md",
+      "n": 1,
+      "title": "SpaceX: No fue una OPV, fue un referéndum",
+      "mp3": "2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.mp3",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "date": "2026-06-17"
+    }
+  ],
+  "title": "Voces de X",
+  "description": "Publicaciones y artículos seleccionados de la comunidad de X."
+}
+
+  </script>
+
+  <script>
+    (function() {
+      const dataEl = document.getElementById('podcast-data');
+      const data = JSON.parse(dataEl.textContent);
+      const tbody = document.getElementById('episodes');
+      tbody.innerHTML = '';
+
+      data.episodes.forEach(function(ep) {
+        const tr = document.createElement('tr');
+
+        const numTd = document.createElement('td');
+        numTd.textContent = ep.n;
+        tr.appendChild(numTd);
+
+        const titleTd = document.createElement('td');
+        const a = document.createElement('a');
+        a.href = ep.md;
+        a.textContent = ep.title;
+        titleTd.appendChild(a);
+
+        const br = document.createElement('br');
+        titleTd.appendChild(br);
+
+        const small = document.createElement('small');
+        small.textContent = ep.date + ' — ' + ep.byline;
+        titleTd.appendChild(small);
+
+        tr.appendChild(titleTd);
+
+        const audioTd = document.createElement('td');
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.src = ep.mp3;
+        audioTd.appendChild(audio);
+        tr.appendChild(audioTd);
+
+        tbody.appendChild(tr);
+      });
+    })();
+  </script>
 </body>
 </html>
-

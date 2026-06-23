@@ -1,0 +1,38 @@
+{
+  "episodes": [
+    {
+      "md": "2026/06/4-es-hora-de-celebrar-a-elon-musk.md",
+      "n": 4,
+      "title": "Es hora de celebrar a Elon Musk",
+      "mp3": "2026/06/4-es-hora-de-celebrar-a-elon-musk.mp3",
+      "byline": "By Bill Ackman (@BillAckman)",
+      "date": "2026-06-22"
+    },
+    {
+      "md": "2026/06/3-por-que-los-medios-demonizan-a-elon-musk.md",
+      "n": 3,
+      "title": "Por qué Elon Musk es odiado y demonizado por los medios",
+      "mp3": "2026/06/3-por-que-los-medios-demonizan-a-elon-musk.mp3",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "date": "2026-06-22"
+    },
+    {
+      "md": "2026/04/2-esperanza-el-futuro-es-radiante.md",
+      "n": 2,
+      "title": "Esperanza: El futuro es radiante",
+      "mp3": "2026/04/2-esperanza-el-futuro-es-radiante.mp3",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "date": "2026-04-03"
+    },
+    {
+      "md": "2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.md",
+      "n": 1,
+      "title": "SpaceX: No fue una OPV, fue un referéndum",
+      "mp3": "2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.mp3",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "date": "2026-06-17"
+    }
+  ],
+  "title": "Voces de X",
+  "description": "Publicaciones y artículos seleccionados de la comunidad de X."
+}

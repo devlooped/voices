@@ -28,30 +28,89 @@
   </header>
   <table>
     <thead><tr><th>#</th><th>Title</th><th>Audio</th></tr></thead>
-    <tbody>
-                        <tr>
-        <td>4</td>
-        <td><a href="2026/06/4-its-time-to-celebrate-elon-musk.md">It's Time to Celebrate Elon Musk</a><br><small>2026-06-22 — By Bill Ackman (@BillAckman)</small></td>
-        <td><audio controls src="2026/06/4-its-time-to-celebrate-elon-musk.mp3"></audio></td>
-      </tr>
-<tr>
-        <td>3</td>
-        <td><a href="2026/06/3-why-the-media-demonizes-elon-musk.md">Why Elon Musk Is Hated and Demonized by the Media</a><br><small>2026-06-22 — By Brivael Le Pogam (@brivael)</small></td>
-        <td><audio controls src="2026/06/3-why-the-media-demonizes-elon-musk.mp3"></audio></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td><a href="2026/04/2-hope-the-future-is-bright.md">Hope: The Future Is Bright</a><br><small>2026-04-03 — By Brivael Le Pogam (@brivael)</small></td>
-        <td><audio controls src="2026/04/2-hope-the-future-is-bright.mp3"></audio></td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td><a href="2026/06/1-spacex-not-an-ipo-its-a-referendum.md">SpaceX: Not an IPO — It's a Referendum</a><br><small>2026-06-17 — By Brivael Le Pogam (@brivael)</small></td>
-        <td><audio controls src="2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3"></audio></td>
-      </tr>
-    </tbody>
+    <tbody id="episodes"></tbody>
   </table>
+
+  <script id="podcast-data" type="application/json">
+{
+  "title": "Voices from X",
+  "description": "Selected long-form posts and articles from the X community.",
+  "episodes": [
+    {
+      "title": "It's Time to Celebrate Elon Musk",
+      "md": "2026/06/4-its-time-to-celebrate-elon-musk.md",
+      "byline": "By Bill Ackman (@BillAckman)",
+      "mp3": "2026/06/4-its-time-to-celebrate-elon-musk.mp3",
+      "n": 4,
+      "date": "2026-06-22"
+    },
+    {
+      "title": "Why Elon Musk Is Hated and Demonized by the Media",
+      "md": "2026/06/3-why-the-media-demonizes-elon-musk.md",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "mp3": "2026/06/3-why-the-media-demonizes-elon-musk.mp3",
+      "n": 3,
+      "date": "2026-06-22"
+    },
+    {
+      "title": "Hope: The Future Is Bright",
+      "md": "2026/04/2-hope-the-future-is-bright.md",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "mp3": "2026/04/2-hope-the-future-is-bright.mp3",
+      "n": 2,
+      "date": "2026-04-03"
+    },
+    {
+      "title": "SpaceX: Not an IPO — It's a Referendum",
+      "md": "2026/06/1-spacex-not-an-ipo-its-a-referendum.md",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "mp3": "2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3",
+      "n": 1,
+      "date": "2026-06-17"
+    }
+  ]
+}
+  </script>
+
+  <script>
+    (function() {
+      const dataEl = document.getElementById('podcast-data');
+      const data = JSON.parse(dataEl.textContent);
+      const tbody = document.getElementById('episodes');
+      tbody.innerHTML = '';
+
+      data.episodes.forEach(function(ep) {
+        const tr = document.createElement('tr');
+
+        const numTd = document.createElement('td');
+        numTd.textContent = ep.n;
+        tr.appendChild(numTd);
+
+        const titleTd = document.createElement('td');
+        const a = document.createElement('a');
+        a.href = ep.md;
+        a.textContent = ep.title;
+        titleTd.appendChild(a);
+
+        const br = document.createElement('br');
+        titleTd.appendChild(br);
+
+        const small = document.createElement('small');
+        small.textContent = ep.date + ' — ' + ep.byline;
+        titleTd.appendChild(small);
+
+        tr.appendChild(titleTd);
+
+        const audioTd = document.createElement('td');
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.src = ep.mp3;
+        audioTd.appendChild(audio);
+        tr.appendChild(audioTd);
+
+        tbody.appendChild(tr);
+      });
+    })();
+  </script>
 </body>
 </html>
-
-

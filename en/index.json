@@ -1,0 +1,38 @@
+{
+  "title": "Voices from X",
+  "description": "Selected long-form posts and articles from the X community.",
+  "episodes": [
+    {
+      "title": "It's Time to Celebrate Elon Musk",
+      "md": "2026/06/4-its-time-to-celebrate-elon-musk.md",
+      "byline": "By Bill Ackman (@BillAckman)",
+      "mp3": "2026/06/4-its-time-to-celebrate-elon-musk.mp3",
+      "n": 4,
+      "date": "2026-06-22"
+    },
+    {
+      "title": "Why Elon Musk Is Hated and Demonized by the Media",
+      "md": "2026/06/3-why-the-media-demonizes-elon-musk.md",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "mp3": "2026/06/3-why-the-media-demonizes-elon-musk.mp3",
+      "n": 3,
+      "date": "2026-06-22"
+    },
+    {
+      "title": "Hope: The Future Is Bright",
+      "md": "2026/04/2-hope-the-future-is-bright.md",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "mp3": "2026/04/2-hope-the-future-is-bright.mp3",
+      "n": 2,
+      "date": "2026-04-03"
+    },
+    {
+      "title": "SpaceX: Not an IPO — It's a Referendum",
+      "md": "2026/06/1-spacex-not-an-ipo-its-a-referendum.md",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "mp3": "2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3",
+      "n": 1,
+      "date": "2026-06-17"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 name: podcast
-description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder (yyyy/MM = current date), translate if needed, determine title (prefer post's `data.article.title` if present, else generate) + summary (ending with original post URL on last line) + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date=current/link/author-name-only + spoken content with localized byline using the X post date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, embed ID3v2.3 tags (title/artist/album/comment/track/date/genre) via ffmpeg -c copy, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image; item pubDate = current date), and maintain lang/index.json (episodes data) + a lightweight index.html template that loads the JSON (via JS or a small data-binding library such as Knockout.js) to render the episode table + local audio players. Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
+description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder (yyyy/MM = current date), translate if needed, determine title (prefer post's `data.article.title` if present, else generate) + summary (ending with original post URL on last line) + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date=current/link/author-name-only + spoken content with localized byline using the X post date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, embed ID3v2.3 tags (title/artist/album/comment/track/date/genre) via ffmpeg -c copy, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image; item pubDate = current date), and maintain lang/index.json (episodes data) + a lightweight self-contained index.html template. The data is embedded inside the HTML as a JSON data island (`<script type="application/json" id="podcast-data">`) so the page works when opened directly from the filesystem (no local HTTP server or fetch required). A small vanilla JS snippet renders the newest-first table + audio players from the embedded data. Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
 ---
 
 # Podcast — X Post to Multi-Language Local Episode Generator
@@ -30,7 +30,7 @@ When finished, all of the following must be true:
      - Accurate `itunes:duration`, file length, MIME `audio/mpeg`
      - `<itunes:image>` (for the per-language copy of the episode artwork jpg)
    - `<lang>/index.json` exists with the full episode list (newest/highest N first) as simple data.
-   - `<lang>/index.html` is a lightweight template (header + table skeleton + script) that uses Knockout.js (referenced directly via CDN, e.g. cdnjs) for data-binding to render the newest-first table + HTML5 `<audio controls>` players from `index.json`. The template is created once (or when its structure changes); subsequent episodes only require updating the JSON.
+   - `<lang>/index.html` is a lightweight self-contained template. The episode data is embedded inside it as a JSON data island so the page renders the newest-first table + HTML5 `<audio controls>` players when opened directly from the filesystem (no server/fetch needed). A small vanilla JS block builds the rows from the embedded data. The template is created/updated only when its structure changes; subsequent episodes primarily require updating `index.json`.
 3. GUIDs are always `yyyy-MM-dd-N-slug` (date prefix = **`$episodeDate`**, not `$postDate`).
 4. Channel `lastBuildDate` is set to current GMT; per-item `pubDate` uses the **episode date** (today — not the X post's `created_at`), so feed ordering matches episode number (higher N = newer pubDate).
 5. No Azure upload, no git operations, and no remote changes occurred. All artifacts are local and ready for the upload skill.
@@ -44,7 +44,7 @@ When finished, all of the following must be true:
 ```
 <lang>/
   feed.xml
-  index.html          # lightweight KO-bound template (stable)
+  index.html          # lightweight self-contained template (data island + vanilla JS)
   index.json          # episode list data (updated on each new episode)
   logo.jpg
   cover.png
@@ -144,7 +144,7 @@ When the user asks to re-render/regen MP3s for existing `.md` files (no new X fe
     - [ ] Embed ID3v2.3 tags (§4.6) into final .mp3; verify file starts with `ID3` magic bytes
     - [ ] Probe duration/size with ffprobe (after tagging — file size includes ID3 header)
     - [ ] Update <lang>/feed.xml (prepend item + itunes:image + current lastBuildDate)
-    - [ ] Update <lang>/index.json with the episode list data (newest first); ensure the lightweight Knockout-bound index.html template exists (created once via CDN reference for KO)
+    - [ ] Update <lang>/index.json with the episode list data (newest first). Ensure the lightweight index.html template exists and contains the current data embedded as a JSON data island (for direct filesystem open). The template rarely changes.
 - [ ] Report episode details + future blob URLs per language
 - [ ] Confirm zero upload / git activity
 ```
@@ -573,14 +573,22 @@ Do **not** change the per-item pubDates.
 
 Do **not** add `<podcast:transcript>` tags — Spotify does not consume them for this feed.
 
-### 4.8 Maintain <lang>/index.json + lightweight index.html template
+### 4.8 Maintain <lang>/index.json + lightweight self-contained index.html
 
 The old approach of fully regenerating `<lang>/index.html` (embedding every row in HTML on every episode) is suboptimal. Instead:
 
 - Maintain a small **index.json** (the data) that is updated for every new episode.
-- The **index.html** is a mostly-static template (header + table shell + minimal script) that references Knockout.js directly via CDN (no local clone) and uses data-binding (or simple JS + KO observableArray) to render the table from `index.json`.
+- The **index.html** is a mostly-static template. To support opening the file directly from the filesystem (`file://`, no local server), the current episode data is embedded inside the HTML itself as a JSON data island:
 
-**Benefits:** Adding an episode is now just a quick JSON update (append/prepend the new episode object). The HTML template rarely changes.
+  ```html
+  <script id="podcast-data" type="application/json">
+  { ... the full index.json content ... }
+  </script>
+  ```
+
+- A tiny vanilla JavaScript block (no `fetch`, no external libraries required) reads the embedded JSON and builds the table rows + `<audio controls>` elements.
+
+**Benefits:** Adding an episode is now just a quick JSON update. The HTML template is stable and works when double-clicked directly.
 
 **index.json shape (example):**
 ```json
@@ -602,7 +610,7 @@ The old approach of fully regenerating `<lang>/index.html` (embedding every row 
 ```
 
 **How to build the data:**
-- After writing the new `<N>-<slug>.md`, scan `<lang>/<yyyy>/<MM>/` (or all year/month subdirs) for `*-*.md` files (or parse the just-updated `feed.xml` items).
+- After writing the new `<N>-<slug>.md`, scan `<lang>/<yyyy>/<MM>/` (or all year/month subdirs) for `*-*.md` files (or parse the just-updated `feed.xml` items for order + metadata).
 - For each episode derive:
   - `n` and slug from the filename (or guid)
   - `title`, `date`, `author` from the episode `.md` YAML frontmatter
@@ -610,9 +618,10 @@ The old approach of fully regenerating `<lang>/index.html` (embedding every row 
   - relative `md` and `mp3` paths (e.g. `2026/06/4-slug.md`)
 - Sort newest first (by episode date desc + N desc).
 - Write the whole object as `<lang>/index.json` (pretty-printed UTF-8).
+- Also embed the same JSON inside the `<script id="podcast-data" type="application/json">` tag in `index.html`.
 
 **index.html template (create once if missing, or overwrite when template changes):**
-Use the existing header + CSS structure. Add a CDN reference to KO and bind the table:
+Use the existing header + CSS. Embed the data and use vanilla JS to render:
 
 ```html
 <!doctype html>
@@ -639,44 +648,62 @@ Use the existing header + CSS structure. Add a CDN reference to KO and bind the 
   <header class="site-header">
     <img src="logo.jpg" alt="" class="logo">
     <div>
-      <h1 data-bind="text: title">Voices from X</h1>
-      <p data-bind="text: description">Selected long-form posts and articles from the X community.</p>
+      <h1>Voices from X</h1>
+      <p>Selected long-form posts and articles from the X community.</p>
     </div>
   </header>
   <table>
     <thead><tr><th>#</th><th>Title</th><th>Audio</th></tr></thead>
-    <tbody data-bind="foreach: episodes">
-      <tr>
-        <td data-bind="text: n"></td>
-        <td>
-          <a data-bind="attr: { href: md }, text: title"></a><br>
-          <small data-bind="text: date + ' — ' + byline"></small>
-        </td>
-        <td><audio controls data-bind="attr: { src: mp3 }"></audio></td>
-      </tr>
-    </tbody>
+    <tbody id="episodes"></tbody>
   </table>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-min.js"></script>
+  <script id="podcast-data" type="application/json">
+__DATA__
+  </script>
+
   <script>
-    (async () => {
-      const res = await fetch('./index.json');
-      const data = await res.json();
-      const vm = {
-        title: data.title,
-        description: data.description,
-        episodes: ko.observableArray(data.episodes)
-      };
-      ko.applyBindings(vm);
+    (function() {
+      const dataEl = document.getElementById('podcast-data');
+      const data = JSON.parse(dataEl.textContent);
+      const tbody = document.getElementById('episodes');
+      tbody.innerHTML = '';
+
+      data.episodes.forEach(function(ep) {
+        const tr = document.createElement('tr');
+
+        const numTd = document.createElement('td');
+        numTd.textContent = ep.n;
+        tr.appendChild(numTd);
+
+        const titleTd = document.createElement('td');
+        const a = document.createElement('a');
+        a.href = ep.md;
+        a.textContent = ep.title;
+        titleTd.appendChild(a);
+        titleTd.appendChild(document.createElement('br'));
+        const small = document.createElement('small');
+        small.textContent = ep.date + ' — ' + ep.byline;
+        titleTd.appendChild(small);
+        tr.appendChild(titleTd);
+
+        const audioTd = document.createElement('td');
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.src = ep.mp3;
+        audioTd.appendChild(audio);
+        tr.appendChild(audioTd);
+
+        tbody.appendChild(tr);
+      });
     })();
   </script>
 </body>
 </html>
 ```
 
-(Adapt the `lang` attribute, initial h1/p text, and any es-specific strings for the es/ version. The CDN reference for Knockout is direct — no local file is cloned.)
+(Replace `__DATA__` with the actual pretty-printed JSON when writing. Adapt the `lang` attribute and static header text for the es/ version. The page is fully self-contained.)
 
-Re-scan the language tree (or the updated feed) and re-write `index.json` after every new episode. The template itself stays stable.
+Re-scan the language tree (or the updated feed) and re-write both `index.json` and the data island inside `index.html` after every new episode. The rest of the template stays stable.
 
 This file is never uploaded to the podcast feed; it is for human convenience when testing locally.
 
@@ -691,7 +718,7 @@ For each language report:
 - Episode number N and GUID
 - Title + summary + keywords
 - Paths to .md, .mp3 (and .jpg for the artwork if generated)
-- Path to updated feed.xml, index.json and index.html (KO template via CDN)
+- Path to updated feed.xml, index.json and index.html (with embedded data island)
 - Future blob enclosure URL for mp3 (and jpg image URL)
 - Author gender / voice chosen
 - The imagine prompt that was used (if any, always English) and the artwork source: "X article cover photo (center-cropped to square)" or "generated via /imagine" (or none)
@@ -708,8 +735,8 @@ Confirm that only local files were created/modified and nothing was uploaded or 
 Agent:
 1. Fetches post with xurl, archives original to `posts/2026-06-18-1234567890123456789.md` (archive date = X post date; episode folder/pubDate would use today, e.g. `2026/06/` if generating on June 22nd)
 2. Infers author gender (e.g. male)
-3. For the first language processed: determines episode title (uses post's `data.article.title` / `$postTitle` localized if present; otherwise generates via LLM), generates summary/keywords; if no cover photo has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media`, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md (`author` = name only; spoken byline uses long-form localized date per §4.4), chunks + synthesizes + ffmpeg-merges .mp3, updates its feed (incl. itunes:image) + index.json (the index.html template using KO via CDN is created/ensured once).
-4. For subsequent languages: translate as needed, determine title from post if present (localized) or generate title/summary/keywords (3-field or reduced, no imagine since artwork already determined), copy the same artwork jpg using the language-specific slug next to the mp3, write .md + chunked .mp3 + .jpg, update feed + index.html.
+3. For the first language processed: determines episode title (uses post's `data.article.title` / `$postTitle` localized if present; otherwise generates via LLM), generates summary/keywords; if no cover photo has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media`, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md (`author` = name only; spoken byline uses long-form localized date per §4.4), chunks + synthesizes + ffmpeg-merges .mp3, updates its feed (incl. itunes:image) + index.json (and the data island inside the index.html template).
+4. For subsequent languages: translate as needed, determine title from post if present (localized) or generate title/summary/keywords (3-field or reduced, no imagine since artwork already determined), copy the same artwork jpg using the language-specific slug next to the mp3, write .md + chunked .mp3 + .jpg, update feed + index.json (and the data island inside the index.html template).
 5. Reports everything (including per-lang jpg paths + image blob URLs); all local.
 
 **Re-render existing episode:**
@@ -770,7 +797,7 @@ Always insert newest item first.
 | ffmpeg concat fails | Use `concat.txt` with `file 'path/with/forward/slashes'` and `-safe 0`. All parts must share the same codec/format (identical `--format` on every synthesize call). |
 | Feed validation: `No ID3v2 headers found` / `Could not detect bitrate mode` | Azure output lacks ID3. Run §4.6 `Add-EpisodeId3Tags` with `ffmpeg -c copy -id3v2_version 3`, then re-probe size and update enclosure `length`. |
 | Wrong episode number | Check that feed parsing looks only at items with matching `itunes:season` year. When the feed has no `<item>` yet, N=1. |
-| index.json (or index.html) stale | Re-write index.json from the current episodes (scan dirs or feed) and ensure the KO-bound index.html template is present |
+| index.json (or index.html) stale | Re-write index.json from the current episodes (scan dirs or feed) and embed the data inside the index.html template as a JSON data island |
 | Secret leakage risk | Never pass --bearer* etc.; never cat ~/.xurl |
 | `ls -la`, `cat`, Unix pipes failing | This is PowerShell on Windows (pwsh). Prefer `Get-ChildItem`, `Get-Content`, `Out-File`, `Select-String`. |
 
