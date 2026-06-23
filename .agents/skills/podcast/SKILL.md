@@ -1,6 +1,6 @@
 ---
 name: podcast
-description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder (yyyy/MM = current date), translate if needed, determine title (prefer post's `data.article.title` if present, else generate) + summary (ending with original post URL on last line) + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date=current/link/author-name-only + spoken content with localized byline using the X post date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, embed ID3v2.3 tags (title/artist/album/comment/track/date/genre) via ffmpeg -c copy, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image; item pubDate = current date), and maintain lang/index.html (episode table + local audio players). Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
+description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder (yyyy/MM = current date), translate if needed, determine title (prefer post's `data.article.title` if present, else generate) + summary (ending with original post URL on last line) + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date=current/link/author-name-only + spoken content with localized byline using the X post date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, embed ID3v2.3 tags (title/artist/album/comment/track/date/genre) via ffmpeg -c copy, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image; item pubDate = current date), and maintain lang/index.json (episodes data) + a lightweight index.html template that loads the JSON (via JS or a small data-binding library such as Knockout.js) to render the episode table + local audio players. Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
 ---
 
 # Podcast — X Post to Multi-Language Local Episode Generator
@@ -29,7 +29,8 @@ When finished, all of the following must be true:
      - `itunes:season` = episode year (today), `itunes:episode` = N (per-language TV-series numbering)
      - Accurate `itunes:duration`, file length, MIME `audio/mpeg`
      - `<itunes:image>` (for the per-language copy of the episode artwork jpg)
-   - `<lang>/index.html` exists or is updated with a simple table of episodes (newest/highest N first) including HTML5 `<audio controls>` players for local testing.
+   - `<lang>/index.json` exists with the full episode list (newest/highest N first) as simple data.
+   - `<lang>/index.html` is a lightweight template (header + table skeleton + script) that uses Knockout.js (referenced directly via CDN, e.g. cdnjs) for data-binding to render the newest-first table + HTML5 `<audio controls>` players from `index.json`. The template is created once (or when its structure changes); subsequent episodes only require updating the JSON.
 3. GUIDs are always `yyyy-MM-dd-N-slug` (date prefix = **`$episodeDate`**, not `$postDate`).
 4. Channel `lastBuildDate` is set to current GMT; per-item `pubDate` uses the **episode date** (today — not the X post's `created_at`), so feed ordering matches episode number (higher N = newer pubDate).
 5. No Azure upload, no git operations, and no remote changes occurred. All artifacts are local and ready for the upload skill.
@@ -43,7 +44,8 @@ When finished, all of the following must be true:
 ```
 <lang>/
   feed.xml
-  index.html
+  index.html          # lightweight KO-bound template (stable)
+  index.json          # episode list data (updated on each new episode)
   logo.jpg
   cover.png
   <yyyy>/
@@ -142,7 +144,7 @@ When the user asks to re-render/regen MP3s for existing `.md` files (no new X fe
     - [ ] Embed ID3v2.3 tags (§4.6) into final .mp3; verify file starts with `ID3` magic bytes
     - [ ] Probe duration/size with ffprobe (after tagging — file size includes ID3 header)
     - [ ] Update <lang>/feed.xml (prepend item + itunes:image + current lastBuildDate)
-    - [ ] Update <lang>/index.html (newest-first table + <audio> players)
+    - [ ] Update <lang>/index.json with the episode list data (newest first); ensure the lightweight Knockout-bound index.html template exists (created once via CDN reference for KO)
 - [ ] Report episode details + future blob URLs per language
 - [ ] Confirm zero upload / git activity
 ```
@@ -571,38 +573,110 @@ Do **not** change the per-item pubDates.
 
 Do **not** add `<podcast:transcript>` tags — Spotify does not consume them for this feed.
 
-### 4.8 Update <lang>/index.html
+### 4.8 Maintain <lang>/index.json + lightweight index.html template
 
-Create or overwrite `<lang>/index.html` with a minimal, self-contained page for local testing:
+The old approach of fully regenerating `<lang>/index.html` (embedding every row in HTML on every episode) is suboptimal. Instead:
 
-- Header row with `<lang>/logo.jpg` at the top-left, to the left of the podcast title and description from `[podcast.<lang>]` in `voices.toml`.
-- Table (newest first): Episode | Title | `<audio controls src="relative/path/to/<N>-<slug>.mp3">`
-- Scan the year/month subdirs or parse the just-updated feed.xml to keep the list accurate.
-- Use this header markup (title/description from config; logo path is always `logo.jpg` relative to `<lang>/index.html`):
+- Maintain a small **index.json** (the data) that is updated for every new episode.
+- The **index.html** is a mostly-static template (header + table shell + minimal script) that references Knockout.js directly via CDN (no local clone) and uses data-binding (or simple JS + KO observableArray) to render the table from `index.json`.
+
+**Benefits:** Adding an episode is now just a quick JSON update (append/prepend the new episode object). The HTML template rarely changes.
+
+**index.json shape (example):**
+```json
+{
+  "title": "Voices from X",
+  "description": "Selected long-form posts and articles from the X community.",
+  "episodes": [
+    {
+      "n": 4,
+      "title": "It's Time to Celebrate Elon Musk",
+      "date": "2026-06-22",
+      "byline": "By Bill Ackman (@BillAckman)",
+      "md": "2026/06/4-its-time-to-celebrate-elon-musk.md",
+      "mp3": "2026/06/4-its-time-to-celebrate-elon-musk.mp3"
+    }
+    /* ... older episodes, newest first */
+  ]
+}
+```
+
+**How to build the data:**
+- After writing the new `<N>-<slug>.md`, scan `<lang>/<yyyy>/<MM>/` (or all year/month subdirs) for `*-*.md` files (or parse the just-updated `feed.xml` items).
+- For each episode derive:
+  - `n` and slug from the filename (or guid)
+  - `title`, `date`, `author` from the episode `.md` YAML frontmatter
+  - `byline` as `By ${author} (@${handle})` (derive handle from the `link` URL in frontmatter)
+  - relative `md` and `mp3` paths (e.g. `2026/06/4-slug.md`)
+- Sort newest first (by episode date desc + N desc).
+- Write the whole object as `<lang>/index.json` (pretty-printed UTF-8).
+
+**index.html template (create once if missing, or overwrite when template changes):**
+Use the existing header + CSS structure. Add a CDN reference to KO and bind the table:
 
 ```html
-<header class="site-header">
-  <img src="logo.jpg" alt="" class="logo">
-  <div>
-    <h1><!-- podcast title --></h1>
-    <p><!-- podcast description --></p>
-  </div>
-</header>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voices from X</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; background: #111; color: #eee; }
+    table { border-collapse: collapse; width: 100%; max-width: 900px; table-layout: fixed; }
+    th, td { padding: 0.5rem; border-bottom: 1px solid #333; text-align: left; vertical-align: middle; }
+    th:first-child, td:first-child { width: 3rem; }
+    th:last-child, td:last-child { width: 360px; }
+    audio { display: block; width: 100%; min-height: 40px; }
+    a { color: #8cf; }
+    .site-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .site-header .logo { width: 64px; height: 64px; flex-shrink: 0; }
+    .site-header h1 { margin: 0; }
+    .site-header p { margin: 0.25rem 0 0; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <img src="logo.jpg" alt="" class="logo">
+    <div>
+      <h1 data-bind="text: title">Voices from X</h1>
+      <p data-bind="text: description">Selected long-form posts and articles from the X community.</p>
+    </div>
+  </header>
+  <table>
+    <thead><tr><th>#</th><th>Title</th><th>Audio</th></tr></thead>
+    <tbody data-bind="foreach: episodes">
+      <tr>
+        <td data-bind="text: n"></td>
+        <td>
+          <a data-bind="attr: { href: md }, text: title"></a><br>
+          <small data-bind="text: date + ' — ' + byline"></small>
+        </td>
+        <td><audio controls data-bind="attr: { src: mp3 }"></audio></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-min.js"></script>
+  <script>
+    (async () => {
+      const res = await fetch('./index.json');
+      const data = await res.json();
+      const vm = {
+        title: data.title,
+        description: data.description,
+        episodes: ko.observableArray(data.episodes)
+      };
+      ko.applyBindings(vm);
+    })();
+  </script>
+</body>
+</html>
 ```
 
-- Use this CSS so the native `<audio controls>` player stays full-size (reserve the Audio column width; `width: 100%` alone collapses the control in a narrow table cell):
+(Adapt the `lang` attribute, initial h1/p text, and any es-specific strings for the es/ version. The CDN reference for Knockout is direct — no local file is cloned.)
 
-```css
-.site-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-.site-header .logo { width: 64px; height: 64px; flex-shrink: 0; }
-.site-header h1 { margin: 0; }
-.site-header p { margin: 0.25rem 0 0; }
-table { border-collapse: collapse; width: 100%; max-width: 900px; table-layout: fixed; }
-th, td { padding: 0.5rem; border-bottom: 1px solid #333; text-align: left; vertical-align: middle; }
-th:first-child, td:first-child { width: 3rem; }
-th:last-child, td:last-child { width: 360px; }
-audio { display: block; width: 100%; min-height: 40px; }
-```
+Re-scan the language tree (or the updated feed) and re-write `index.json` after every new episode. The template itself stays stable.
 
 This file is never uploaded to the podcast feed; it is for human convenience when testing locally.
 
@@ -617,7 +691,7 @@ For each language report:
 - Episode number N and GUID
 - Title + summary + keywords
 - Paths to .md, .mp3 (and .jpg for the artwork if generated)
-- Path to updated feed.xml and index.html
+- Path to updated feed.xml, index.json and index.html (KO template via CDN)
 - Future blob enclosure URL for mp3 (and jpg image URL)
 - Author gender / voice chosen
 - The imagine prompt that was used (if any, always English) and the artwork source: "X article cover photo (center-cropped to square)" or "generated via /imagine" (or none)
@@ -634,7 +708,7 @@ Confirm that only local files were created/modified and nothing was uploaded or 
 Agent:
 1. Fetches post with xurl, archives original to `posts/2026-06-18-1234567890123456789.md` (archive date = X post date; episode folder/pubDate would use today, e.g. `2026/06/` if generating on June 22nd)
 2. Infers author gender (e.g. male)
-3. For the first language processed: determines episode title (uses post's `data.article.title` / `$postTitle` localized if present; otherwise generates via LLM), generates summary/keywords; if no cover photo has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media`, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md (`author` = name only; spoken byline uses long-form localized date per §4.4), chunks + synthesizes + ffmpeg-merges .mp3, updates its feed (incl. itunes:image) + index.html.
+3. For the first language processed: determines episode title (uses post's `data.article.title` / `$postTitle` localized if present; otherwise generates via LLM), generates summary/keywords; if no cover photo has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media`, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md (`author` = name only; spoken byline uses long-form localized date per §4.4), chunks + synthesizes + ffmpeg-merges .mp3, updates its feed (incl. itunes:image) + index.json (the index.html template using KO via CDN is created/ensured once).
 4. For subsequent languages: translate as needed, determine title from post if present (localized) or generate title/summary/keywords (3-field or reduced, no imagine since artwork already determined), copy the same artwork jpg using the language-specific slug next to the mp3, write .md + chunked .mp3 + .jpg, update feed + index.html.
 5. Reports everything (including per-lang jpg paths + image blob URLs); all local.
 
@@ -696,7 +770,7 @@ Always insert newest item first.
 | ffmpeg concat fails | Use `concat.txt` with `file 'path/with/forward/slashes'` and `-safe 0`. All parts must share the same codec/format (identical `--format` on every synthesize call). |
 | Feed validation: `No ID3v2 headers found` / `Could not detect bitrate mode` | Azure output lacks ID3. Run §4.6 `Add-EpisodeId3Tags` with `ffmpeg -c copy -id3v2_version 3`, then re-probe size and update enclosure `length`. |
 | Wrong episode number | Check that feed parsing looks only at items with matching `itunes:season` year. When the feed has no `<item>` yet, N=1. |
-| index.html stale | Re-run the language pass or manually re-scan dirs after adding episodes |
+| index.json (or index.html) stale | Re-write index.json from the current episodes (scan dirs or feed) and ensure the KO-bound index.html template is present |
 | Secret leakage risk | Never pass --bearer* etc.; never cat ~/.xurl |
 | `ls -la`, `cat`, Unix pipes failing | This is PowerShell on Windows (pwsh). Prefer `Get-ChildItem`, `Get-Content`, `Out-File`, `Select-String`. |
 
