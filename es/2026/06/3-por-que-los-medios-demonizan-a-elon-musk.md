@@ -1,11 +1,13 @@
 ---
-title: "Por qué los medios demonizan a Elon Musk"
-summary: "Brivael Le Pogam explica por qué la prensa demoniza a Elon Musk no a pesar de sus logros construyendo cohetes, autos eléctricos y conectividad global, sino precisamente porque estos logros exponen los sistemas de amiguismo y los guardianes que él evita."
+title: "Por qué Elon Musk es odiado y demonizado por los medios"
+summary: "Brivael Le Pogam explica por qué la prensa demoniza a Elon Musk no a pesar de sus logros construyendo cohetes, autos eléctricos y conectividad global, sino precisamente porque estos logros exponen los sistemas de amiguismo y los guardianes que él evita.
+
+https://x.com/brivael/status/2069203589692805440"
 date: "2026-06-22"
 link: "https://x.com/brivael/status/2069203589692805440"
 author: "Brivael Le Pogam"
 ---
-Por qué los medios demonizan a Elon Musk
+Por qué Elon Musk es odiado y demonizado por los medios
 por Brivael Le Pogam, publicado el 22 de Junio de 2026
 
 Hay un enigma en el centro de la vida pública moderna, y casi nadie lo dice en voz alta.

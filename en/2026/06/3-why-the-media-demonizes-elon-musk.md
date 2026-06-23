@@ -1,11 +1,13 @@
 ---
-title: "Why the Media Demonizes Elon Musk"
-summary: "Brivael Le Pogam explains why the press demonizes Elon Musk not despite his achievements building rockets, electric cars and global connectivity, but precisely because those achievements expose the crony systems and gatekeepers he bypasses."
+title: "Why Elon Musk Is Hated and Demonized by the Media"
+summary: "Brivael Le Pogam explains why the press demonizes Elon Musk not despite his achievements building rockets, electric cars and global connectivity, but precisely because those achievements expose the crony systems and gatekeepers he bypasses.
+
+https://x.com/brivael/status/2069203589692805440"
 date: "2026-06-22"
 link: "https://x.com/brivael/status/2069203589692805440"
 author: "Brivael Le Pogam"
 ---
-Why the Media Demonizes Elon Musk
+Why Elon Musk Is Hated and Demonized by the Media
 by Brivael Le Pogam, posted on June 22nd, 2026
 
 There is a riddle at the center of modern public life, and almost no one says it out loud.
