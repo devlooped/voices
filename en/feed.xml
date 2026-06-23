@@ -8,7 +8,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Fri, 19 Jun 2026 16:30:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 00:10:09 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -28,6 +28,21 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+        <item>
+      <title>Why the Media Demonizes Elon Musk</title>
+      <description>Brivael Le Pogam explains why the press demonizes Elon Musk not despite his achievements building rockets, electric cars and global connectivity, but precisely because those achievements expose the crony systems and gatekeepers he bypasses.</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/3-why-the-media-demonizes-elon-musk.mp3" length="16260383" type="audio/mpeg" />
+      <guid>2026-06-22-3-why-the-media-demonizes-elon-musk</guid>
+      <link>https://x.com/brivael/status/2069203589692805440</link>
+      <pubDate>Tue, 23 Jun 2026 00:10:09 GMT</pubDate>
+      <itunes:duration>11:17</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>3</itunes:episode>
+      <itunes:summary>Brivael Le Pogam explains why the press demonizes Elon Musk not despite his achievements building rockets, electric cars and global connectivity, but precisely because those achievements expose the crony systems and gatekeepers he bypasses.</itunes:summary>
+      <itunes:keywords>elon-musk,media,demonization,builders,spacex,tesla,starlink,capitalism,press,gatekeepers,innovation</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/3-why-the-media-demonizes-elon-musk.jpg" />
+    </item>
     <item>
       <title>Hope: The Future Is Bright</title>
       <description>Brivael Le Pogam, YC-backed CTO of Argil, makes the case for techno-optimism: builders who act without permission, the French system&apos;s hostility to enterprise, and why AI multiplies human capacity rather than rationing the future.</description>
@@ -60,3 +75,4 @@
     </item>
   </channel>
 </rss>
+

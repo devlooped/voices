@@ -8,7 +8,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Fri, 19 Jun 2026 16:30:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 00:10:14 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -28,6 +28,21 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+        <item>
+      <title>Por qué los medios demonizan a Elon Musk</title>
+      <description>Brivael Le Pogam explica por qué la prensa demoniza a Elon Musk no a pesar de sus logros construyendo cohetes, autos eléctricos y conectividad global, sino precisamente porque estos logros exponen los sistemas de amiguismo y los guardianes que él evita.</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/06/3-por-que-los-medios-demonizan-a-elon-musk.mp3" length="17097637" type="audio/mpeg" />
+      <guid>2026-06-22-3-por-que-los-medios-demonizan-a-elon-musk</guid>
+      <link>https://x.com/brivael/status/2069203589692805440</link>
+      <pubDate>Tue, 23 Jun 2026 00:10:14 GMT</pubDate>
+      <itunes:duration>11:52</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>3</itunes:episode>
+      <itunes:summary>Brivael Le Pogam explica por qué la prensa demoniza a Elon Musk no a pesar de sus logros construyendo cohetes, autos eléctricos y conectividad global, sino precisamente porque estos logros exponen los sistemas de amiguismo y los guardianes que él evita.</itunes:summary>
+      <itunes:keywords>elon-musk,medios,demonizacion,constructores,spacex,tesla,starlink,capitalismo,prensa,guardianes</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/3-por-que-los-medios-demonizan-a-elon-musk.jpg" />
+    </item>
     <item>
       <title>Esperanza: El futuro es radiante</title>
       <description>Brivael Le Pogam, cofundador y CTO de Argil respaldado por Y Combinator, defiende el tecno-optimismo: quienes construyen sin pedir permiso, la hostilidad del sistema francés al emprendimiento, y por qué la IA multiplica la capacidad humana en lugar de racionar el futuro.</description>
@@ -60,3 +75,4 @@
     </item>
   </channel>
 </rss>
+
