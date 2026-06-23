@@ -85,7 +85,7 @@ This approach avoids hanging on `azcopy login` device code flows entirely. The e
 - [ ] Discover the episode to publish (parse first <item> from en/feed.xml or scan git status + episode dirs)
 - [ ] Extract N, title, summary, slug, yyyy, MM, post link, affected languages, and the exact `<itunes:image>` href(s) per language (jpg artwork paths)
 - [ ] Verify all expected local files exist (md, mp3, jpg under each lang using the lang's slug for the jpg, updated feeds, index.html, posts archive)
-- [ ] Upload via azcopy **including the .jpg** (episode assets: mp3 + md + jpg, feeds, indexes; optionally posts/)
+- [ ] Upload via azcopy: explicitly copy the three new episode files (mp3 + md + **jpg** with language-specific slug) per lang; also feeds, index.html, and posts/ archive. (Use dir --recursive only for fresh months, then verify.)
 - [ ] Verify the artwork .jpg URLs return HTTP 200 (critical for itunes:image)
 - [ ] git add the generated files
 - [ ] git commit -m "Add episode [#] - [title]" -m "[summary]\n\n[link]"
@@ -173,19 +173,22 @@ $env:AZCOPY_TENANT_ID = (az account show --query tenantId -o tsv)
 
 For each language:
 
-**Important:** The episode `.jpg` (referenced by `<itunes:image>` in the feed item) is required for artwork in podcast clients. It must be uploaded along with the audio and markdown.
+**Important:** The episode `.jpg` (referenced by `<itunes:image href>` in the feed item, using the **language-specific slug**) is required for artwork in podcast clients. It must be uploaded for every language. Never skip it.
 
-1. Upload the episode files (recommended: explicit or recursive on the month dir so the jpg is never skipped):
+1. Upload the episode files. **Prefer explicit copies of the three files for the new episode** (this is the most reliable, especially the `.jpg`):
+
    ```
-   azcopy copy "en/2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3" "https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.mp3"
-   azcopy copy "en/2026/06/1-spacex-not-an-ipo-its-a-referendum.md"  "https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.md"
-   azcopy copy "en/2026/06/1-spacex-not-an-ipo-its-a-referendum.jpg" "https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.jpg"
+   azcopy copy "en/2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.mp3" "https://kzu.blob.core.windows.net/voices/en/2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.mp3"
+   azcopy copy "en/2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.md"  "https://kzu.blob.core.windows.net/voices/en/2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.md"
+   azcopy copy "en/2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.jpg" "https://kzu.blob.core.windows.net/voices/en/2026/06/5-the-trick-is-to-put-the-seeds-in-the-dirt.jpg"
    ```
 
-   Alternative (simpler, covers all files including .jpg automatically):
+   The directory recursive form can be convenient **when the month directory is brand new**:
    ```
    azcopy copy "en/2026/06" "https://kzu.blob.core.windows.net/voices/en/2026/06" --recursive
    ```
+
+   **Gotcha from real runs:** When `yyyy/MM` already contains prior episodes, `azcopy ... --recursive` on the directory often only transfers bytes for existing files and can miss the brand-new `<N>-<slug>.{mp3,md,jpg}` files (resulting in 404s on the artwork). After (or instead of) a recursive copy, **always explicitly copy the three specific files for the new episode**.
 
 2. Upload the feed and index (these must overwrite the previous version on blob):
    ```
@@ -203,10 +206,12 @@ Do the equivalent for `es/`.
 
 Omit `--overwrite` (it defaults to true and will overwrite existing blobs as needed).
 
-**After azcopy for episode files, verify the itunes:image artwork URLs return 200** (using the exact href values from the local feed.xml):
+**After azcopy for the episode files (especially after any directory recursive copy), immediately verify the itunes:image artwork URLs return HTTP 200** (using the exact `<itunes:image href>` values discovered from the local feed.xml for each language):
 ```powershell
-curl -I "https://kzu.blob.core.windows.net/voices/en/2026/06/1-spacex-not-an-ipo-its-a-referendum.jpg"
+Invoke-WebRequest -Uri "https://kzu.blob.core.windows.net/voices/en/2026/06/5-....jpg" -Method Head
+# or curl -I on non-Windows
 ```
+Also spot-check one enclosure mp3 URL. Fail the run if any 404.
 
 After uploads, the enclosure URLs + itunes:image that were already written into the local feed by the `podcast` skill are now live.
 
@@ -220,9 +225,9 @@ After uploads, the enclosure URLs + itunes:image that were already written into 
    ```
    git add posts/2026-06-17-2067308757307306269.md `
            en/2026/06/1-spacex-not-an-ipo-its-a-referendum.* `
-           en/feed.xml en/index.html `
+           en/feed.xml en/index.html en/index.json `
            es/2026/06/1-spacex-no-fue-una-opv-fue-un-referendum.* `
-           es/feed.xml es/index.html
+           es/feed.xml es/index.html es/index.json
    ```
 
 2. Commit:
@@ -274,7 +279,7 @@ Agent:
 2. Parses en/feed.xml → episode 1, title="SpaceX: Not an IPO — It's a Referendum", summary=..., guid=2026-06-17-1-..., link=...
 3. Same for es.
 4. Confirms files exist.
-5. Sets AZCOPY_AUTO_LOGIN_TYPE=AZCLI + AZCOPY_TENANT_ID, then azcopy the 3 files (md+mp3+jpg) × 2 langs + 2× feed.xml + 2× index.html + the posts/ file.
+5. Sets AZCOPY_AUTO_LOGIN_TYPE=AZCLI + AZCOPY_TENANT_ID, then explicitly azcopy the 3 files (md+mp3+jpg using the language-specific slug) × 2 langs + feeds + indexes + the posts/ archive. (Directory recursive is OK only for brand-new months; otherwise follow with explicit per-episode copies to avoid missing new files.)
 6. git add ... ; git commit -m "Add episode 1 - ..." -m "..."; git push.
 7. "Episode 1 is now live at https://kzu.blob.../en/2026/06/1-....mp3 . Pushed commit abc1234."
 
@@ -291,7 +296,7 @@ Agent:
 | Push rejected (non-fast-forward) | Pull first or rebase. |
 | Feed on blob still shows old episode | The feed.xml upload step was skipped or used wrong path. |
 | index.html broken after upload | Relative links inside it assume it lives at `<lang>/index.html` — make sure the dir structure matches. |
-| itunes:image artwork 404 on blob (or broken in clients) | The .jpg was not uploaded for that language. Always azcopy the .jpg (or use --recursive on the yyyy/MM dir) and verify the exact URL from feed's <itunes:image href> returns 200. |
+| itunes:image artwork 404 on blob (or broken in clients) | The .jpg was not uploaded for that language's slug. Directory-level `azcopy ... --recursive` on an existing `yyyy/MM` often skips brand-new episode files. Explicitly `azcopy copy` the three specific `<N>-<slug>.{mp3,md,jpg}` files (jpg is mandatory). Then immediately HEAD the exact `<itunes:image href>` URLs from the local feed and fail if not 200. |
 
 ## Agent freedom
 
