@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 24 Jun 2026 22:00:15 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 22:16:19 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,8 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+    <item>
+      <title>Soros Did Not Prolong the Open Society</title>
+      <description>Brivael Le Pogam traces how George Soros, a student of Karl Popper, kept the label 'Open Society' but inverted its meaning — turning the philosopher's call for piecemeal reform and rejection of historicism into top-down global planning through vast philanthropic networks, most visibly in his prescriptions for European immigration policy.
 
-        <item>
+https://x.com/brivael/status/2069504592589799758</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/11-soros-did-not-prolong-the-open-society.mp3" length="6259176" type="audio/mpeg" />
+      <guid>2026-06-24-11-soros-did-not-prolong-the-open-society</guid>
+      <link>https://x.com/brivael/status/2069504592589799758</link>
+      <pubDate>Wed, 24 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>4:20</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>11</itunes:episode>
+      <itunes:summary>Brivael Le Pogam traces how George Soros, a student of Karl Popper, kept the label 'Open Society' but inverted its meaning — turning the philosopher's call for piecemeal reform and rejection of historicism into top-down global planning through vast philanthropic networks, most visibly in his prescriptions for European immigration policy.
+
+https://x.com/brivael/status/2069504592589799758</itunes:summary>
+      <itunes:keywords>soros,popper,open-society,open-society-foundations,philanthropy,globalism,karl-popper,historicism,immigration,eu-planning,planification</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/11-soros-did-not-prolong-the-open-society.jpg" />
+    </item>
+    <item>
       <title>France Is Technically a Communist Country</title>
       <description>Brivael Le Pogam argues that France's public spending at 57.2% of GDP exceeds the late USSR, its tax system drives founders and unicorns abroad, even successful scale-up creators live modestly without real sovereignty, public services collapse despite record spending, and an unaccountable EU bureaucracy rules over everything - revealing a soft neo-communist system built on consent rather than coercion.
 
@@ -47,7 +65,7 @@ https://x.com/brivael/status/2069649899365503409</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/10-france-is-technically-a-communist-country.jpg" />
     </item>
-        <item>
+    <item>
       <title>How USAID Built Color Revolution Infrastructure With NGOs</title>
       <description>DataRepublican reveals how USAID functioned as a primary tool for regime change by funding and coordinating five key capabilities — independent media, legal infrastructure, election monitoring, activist training, and governance data — across countries like Georgia, and how similar networks now operate inside the United States via private foundations.
 
@@ -66,7 +84,7 @@ https://x.com/DataRepublican/status/2069619851518431312</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/9-how-usaid-built-color-revolution-infrastructure-with-ngos.jpg" />
     </item>
-        <item>
+    <item>
       <title>The Great Liquidation</title>
       <description>Brivael Le Pogam makes the case that corporate "bullshit" — middle management, bureaucracy, and status games — is a 70-year equilibrium that AI is about to liquidate by collapsing the cost of coordination. He warns founders never to wire their startups into legacy corporate structures that select for the wrong talent and culture.
 
@@ -85,7 +103,7 @@ https://x.com/brivael/status/2069182900990570843</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/8-the-great-liquidation.jpg" />
     </item>
-<item>
+    <item>
       <title>Starfall</title>
       <description>Devon Eriksen describes the vision of 'Starfall' — asteroid mining, space manufacturing and full industrialization off-planet that will allow Earth to be reserved for living, farming and a high standard of living while heavy industry and its infrastructure moves to space where power is free and materials abundant.
 
@@ -212,5 +230,3 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
-
-

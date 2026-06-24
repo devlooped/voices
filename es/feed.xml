@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 24 Jun 2026 22:00:24 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 22:18:21 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,8 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+    <item>
+      <title>Soros no prolongó la sociedad abierta</title>
+      <description>Brivael Le Pogam traza cómo George Soros, alumno de Karl Popper, conservó la etiqueta 'sociedad abierta' pero invirtió su significado: transformó la llamada del filósofo a la reforma gradual y al rechazo del historicismo en una planificación global desde arriba a través de vastas redes filantrópicas, visible sobre todo en sus prescripciones sobre la política migratoria europea.
 
-        <item>
+https://x.com/brivael/status/2069504592589799758</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/06/11-soros-no-prolongo-la-sociedad-abierta.mp3" length="6736222" type="audio/mpeg" />
+      <guid>2026-06-24-11-soros-no-prolongo-la-sociedad-abierta</guid>
+      <link>https://x.com/brivael/status/2069504592589799758</link>
+      <pubDate>Wed, 24 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>4:40</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>11</itunes:episode>
+      <itunes:summary>Brivael Le Pogam traza cómo George Soros, alumno de Karl Popper, conservó la etiqueta 'sociedad abierta' pero invirtió su significado: transformó la llamada del filósofo a la reforma gradual y al rechazo del historicismo en una planificación global desde arriba a través de vastas redes filantrópicas, visible sobre todo en sus prescripciones sobre la política migratoria europea.
+
+https://x.com/brivael/status/2069504592589799758</itunes:summary>
+      <itunes:keywords>soros,popper,sociedad-abierta,filantropia,globalismo,karl-popper,historicismo,inmigracion,planificacion,ue</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/11-soros-no-prolongo-la-sociedad-abierta.jpg" />
+    </item>
+    <item>
       <title>Francia es técnicamente un país comunista</title>
       <description>Brivael Le Pogam argumenta que el gasto público de Francia en el 57,2 % del PIB supera al de la URSS tardía, su sistema fiscal hace huir a fundadores y unicornios, incluso los creadores exitosos de scale-ups viven con modestia sin soberanía real, los servicios públicos colapsan a pesar del gasto récord, y una burocracia de la UE no elegida lo regula todo: un sistema neocomunista blando construido sobre el consentimiento en lugar de la coerción.
 
@@ -47,7 +65,7 @@ https://x.com/brivael/status/2069649899365503409</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/10-francia-es-tecnicamente-un-pais-comunista.jpg" />
     </item>
-        <item>
+    <item>
       <title>Cómo USAID Construyó la Infraestructura de Revolución de Color con ONGs</title>
       <description>DataRepublican explica cómo USAID funcionó como una herramienta principal para el cambio de régimen al financiar y coordinar cinco capacidades clave —medios independientes, infraestructura legal, monitoreo de elecciones, entrenamiento de activistas y datos de gobernanza— en países como Georgia, y cómo redes similares operan ahora dentro de Estados Unidos a través de fundaciones privadas.
 
@@ -66,7 +84,7 @@ https://x.com/DataRepublican/status/2069619851518431312</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/9-como-usaid-construyo-la-infraestructura-de-revolucion-de-color-con-ongs.jpg" />
     </item>
-        <item>
+    <item>
       <title>La Gran Liquidación</title>
       <description>Brivael Le Pogam argumenta que la "basura corporativa" — mandos intermedios, burocracia y juegos de estatus — es un equilibrio de 70 años que la IA está a punto de liquidar al colapsar el costo de la coordinación. Advierte a los fundadores que nunca integren sus startups en estructuras corporativas heredadas que seleccionan el talento y la cultura equivocados.
 
@@ -85,7 +103,7 @@ https://x.com/brivael/status/2069182900990570843</itunes:summary>
       <itunes:explicit>no</itunes:explicit>
       <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/8-la-gran-liquidacion.jpg" />
     </item>
-<item>
+    <item>
       <title>Starfall</title>
       <description>Devon Eriksen describe la visión de 'Starfall': la minería de asteroides, la manufactura espacial y la industrialización completa fuera del planeta, que permitirá reservar la Tierra para vivir, cultivar y disfrutar de un alto nivel de vida, mientras la industria pesada y su infraestructura se trasladan al espacio donde la energía es gratuita y los materiales abundantes.
 
@@ -212,5 +230,3 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
-
-
