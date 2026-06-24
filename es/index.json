@@ -1,7 +1,13 @@
 {
-  "title": "Voces de X",
-  "description": "Publicaciones y artículos seleccionados de la comunidad de X.",
   "episodes": [
+    {
+      "n": 12,
+      "title": "No, América no perdió la guerra con Irán",
+      "date": "2026-06-24",
+      "byline": "By Kaizen D. Asiedu (@thatsKAIZEN)",
+      "md": "2026/06/12-no-america-no-perdio-la-guerra-con-iran.md",
+      "mp3": "2026/06/12-no-america-no-perdio-la-guerra-con-iran.mp3"
+    },
     {
       "n": 11,
       "title": "Soros no prolongó la sociedad abierta",
@@ -90,5 +96,9 @@
       "md": "2026/04/2-esperanza-el-futuro-es-radiante.md",
       "mp3": "2026/04/2-esperanza-el-futuro-es-radiante.mp3"
     }
-  ]
+  ],
+  "title": "Voces de X",
+  "description": "Publicaciones y artículos seleccionados de la comunidad de X."
 }
+
+

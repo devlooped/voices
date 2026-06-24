@@ -1,7 +1,14 @@
 {
   "title": "Voices from X",
-  "description": "Selected long-form posts and articles from the X community.",
   "episodes": [
+    {
+      "n": 12,
+      "title": "No, America Did Not Lose the War With Iran",
+      "date": "2026-06-24",
+      "byline": "By Kaizen D. Asiedu (@thatsKAIZEN)",
+      "md": "2026/06/12-no-america-did-not-lose-the-war-with-iran.md",
+      "mp3": "2026/06/12-no-america-did-not-lose-the-war-with-iran.mp3"
+    },
     {
       "n": 11,
       "title": "Soros Did Not Prolong the Open Society",
@@ -90,5 +97,8 @@
       "md": "2026/04/2-hope-the-future-is-bright.md",
       "mp3": "2026/04/2-hope-the-future-is-bright.mp3"
     }
-  ]
+  ],
+  "description": "Selected long-form posts and articles from the X community."
 }
+
+

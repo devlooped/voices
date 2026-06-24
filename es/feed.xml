@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 24 Jun 2026 22:18:21 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 23:09:30 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-    <item>
+      <item>
+    <title>No, América no perdió la guerra con Irán</title>
+    <description>Kaizen D. Asiedu analiza el acuerdo entre EE.UU. e Irán frente a los cuatro objetivos explícitos de Trump para la guerra —destruir los misiles, aniquilar la armada, eliminar el apoyo a los proxies terroristas y bloquear el arma nuclear— y concluye que América logró avances reales sin alcanzar una victoria total ni sufrir una derrota.
+
+https://x.com/thatsKAIZEN/status/2068434297107923025</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/06/12-no-america-no-perdio-la-guerra-con-iran.mp3" length="12944842" type="audio/mpeg" />
+    <guid>2026-06-24-12-no-america-no-perdio-la-guerra-con-iran</guid>
+    <link>https://x.com/thatsKAIZEN/status/2068434297107923025</link>
+    <pubDate>Wed, 24 Jun 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>8:59</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>12</itunes:episode>
+    <itunes:summary>Kaizen D. Asiedu analiza el acuerdo entre EE.UU. e Irán frente a los cuatro objetivos explícitos de Trump para la guerra —destruir los misiles, aniquilar la armada, eliminar el apoyo a los proxies terroristas y bloquear el arma nuclear— y concluye que América logró avances reales sin alcanzar una victoria total ni sufrir una derrota.
+
+https://x.com/thatsKAIZEN/status/2068434297107923025</itunes:summary>
+    <itunes:keywords>iran,guerra,trump,misiles,armada,nuclear,proxies,hezbola,acuerdo,geopolitica,oriente-medio,hamas</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/12-no-america-no-perdio-la-guerra-con-iran.jpg" />
+  </item>
+<item>
       <title>Soros no prolongó la sociedad abierta</title>
       <description>Brivael Le Pogam traza cómo George Soros, alumno de Karl Popper, conservó la etiqueta 'sociedad abierta' pero invirtió su significado: transformó la llamada del filósofo a la reforma gradual y al rechazo del historicismo en una planificación global desde arriba a través de vastas redes filantrópicas, visible sobre todo en sus prescripciones sobre la política migratoria europea.
 

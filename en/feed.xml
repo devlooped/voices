@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 24 Jun 2026 22:16:19 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 23:05:27 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-    <item>
+      <item>
+    <title>No, America Did Not Lose the War With Iran</title>
+    <description>Kaizen D. Asiedu reviews the U.S.-Iran agreement against Trump's four explicit war aims—destroy missiles, annihilate the navy, cut terrorist proxies, and block a nuclear weapon—and finds America made real gains without achieving total victory or suffering defeat.
+
+https://x.com/thatsKAIZEN/status/2068434297107923025</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/12-no-america-did-not-lose-the-war-with-iran.mp3" length="26013524" type="audio/mpeg" />
+    <guid>2026-06-24-12-no-america-did-not-lose-the-war-with-iran</guid>
+    <link>https://x.com/thatsKAIZEN/status/2068434297107923025</link>
+    <pubDate>Wed, 24 Jun 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>18:03</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>12</itunes:episode>
+    <itunes:summary>Kaizen D. Asiedu reviews the U.S.-Iran agreement against Trump's four explicit war aims—destroy missiles, annihilate the navy, cut terrorist proxies, and block a nuclear weapon—and finds America made real gains without achieving total victory or suffering defeat.
+
+https://x.com/thatsKAIZEN/status/2068434297107923025</itunes:summary>
+    <itunes:keywords>iran,war,trump,missiles,navy,nuclear,proxies,hezbollah,deal,geopolitics,middle-east,hamas</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/12-no-america-did-not-lose-the-war-with-iran.jpg" />
+  </item>
+<item>
       <title>Soros Did Not Prolong the Open Society</title>
       <description>Brivael Le Pogam traces how George Soros, a student of Karl Popper, kept the label 'Open Society' but inverted its meaning — turning the philosopher's call for piecemeal reform and rejection of historicism into top-down global planning through vast philanthropic networks, most visibly in his prescriptions for European immigration policy.
 
