@@ -1,6 +1,6 @@
 ---
 name: podcast
-description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder (yyyy/MM = current date), translate if needed, determine title (prefer post's `data.article.title` if present, else generate) + summary (URL appended with blank line only for feed.xml <description>/<itunes:summary>) + keywords (if no post cover image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article header photo from data.article.cover_media if present — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date=current/link/author-name-only + spoken content with localized byline using the X post date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, embed ID3v2.3 tags (title/artist/album/comment/track/date/genre) via ffmpeg -c copy, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image; item pubDate = current date), and maintain lang/index.json (episodes data) + a lightweight self-contained index.html template. The data is embedded inside the HTML as a JSON data island (`<script type="application/json" id="podcast-data">`) so the page works when opened directly from the filesystem (no local HTTP server or fetch required). A small vanilla JS snippet renders the newest-first table + audio players from the embedded data. Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
+description: Receive an X post URL, retrieve full content and post date, then for each supported podcast language: create lang/yyyy/MM/ folder (yyyy/MM = current date), translate if needed, determine title (prefer post's `data.article.title` if present, else generate) + summary (URL appended with blank line only for feed.xml <description>/<itunes:summary>) + keywords (if no post image has been determined yet, also request an English "imagine" prompt from the LLM), determine episode artwork (prefer X article cover photo from `data.article.cover_media` if present, or first photo attachment from `data.attachments.media_keys` for regular posts — download + center-crop to square via ffmpeg; else use the imagine prompt to launch `/imagine` + 1:1), copy the artwork as #-slug.jpg alongside the mp3 for *every* language, write #-slug.md (YAML frontmatter with title/summary/date=current/link/author-name-only + spoken content with localized byline using the X post date, e.g. en `April 3rd, 2026` / es `3 de Abril de 2026`), synthesize #-slug.mp3 in ~2200-char sentence-boundary chunks (Azure 10-minute-per-call limit) then ffmpeg-concat the parts, embed ID3v2.3 tags (title/artist/album/comment/track/date/genre) via ffmpeg -c copy, using male/female voice chosen according to post author (via voices.toml + Azure Dragon HD/Omni), update the language feed.xml (newest-first item with enclosure + itunes:image; item pubDate = current date), and maintain lang/index.json (episodes data) + a lightweight self-contained index.html template. The data is embedded inside the HTML as a JSON data island (`<script type="application/json" id="podcast-data">`) so the page works when opened directly from the filesystem (no local HTTP server or fetch required). A small vanilla JS snippet renders the newest-first table + audio players from the embedded data. Local files only — upload (including the jpgs), git commit ("Add episode [#] - [title]"), and push are handled by a separate upload skill. Uses xurl, dnx Microsoft.CognitiveServices.Speech.CLI, az CLI, ffmpeg, ffprobe.
 ---
 
 # Podcast — X Post to Multi-Language Local Episode Generator
@@ -23,7 +23,7 @@ When finished, all of the following must be true:
      ```
      (`<spoken-date>` is localized long form — **not** `yyyy-MM-dd`; see §4.4.)
    - `<N>-<slug>.mp3` was synthesized using the gender-appropriate voice (inferred from post author name, default male) resolved from the effective `voices.<lang>.<gender>` section, encoded as **48 kHz mono MP3 at 192 kbps** (`audio-48khz-192kbitrate-mono-mp3`). Long episodes are split into sentence-boundary chunks of **≤ ~2200 characters** (Azure hard-caps each synthesis call at ~10 minutes of audio), synthesized per chunk, then merged with `ffmpeg -f concat -c copy`. After merge (or direct copy for single-chunk episodes), **ID3v2.3 tags are embedded** with `ffmpeg -c copy -id3v2_version 3` (Azure output has no ID3 header — feed validators require it). A single-call output of exactly `10:00` / `600.000000` seconds on long text is a truncation failure — re-chunk and re-synthesize.
-   - Artwork is determined once (if a post cover image hasn't been determined *yet*, the LLM is asked for an English "imagine" prompt which is used to generate an initial one; the same artwork is then copied for all languages): if the fetched post JSON has `data.article.cover_media`, the corresponding photo URL from `includes.media` is downloaded and center-cropped to square (1024x1024) via ffmpeg and saved as `<N>-<slug>.jpg`; otherwise an "imagine" prompt from the LLM JSON is used to launch `/imagine <prompt>, 1:1` and the result is saved the same way. The jpg (using each language's own slug) sits next to the mp3 in *every* language directory. Every language's feed item includes the corresponding `<itunes:image>`.
+   - Artwork is determined once (if a post image hasn't been determined *yet*, the LLM is asked for an English "imagine" prompt which is used to generate an initial one; the same artwork is then copied for all languages): if the fetched post JSON has `data.article.cover_media` (article) or photo attachment via `data.attachments.media_keys`, the corresponding photo URL from `includes.media` is downloaded and center-cropped to square (1024x1024) via ffmpeg and saved as `<N>-<slug>.jpg`; otherwise an "imagine" prompt from the LLM JSON is used to launch `/imagine <prompt>, 1:1` and the result is saved the same way. The jpg (using each language's own slug) sits next to the mp3 in *every* language directory. Every language's feed item includes the corresponding `<itunes:image>`.
    - `<lang>/feed.xml` contains the new episode as the **first** `<item>` under `<channel>`, with:
      - Correct `<enclosure>` using `https://{{storage}}.blob.core.windows.net/{{container}}/<lang>/<yyyy>/<MM>/<N>-<slug>.mp3`
      - `itunes:season` = episode year (today), `itunes:episode` = N (per-language TV-series numbering)
@@ -141,16 +141,16 @@ When the user asks to re-render/regen MP3s for existing `.md` files (no new X fe
 - [ ] Accept X post URL (or ID); extract ID if needed
 - [ ] Ensure xurl (@kzu fork) + auth (app preferred); verify version ends "by @kzu"
 - [ ] xurl read the post; save JSON; check for errors
-- [ ] Inspect JSON for `data.article.cover_media`; if present resolve photo URL from `includes.media` (store for artwork decision)
+- [ ] Inspect JSON for `data.article.cover_media` (articles) or `data.attachments.media_keys` (regular posts with images); if present resolve first photo URL from `includes.media` (store for artwork decision)
 - [ ] Extract full body (note_tweet priority → article → text) + author line + $postTitle (from data.article.title if present)
 - [ ] Archive original attributed text to posts/<date>-<id>.md (yaml + raw)
 - [ ] Infer author gender from name (default male) for voice selection
 - [ ] For each supported language (en, es):
     - [ ] Translate full text if source lang != target (one pass per lang)
-    - [ ] Determine episode title (use `$postTitle` / `data.article.title` localized if present; else LLM); LLM call for JSON {title?, summary, keywords} (summary is concise description text only; the post URL + blank line separator is added only when generating feed.xml; if no post cover image has been determined yet, also request an English "imagine" prompt)
+    - [ ] Determine episode title (use `$postTitle` / `data.article.title` localized if present; else LLM); LLM call for JSON {title?, summary, keywords} (summary is concise description text only; the post URL + blank line separator is added only when generating feed.xml; if no post image has been determined yet, also request an English "imagine" prompt)
     - [ ] Compute yyyy/MM from **episode date** (today), slug (kebab), next N for (lang, episode-year) from feed
     - [ ] Write <lang>/<yyyy>/<MM>/<N>-<slug>.md (yaml `date` = episode date yyyy-MM-dd; spoken body: episode title (post title if present) + localized byline with long-form **post date**, e.g. en `by <name>, posted on April 3rd, 2026` / es `por <name>, publicado el 3 de Abril de 2026`, then content)
-    - [ ] If no artwork determined yet: if article cover photo URL was resolved earlier, download it and center-crop to square 1024x1024 via ffmpeg as <N>-<slug>.jpg (skip /imagine); else (if imagine in this JSON) start subagent `/imagine <imagine>, 1:1 aspect ratio`; copy result (or cover-derived jpg) as <N>-<slug>.jpg into *this* language's dir (and later for other langs too)
+    - [ ] If no artwork determined yet: if a post photo URL (article cover or attachment) was resolved earlier, download it and center-crop to square 1024x1024 via ffmpeg as <N>-<slug>.jpg (skip /imagine); else (if imagine in this JSON) start subagent `/imagine <imagine>, 1:1 aspect ratio`; copy result (or cover-derived jpg) as <N>-<slug>.jpg into *this* language's dir (and later for other langs too)
     - [ ] Resolve voices.<lang>.<gender> + chunk spoken body (≤ ~2200 chars, sentence boundaries) + synthesize each chunk via dnx (`--format audio-48khz-192kbitrate-mono-mp3`) + ffmpeg-concat into final .mp3; verify per-chunk char counts and total duration is not exactly 10:00 on long posts
     - [ ] Embed ID3v2.3 tags (§4.6) into final .mp3; verify file starts with `ID3` magic bytes
     - [ ] Probe duration/size with ffprobe (after tagging — file size includes ID3 header)
@@ -196,14 +196,20 @@ $postTitle = if ($json.data.article -and $json.data.article.title) { $json.data.
 # For main spoken content (when $postTitle used): $mainContent = $json.data.article.plain_text
 ```
 
-**Cover photo for artwork (if X article):** Also extract once here for later use (before any language processing):
+**Cover / attached photo for artwork:** Also extract once here for later use (before any language processing). Prefer `data.article.cover_media` for articles; otherwise use the first photo from regular post `data.attachments.media_keys`:
 ```pwsh
-$coverMediaKey = $json.data.article.cover_media
-$coverPhotoUrl = if ($coverMediaKey -and $json.includes.media) {
-    ($json.includes.media | Where-Object { $_.media_key -eq $coverMediaKey -and $_.type -eq 'photo' } | Select-Object -First 1).url
+$coverPhotoUrl = $null
+if ($json.data.article -and $json.data.article.cover_media -and $json.includes.media) {
+    $coverPhotoUrl = ($json.includes.media | Where-Object { $_.media_key -eq $json.data.article.cover_media -and $_.type -eq 'photo' } | Select-Object -First 1).url
+}
+if (-not $coverPhotoUrl -and $json.data.attachments -and $json.data.attachments.media_keys -and $json.includes.media) {
+    foreach ($key in $json.data.attachments.media_keys) {
+        $photo = $json.includes.media | Where-Object { $_.media_key -eq $key -and $_.type -eq 'photo' } | Select-Object -First 1
+        if ($photo) { $coverPhotoUrl = $photo.url; break }
+    }
 }
 ```
-Store `$coverPhotoUrl` (may be $null). Plain `xurl read` (with the @kzu fork) already includes `article` + `includes.media` for qualifying posts.
+Store `$coverPhotoUrl` (may be $null). Plain `xurl read` (with the @kzu fork) includes `includes.media` (and attachments for image posts).
 
 **Author:** From `includes.users` matching `data.author_id`:
 - `$authorName` — display `name` if present, else `username` (this is the YAML `author` value and the spoken byline name; **no `@handle`** — the handle is already in `link`).
@@ -281,7 +287,7 @@ For every language, ask the LLM once for a JSON object. The requested shape depe
     "imagine": "A vivid, self-contained prompt suitable for /imagine (grok imagine) describing a compelling square podcast artwork for this episode. Subject first, then mood/composition/lighting. No text in the image."
   }
   ```
-- If no `$postTitle` (must generate title), and a post cover image has not been determined yet, request the 4-field form (the "imagine" value must be written in English, as the resulting artwork is language-agnostic):
+- If no `$postTitle` (must generate title), and a post image has not been determined yet, request the 4-field form (the "imagine" value must be written in English, as the resulting artwork is language-agnostic):
   ```json
   {
     "title": "Short, clean podcast episode title",
@@ -293,7 +299,7 @@ For every language, ask the LLM once for a JSON object. The requested shape depe
 
 Once an artwork source (cover or generated) has been determined, drop the "imagine" field for any remaining languages (use 3-field or 2-field form as appropriate).
 
-Use the translated attributed text as the source for generating the episode summary/keywords. If a post title is present, the episode title for this language is the localized `$postTitle` (do not ask the LLM to invent one). The imagine value (when present) will be used immediately after this step to generate artwork **unless** an X article cover photo URL was resolved in Step 1 (in which case the cover photo is used instead and the imagine value is ignored). The imagine prompt is always requested/produced in English.
+Use the translated attributed text as the source for generating the episode summary/keywords. If a post title is present, the episode title for this language is the localized `$postTitle` (do not ask the LLM to invent one). The imagine value (when present) will be used immediately after this step to generate artwork **unless** a post photo URL (`$coverPhotoUrl`) was resolved in Step 1 (in which case the author's photo is used instead and the imagine value is ignored). The imagine prompt is always requested/produced in English.
 
 After the LLM response:
 - `$episodeTitle = if ($postTitle) { localized version of $postTitle for current lang } else { LLM "title" value }`
@@ -321,7 +327,7 @@ https://x.com/elonmusk/status/1234567890123456789
 Performed the first time an episode needs artwork (cover or generated) during language processing. The resulting image is language-agnostic and will be copied for every language.
 
 **Precedence (decide once):**
-- If a `$coverPhotoUrl` was resolved in Step 1 (from `data.article.cover_media` + matching photo in `includes.media`):
+- If a `$coverPhotoUrl` was resolved in Step 1 (from `data.article.cover_media` for articles, or from a `photo` in `data.attachments.media_keys` + matching in `includes.media` for regular posts):
   - Download to a temp file: `Invoke-WebRequest -Uri $coverPhotoUrl -OutFile "$env:TEMP\cover-$postId.jpg"` (public pbs.twimg.com URLs; no auth needed).
   - Ensure the target episode directory exists.
   - Center-crop to square and scale to 1024x1024 (matching existing episode artwork) using ffmpeg:
@@ -767,7 +773,7 @@ For each language report:
 - Path to updated feed.xml, index.json and index.html (with embedded data island)
 - Future blob enclosure URL for mp3 (and jpg image URL)
 - Author gender / voice chosen
-- The imagine prompt that was used (if any, always English) and the artwork source: "X article cover photo (center-cropped to square)" or "generated via /imagine" (or none)
+- The imagine prompt that was used (if any, always English) and the artwork source: "X post photo (center-cropped to square)" or "X article cover photo (center-cropped to square)" or "generated via /imagine" (or none)
 
 Confirm that only local files were created/modified and nothing was uploaded or committed.
 
@@ -781,7 +787,7 @@ Confirm that only local files were created/modified and nothing was uploaded or 
 Agent:
 1. Fetches post with xurl, archives original to `posts/2026-06-18-1234567890123456789.md` (archive date = X post date; episode folder/pubDate would use today, e.g. `2026/06/` if generating on June 22nd)
 2. Infers author gender (e.g. male)
-3. For the first language processed: determines episode title (uses post's `data.article.title` / `$postTitle` localized if present; otherwise generates via LLM), generates summary/keywords; if no cover photo has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media`, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md (`author` = name only; spoken byline uses long-form localized date per §4.4), chunks + synthesizes + ffmpeg-merges .mp3, updates its feed (incl. itunes:image) + index.json (and the data island inside the index.html template).
+3. For the first language processed: determines episode title (uses post's `data.article.title` / `$postTitle` localized if present; otherwise generates via LLM), generates summary/keywords; if no post image has been determined yet, also requests an English "imagine" prompt from the LLM. If the xurl JSON had `data.article.cover_media` or a photo attachment, downloads + ffmpeg center-crops it to square as the jpg (no subagent); otherwise uses the imagine to start `/imagine <imagine>, 1:1` and saves the result. Writes the jpg using that language's slug, writes the .md (`author` = name only; spoken byline uses long-form localized date per §4.4), chunks + synthesizes + ffmpeg-merges .mp3, updates its feed (incl. itunes:image) + index.json (and the data island inside the index.html template).
 4. For subsequent languages: translate as needed, determine title from post if present (localized) or generate title/summary/keywords (3-field or reduced, no imagine since artwork already determined), copy the same artwork jpg using the language-specific slug next to the mp3, write .md + chunked .mp3 + .jpg, update feed + index.json (and the data island inside the index.html template).
 5. Reports everything (including per-lang jpg paths + image blob URLs); all local.
 
