@@ -3,6 +3,14 @@
   "description": "Selected long-form posts and articles from the X community.",
   "episodes": [
     {
+      "n": 10,
+      "title": "France Is Technically a Communist Country",
+      "date": "2026-06-24",
+      "byline": "By Brivael Le Pogam (@brivael)",
+      "md": "2026/06/10-france-is-technically-a-communist-country.md",
+      "mp3": "2026/06/10-france-is-technically-a-communist-country.mp3"
+    },
+    {
       "n": 9,
       "title": "How USAID Built Color Revolution Infrastructure With NGOs",
       "date": "2026-06-24",

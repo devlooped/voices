@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 24 Jun 2026 21:24:06 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 22:00:15 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -28,6 +28,25 @@
       <itunes:category text="Business News" />
     </itunes:category>
 
+        <item>
+      <title>France Is Technically a Communist Country</title>
+      <description>Brivael Le Pogam argues that France's public spending at 57.2% of GDP exceeds the late USSR, its tax system drives founders and unicorns abroad, even successful scale-up creators live modestly without real sovereignty, public services collapse despite record spending, and an unaccountable EU bureaucracy rules over everything - revealing a soft neo-communist system built on consent rather than coercion.
+
+https://x.com/brivael/status/2069649899365503409</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/10-france-is-technically-a-communist-country.mp3" length="12714701" type="audio/mpeg" />
+      <guid>2026-06-24-10-france-is-technically-a-communist-country</guid>
+      <link>https://x.com/brivael/status/2069649899365503409</link>
+      <pubDate>Wed, 24 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>8:49</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>10</itunes:episode>
+      <itunes:summary>Brivael Le Pogam argues that France's public spending at 57.2% of GDP exceeds the late USSR, its tax system drives founders and unicorns abroad, even successful scale-up creators live modestly without real sovereignty, public services collapse despite record spending, and an unaccountable EU bureaucracy rules over everything - revealing a soft neo-communist system built on consent rather than coercion.
+
+https://x.com/brivael/status/2069649899365503409</itunes:summary>
+      <itunes:keywords>france,communism,public-spending,neo-communism,entrepreneurs,brain-drain,taxes,eu-bureaucracy,soft-communism,regulation</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/10-france-is-technically-a-communist-country.jpg" />
+    </item>
         <item>
       <title>How USAID Built Color Revolution Infrastructure With NGOs</title>
       <description>DataRepublican reveals how USAID functioned as a primary tool for regime change by funding and coordinating five key capabilities — independent media, legal infrastructure, election monitoring, activist training, and governance data — across countries like Georgia, and how similar networks now operate inside the United States via private foundations.
@@ -193,4 +212,5 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
+
 
