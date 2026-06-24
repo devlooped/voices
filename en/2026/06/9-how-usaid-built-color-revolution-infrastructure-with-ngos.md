@@ -1,0 +1,68 @@
+---
+title: "How USAID Built Color Revolution Infrastructure With NGOs"
+summary: "DataRepublican reveals how USAID functioned as a primary tool for regime change by funding and coordinating five key capabilities — independent media, legal infrastructure, election monitoring, activist training, and governance data — across countries like Georgia, and how similar networks now operate inside the United States via private foundations."
+date: "2026-06-24"
+link: "https://x.com/DataRepublican/status/2069619851518431312"
+author: "DataRepublican (small r)"
+---
+How USAID Built Color Revolution Infrastructure With NGOs
+
+by DataRepublican (small r), posted on June 24th, 2026
+
+Everyone is arguing about whether USAID was wasteful. Nobody is explaining what it was actually for.
+Yesterday the Daily Caller ran a piece noting that since Trump gutted USAID, right-wing candidates have swept Bolivia, Chile, Honduras, Costa Rica, Peru, Ecuador, and Colombia. The left hasn't won a single Latin American presidential election since the funding stopped. Meanwhile, Ro Khanna went on a podcast and said Elon Musk "possibly sentenced to death" 4.5 million children by dismantling USAID. Musk threatened to sue him.
+The right points to USAID grants for transgender operas in Colombia and DEI workshops in Serbia and asks why American taxpayers were funding them. The left points to children who depended on foreign aid claims millions of deaths.
+But both miss the purpose of true USAID.
+USAID was one of Washington's primary instruments for regime change abroad. Beneath the humanitarian programs, the cultural initiatives, and the development projects sat a much larger objective: managing regime change and color revolutions across the globe.
+Which raises an obvious question:
+What does a transgender opera in Colombia have to do with regime change?
+Quite a lot, as it turns out.
+Read on.
+The Five Capabilities
+ 
+1. Media. Independent outlets. Journalism training, equipment, institutional funding so a newsroom can survive without depending on the local government or corporations for revenue. The function is to ensure that there is an ΓÇ£independentΓÇ¥ outlet ready to broadcast Western narratives. You need a megaphone before you propagate a message.
+2. Legal infrastructure. Lawyers, legal aid clinics, rule-of-law programs, judicial reform advocacy. The function is to build a class of professionals who know how to challenge a government through its own legal system ΓÇö and who have the institutional backing to survive doing it. And, yes, build a judiciary that shares the values of liberal Western democracy.
+3. Election monitoring. Observer training, voter roll modernization, parallel vote tabulation (PVT). PVT is the critical technology: an ΓÇ£independentΓÇ¥ count run alongside the official one. Without PVT data, people claiming a stolen election are sore losers. With Western-backed election monitoring, they're defenders of liberal democracy.
+4. Activist training. Civic engagement workshops, youth leadership programs, community organizing. The grant descriptions say "civic engagement" and "leadership development." The skills being transferred:
+How to organize a protest
+How to sustain a protest
+How to train others to do the same
+How to communicate with media
+ΓÇ£NonviolentΓÇ¥ discipline under pressure and training.
+The result is a trained cadre of people who know how to convert public anger into sustained political pressure across multiple election cycles.
+5. Governance data. Procurement monitoring, FOIA programs, budget transparency initiatives, anti-corruption databases. These organizations generate the raw material that the media reports on, the lawyers cite in court, and the election monitors reference in their findings. Without this layer, the other four operate on anecdote. With it, they operate on evidence.
+None of these looks like regime change in isolation. A journalism training program is a journalism training program. The system becomes visible only when you fund all five in the same country for a decade and the people running them all know each other because you trained them at the same conferences, connected them through the same fellowship programs, and funded them through the same grant pipelines.
+What the Completed System Looks Like: Georgia
+Georgia is the country where the full pipeline played out in public, so Georgia is where you can trace it.
+Starting in the mid-1990s, American and European money built all five capabilities inside Georgian civil society. USAID and the Eurasia Foundation funded Rustavi 2, an independent broadcaster that became the opposition's primary media outlet by 2003. The Liberty Institute, founded in 1996, drafted Georgia's freedom of speech legislation and ran anti-corruption campaigns. ISFED, founded in 1995 with USAID and NED money, trained 3,000 election observers and ran parallel vote tabulation across ten Georgian elections. NED spent $3 million on Otpor in Serbia, whose trainers then came to Georgia ΓÇö funded by Open Society, facilitated by Liberty Institute ΓÇö and trained a student group called Kmara. Same playbook, same clenched-fist logo, different country. And organizations like IDFI monitored government procurement, generating the data everybody else used.
+Open Society's own Georgia staff described the scale in a video: "We have been out there, helping every startup in Georgia, almost every organization that came to us with new ideas... There were 16,000 projects supported by the foundation."
+Read that again. Sixteen thousand projects in a country of 3.7 million people.
+In November 2003, all five fired at once. ISFED's parallel vote count proved the parliamentary election was fraudulent. Rustavi 2 broadcast the evidence. Kmara filled the streets. Liberty Institute provided the organizational backbone. Three weeks later, President Shevardnadze resigned in the Rose Revolution.
+The activation was emergent. Every node in the network activated and performed its designed function simultaneously.
+After the revolution, Liberty Institute members entered the Georgian government: Bokeria to the National Security Council, Subari as Public Defender, Targamadze to the Defense and Security Committee, Vardzelashvili as Deputy Justice Minister, Zhvania to Foreign Intelligence, and Minashvili as Foreign Affairs Committee Chair. The organizations didn't just support a transition. They staffed it.
+USASpending.gov shows over a billion in USAID awards to Georgia from 2008 to 2025. The contract descriptions spell it out: CEPPS received $26 million for "Georgia Elections and Political Processes Activity." East-West Management Institute got $21 million for "build and innovate upon PAST USAID investments in the rule of law." That one is the pipeline describing itself ΓÇö build on what we already built.
+Twenty years later, the Georgian government proposed a law requiring NGOs to disclose their foreign funding. The same network activated: foreign-funded NGOs sustained protests across multiple waves, hundreds of thousands in the streets. Former U.S. Ambassador Ian Kelly explained the dependency on camera: "The civil society is the absolute beating heart of Georgian democracy... it relies quite a bit on EU and U.S. funding."
+The Georgian government's response was blunt: foreign-funded NGOs organized the 2003 color revolution, and the same infrastructure activated again when the government tried to make them disclose who was paying.
+If this is starting to sound familiar, good. It should.
+Now Look at the United States
+The same five capabilities exist domestically. The language softens ΓÇö "election observation" becomes "election protection," "civil society training" becomes "civic engagement," "independent media" becomes "local civic journalism" ΓÇö but the functional categories are identical. The funding source shifts from USAID to private foundations. The scale is larger.
+1. Media. The Knight Foundation gave $25 million to the American Journalism Project, which it described as a "first-of-its-kind venture philanthropy organization focused on growing and sustaining independent, nonpartisan, local civic news." AJP has distributed millions in smaller grants. MacArthur gave Howard University $5 million for a "Center for Journalism and Democracy."
+2. Legal infrastructure. The Brennan Center for Justice ΓÇö mission statement: "nonpartisan law and policy institute that seeks to improve the American systems of democracy and justice." The Hopewell Fund, an Arabella Advisors fiscal sponsor, hosts Democracy Docket ΓÇö Marc Elias's election litigation operation ΓÇö as one of its many fiscally sponsored projects. The domestic legal infrastructure shapes the legal environment from the outside through litigation, judicial training, and model legislation that state legislatures adopt.
+3. Election monitoring. The Voter Registration Project runs $40+ million per year on private donations. Its grantee, State Voices, coordinates over 700 organizations in 24 states, providing "cutting-edge organizing technology and experimentation access." The Foundation to Promote Open Society gave the Hopewell Fund $10 million in 2023 for a "Nonpartisan Free Election Fund." The Election Trust Initiative launched with $25 million from Hewlett, Peterson, and Klarman foundations ΓÇö and files no independent public returns because its finances are buried inside Pew's 990. Domestically, 700 coordinated organizations across 24 states provide poll monitoring, voter verification, and legal rapid response.
+4. Activist training. The Alliance for Youth Organizing runs programs on over 200 college campuses. Its 990 describes "local, integrated civic engagement programs that help train and develop new leaders, register and mobilize young voters, and educate young people about key issues in their communities. Our program engages with young people year-round and over multiple cycles, building habits that translate into lifelong civic engagement." Open Society Action Fund spends tens of millions on domestic civic engagement grants. The capability is identical as Georgia: a trained cadre who know how to organize, mobilize, and sustain political pressure across multiple election cycles.
+5. Governance data. Open Society Action Fund's 2023 IRS 990 lists its domestic program areas: "DEMOCRACY DEFENSE, VOTING RIGHTS, ELECTION INTEGRITY, CENSUS, REDISTRICTING, ECONOMIC SECURITY... COMBATTING MIS- AND DISINFORMATION, TECHNOLOGY AND CIVIL RIGHTS... GOVERNMENT ACCOUNTABILITY AND TRANSPARENCY." Domestic program expense: $173 million.
+Those are NED's foreign democracy categories ΓÇö democracy defense, election integrity, government accountability and transparency, combatting disinformation ΓÇö applied domestically, word for word.
+The Recognition
+Seven right-wing candidates won in Latin America after the funding stopped. The infrastructure that had been cultivated for decades began to weaken because its primary source of capital disappeared. The newspapers survived only if they could find new donors. The NGOs shrank.
+That is what people misunderstand when they argue about whether USAID funded transgender operas, journalism workshops, anti-corruption databases, youth leadership programs, or election observers.
+Those were never the point.
+The point was the network.
+A grant to a newspaper is not a newspaper. A grant to an activist group is not an activist group. A grant to an election-monitoring organization is not an election-monitoring organization. Fund enough of them for long enough, connect them to one another, train their leaders together, give them shared sources of funding, shared language, shared objectives, and eventually they become a political operating system.
+At that stage, individual grants no longer matter. The system reproduces itself.
+Georgia shows what the completed architecture looks like. The organizations did not merely criticize the government. They generated information, trained activists, shaped public opinion, challenged institutions, mobilized voters, and ultimately supplied personnel for the government that followed.
+The architecture was the product.
+And once you recognize the architecture, you start seeing it everywhere.
+Even in the United States.
+Especially in the United States.
+That is why we see a major nationwide protest every month as long as President Trump is in office.
+

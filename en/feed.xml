@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Tue, 23 Jun 2026 17:23:13 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 21:24:06 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+
+        <item>
+      <title>How USAID Built Color Revolution Infrastructure With NGOs</title>
+      <description>DataRepublican reveals how USAID functioned as a primary tool for regime change by funding and coordinating five key capabilities — independent media, legal infrastructure, election monitoring, activist training, and governance data — across countries like Georgia, and how similar networks now operate inside the United States via private foundations.
+
+https://x.com/DataRepublican/status/2069619851518431312</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/9-how-usaid-built-color-revolution-infrastructure-with-ngos.mp3" length="18664175" type="audio/mpeg" />
+      <guid>2026-06-24-9-how-usaid-built-color-revolution-infrastructure-with-ngos</guid>
+      <link>https://x.com/DataRepublican/status/2069619851518431312</link>
+      <pubDate>Wed, 24 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>12:57</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>9</itunes:episode>
+      <itunes:summary>DataRepublican reveals how USAID functioned as a primary tool for regime change by funding and coordinating five key capabilities — independent media, legal infrastructure, election monitoring, activist training, and governance data — across countries like Georgia, and how similar networks now operate inside the United States via private foundations.
+
+https://x.com/DataRepublican/status/2069619851518431312</itunes:summary>
+      <itunes:keywords>usaid,regime-change,color-revolution,ngos,georgia,rose-revolution,election-monitoring,activist-training,open-society,foreign-funding,domestic-infrastructure</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/9-how-usaid-built-color-revolution-infrastructure-with-ngos.jpg" />
+    </item>
         <item>
       <title>The Great Liquidation</title>
       <description>Brivael Le Pogam makes the case that corporate "bullshit" — middle management, bureaucracy, and status games — is a 70-year equilibrium that AI is about to liquidate by collapsing the cost of coordination. He warns founders never to wire their startups into legacy corporate structures that select for the wrong talent and culture.
@@ -173,3 +193,4 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
+

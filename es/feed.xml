@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Tue, 23 Jun 2026 17:27:39 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 21:24:06 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+
+        <item>
+      <title>Cómo USAID Construyó la Infraestructura de Revolución de Color con ONGs</title>
+      <description>DataRepublican explica cómo USAID funcionó como una herramienta principal para el cambio de régimen al financiar y coordinar cinco capacidades clave —medios independientes, infraestructura legal, monitoreo de elecciones, entrenamiento de activistas y datos de gobernanza— en países como Georgia, y cómo redes similares operan ahora dentro de Estados Unidos a través de fundaciones privadas.
+
+https://x.com/DataRepublican/status/2069619851518431312</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/06/9-como-usaid-construyo-la-infraestructura-de-revolucion-de-color-con-ongs.mp3" length="20984253" type="audio/mpeg" />
+      <guid>2026-06-24-9-como-usaid-construyo-la-infraestructura-de-revolucion-de-color-con-ongs</guid>
+      <link>https://x.com/DataRepublican/status/2069619851518431312</link>
+      <pubDate>Wed, 24 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>14:34</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>9</itunes:episode>
+      <itunes:summary>DataRepublican explica cómo USAID funcionó como una herramienta principal para el cambio de régimen al financiar y coordinar cinco capacidades clave —medios independientes, infraestructura legal, monitoreo de elecciones, entrenamiento de activistas y datos de gobernanza— en países como Georgia, y cómo redes similares operan ahora dentro de Estados Unidos a través de fundaciones privadas.
+
+https://x.com/DataRepublican/status/2069619851518431312</itunes:summary>
+      <itunes:keywords>usaid,cambio-de-regimen,revolucion-de-color,ongs,georgia,rose-revolution,monitoreo-de-elecciones,entrenamiento-de-activistas,open-society,fondos-extranjeros,infraestructura-domestica</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/06/9-como-usaid-construyo-la-infraestructura-de-revolucion-de-color-con-ongs.jpg" />
+    </item>
         <item>
       <title>La Gran Liquidación</title>
       <description>Brivael Le Pogam argumenta que la "basura corporativa" — mandos intermedios, burocracia y juegos de estatus — es un equilibrio de 70 años que la IA está a punto de liquidar al colapsar el costo de la coordinación. Advierte a los fundadores que nunca integren sus startups en estructuras corporativas heredadas que seleccionan el talento y la cultura equivocados.
@@ -173,3 +193,4 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
+
