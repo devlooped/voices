@@ -2,6 +2,14 @@
   "title": "Voices from X",
   "episodes": [
     {
+      "n": 13,
+      "title": "The Great Descent",
+      "date": "2026-07-04",
+      "byline": "By Chamath Palihapitiya (@chamath)",
+      "md": "2026/07/13-the-great-descent.md",
+      "mp3": "2026/07/13-the-great-descent.mp3"
+    },
+    {
       "n": 12,
       "title": "No, America Did Not Lose the War With Iran",
       "date": "2026-06-24",
@@ -100,5 +108,3 @@
   ],
   "description": "Selected long-form posts and articles from the X community."
 }
-
-

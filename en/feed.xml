@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 24 Jun 2026 23:05:27 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jul 2026 23:28:21 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,25 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+      <item>
+    <title>The Great Descent</title>
+    <description>Chamath Palihapitiya explains how the cost of intelligence is collapsing just like the smartphone did before it - descending from premium scarcity to ubiquitous abundance - and why this creates the biggest opportunity for builders who encode their own edge rather than renting generic capability.
+
+https://x.com/chamath/status/2072618494324027489</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/13-the-great-descent.mp3" length="17660684" type="audio/mpeg" />
+    <guid>2026-07-04-13-the-great-descent</guid>
+    <link>https://x.com/chamath/status/2072618494324027489</link>
+    <pubDate>Sat, 04 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>12:15</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>13</itunes:episode>
+    <itunes:summary>Chamath Palihapitiya explains how the cost of intelligence is collapsing just like the smartphone did before it - descending from premium scarcity to ubiquitous abundance - and why this creates the biggest opportunity for builders who encode their own edge rather than renting generic capability.
+
+https://x.com/chamath/status/2072618494324027489</itunes:summary>
+    <itunes:keywords>chamath,ai,intelligence,cost-curve,abundance,expertise,software-eating-the-world,andreessen,builders,edge,moat,commoditization</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/13-the-great-descent.jpg" />
+  </item>
       <item>
     <title>No, America Did Not Lose the War With Iran</title>
     <description>Kaizen D. Asiedu reviews the U.S.-Iran agreement against Trump's four explicit war aims—destroy missiles, annihilate the navy, cut terrorist proxies, and block a nuclear weapon—and finds America made real gains without achieving total victory or suffering defeat.

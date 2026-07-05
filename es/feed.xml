@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 24 Jun 2026 23:09:30 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jul 2026 23:28:21 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,25 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+      <item>
+    <title>El gran descenso</title>
+    <description>Chamath Palihapitiya explica cómo el costo de la inteligencia está colapsando igual que lo hizo el smartphone antes - descendiendo de la escasez premium a la abundancia ubicua - y por qué esto crea la mayor oportunidad para los constructores que codifican su propia ventaja en lugar de alquilar capacidad genérica.
+
+https://x.com/chamath/status/2072618494324027489</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/07/13-el-gran-descenso.mp3" length="18657505" type="audio/mpeg" />
+    <guid>2026-07-04-13-el-gran-descenso</guid>
+    <link>https://x.com/chamath/status/2072618494324027489</link>
+    <pubDate>Sat, 04 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>12:57</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>13</itunes:episode>
+    <itunes:summary>Chamath Palihapitiya explica cómo el costo de la inteligencia está colapsando igual que lo hizo el smartphone antes - descendiendo de la escasez premium a la abundancia ubicua - y por qué esto crea la mayor oportunidad para los constructores que codifican su propia ventaja en lugar de alquilar capacidad genérica.
+
+https://x.com/chamath/status/2072618494324027489</itunes:summary>
+    <itunes:keywords>chamath,ia,inteligencia,curva-de-costo,abundancia,experiencia,andreessen,constructores,ventaja,foso,comoditizacion</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/07/13-el-gran-descenso.jpg" />
+  </item>
       <item>
     <title>No, América no perdió la guerra con Irán</title>
     <description>Kaizen D. Asiedu analiza el acuerdo entre EE.UU. e Irán frente a los cuatro objetivos explícitos de Trump para la guerra —destruir los misiles, aniquilar la armada, eliminar el apoyo a los proxies terroristas y bloquear el arma nuclear— y concluye que América logró avances reales sin alcanzar una victoria total ni sufrir una derrota.
