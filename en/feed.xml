@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Sat, 04 Jul 2026 23:28:21 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2026 00:26:56 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,45 +27,64 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-      <item>
-    <title>The Great Descent</title>
-    <description>Chamath Palihapitiya explains how the cost of intelligence is collapsing just like the smartphone did before it - descending from premium scarcity to ubiquitous abundance - and why this creates the biggest opportunity for builders who encode their own edge rather than renting generic capability.
+          <item>
+    <title>The Deconstruction That Stopped Progress</title>
+    <description>Brivael Le Pogam, who builds AI, traces his journey from economics to philosophy and reveals how French Theory — the ideas of Foucault, Derrida, and Deleuze — dismantled the foundations of truth, merit, and heritage, explaining why we refuse obvious solutions and why only builders can restore progress.
 
-https://x.com/chamath/status/2072618494324027489</description>
-    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/13-the-great-descent.mp3" length="17660684" type="audio/mpeg" />
-    <guid>2026-07-04-13-the-great-descent</guid>
-    <link>https://x.com/chamath/status/2072618494324027489</link>
+https://x.com/brivael/status/2072583068435583374</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/14-the-deconstruction-that-stopped-progress.mp3" length="10375778" type="audio/mpeg" />
+    <guid>2026-07-04-14-the-deconstruction-that-stopped-progress</guid>
+    <link>https://x.com/brivael/status/2072583068435583374</link>
     <pubDate>Sat, 04 Jul 2026 12:00:00 GMT</pubDate>
-    <itunes:duration>12:15</itunes:duration>
+    <itunes:duration>7:12</itunes:duration>
     <itunes:season>2026</itunes:season>
-    <itunes:episode>13</itunes:episode>
-    <itunes:summary>Chamath Palihapitiya explains how the cost of intelligence is collapsing just like the smartphone did before it - descending from premium scarcity to ubiquitous abundance - and why this creates the biggest opportunity for builders who encode their own edge rather than renting generic capability.
+    <itunes:episode>14</itunes:episode>
+    <itunes:summary>Brivael Le Pogam, who builds AI, traces his journey from economics to philosophy and reveals how French Theory — the ideas of Foucault, Derrida, and Deleuze — dismantled the foundations of truth, merit, and heritage, explaining why we refuse obvious solutions and why only builders can restore progress.
 
-https://x.com/chamath/status/2072618494324027489</itunes:summary>
-    <itunes:keywords>chamath,ai,intelligence,cost-curve,abundance,expertise,software-eating-the-world,andreessen,builders,edge,moat,commoditization</itunes:keywords>
+https://x.com/brivael/status/2072583068435583374</itunes:summary>
+    <itunes:keywords>french-theory,foucault,derrida,deleuze,deconstruction,builders,ai,progress,marxism,wokism,thiel,economics,hayek,friedman</itunes:keywords>
     <itunes:explicit>no</itunes:explicit>
-    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/13-the-great-descent.jpg" />
-  </item>
-      <item>
-    <title>No, America Did Not Lose the War With Iran</title>
-    <description>Kaizen D. Asiedu reviews the U.S.-Iran agreement against Trump's four explicit war aims—destroy missiles, annihilate the navy, cut terrorist proxies, and block a nuclear weapon—and finds America made real gains without achieving total victory or suffering defeat.
-
-https://x.com/thatsKAIZEN/status/2068434297107923025</description>
-    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/12-no-america-did-not-lose-the-war-with-iran.mp3" length="26013524" type="audio/mpeg" />
-    <guid>2026-06-24-12-no-america-did-not-lose-the-war-with-iran</guid>
-    <link>https://x.com/thatsKAIZEN/status/2068434297107923025</link>
-    <pubDate>Wed, 24 Jun 2026 12:00:00 GMT</pubDate>
-    <itunes:duration>18:03</itunes:duration>
-    <itunes:season>2026</itunes:season>
-    <itunes:episode>12</itunes:episode>
-    <itunes:summary>Kaizen D. Asiedu reviews the U.S.-Iran agreement against Trump's four explicit war aims—destroy missiles, annihilate the navy, cut terrorist proxies, and block a nuclear weapon—and finds America made real gains without achieving total victory or suffering defeat.
-
-https://x.com/thatsKAIZEN/status/2068434297107923025</itunes:summary>
-    <itunes:keywords>iran,war,trump,missiles,navy,nuclear,proxies,hezbollah,deal,geopolitics,middle-east,hamas</itunes:keywords>
-    <itunes:explicit>no</itunes:explicit>
-    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/12-no-america-did-not-lose-the-war-with-iran.jpg" />
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/14-the-deconstruction-that-stopped-progress.jpg" />
   </item>
 <item>
+      <title>The Great Descent</title>
+      <description>Chamath Palihapitiya explains how the cost of intelligence is collapsing just like the smartphone did before it - descending from premium scarcity to ubiquitous abundance - and why this creates the biggest opportunity for builders who encode their own edge rather than renting generic capability.
+
+https://x.com/chamath/status/2072618494324027489</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/13-the-great-descent.mp3" length="17660684" type="audio/mpeg" />
+      <guid>2026-07-04-13-the-great-descent</guid>
+      <link>https://x.com/chamath/status/2072618494324027489</link>
+      <pubDate>Sat, 04 Jul 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>12:15</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>13</itunes:episode>
+      <itunes:summary>Chamath Palihapitiya explains how the cost of intelligence is collapsing just like the smartphone did before it - descending from premium scarcity to ubiquitous abundance - and why this creates the biggest opportunity for builders who encode their own edge rather than renting generic capability.
+
+https://x.com/chamath/status/2072618494324027489</itunes:summary>
+      <itunes:keywords>chamath,ai,intelligence,cost-curve,abundance,expertise,software-eating-the-world,andreessen,builders,edge,moat,commoditization</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/13-the-great-descent.jpg" />
+    </item>
+    <item>
+      <title>No, America Did Not Lose the War With Iran</title>
+      <description>Kaizen D. Asiedu reviews the U.S.-Iran agreement against Trump's four explicit war aims—destroy missiles, annihilate the navy, cut terrorist proxies, and block a nuclear weapon—and finds America made real gains without achieving total victory or suffering defeat.
+
+https://x.com/thatsKAIZEN/status/2068434297107923025</description>
+      <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/06/12-no-america-did-not-lose-the-war-with-iran.mp3" length="26013524" type="audio/mpeg" />
+      <guid>2026-06-24-12-no-america-did-not-lose-the-war-with-iran</guid>
+      <link>https://x.com/thatsKAIZEN/status/2068434297107923025</link>
+      <pubDate>Wed, 24 Jun 2026 12:00:00 GMT</pubDate>
+      <itunes:duration>18:03</itunes:duration>
+      <itunes:season>2026</itunes:season>
+      <itunes:episode>12</itunes:episode>
+      <itunes:summary>Kaizen D. Asiedu reviews the U.S.-Iran agreement against Trump's four explicit war aims—destroy missiles, annihilate the navy, cut terrorist proxies, and block a nuclear weapon—and finds America made real gains without achieving total victory or suffering defeat.
+
+https://x.com/thatsKAIZEN/status/2068434297107923025</itunes:summary>
+      <itunes:keywords>iran,war,trump,missiles,navy,nuclear,proxies,hezbollah,deal,geopolitics,middle-east,hamas</itunes:keywords>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/06/12-no-america-did-not-lose-the-war-with-iran.jpg" />
+    </item>
+    <item>
       <title>Soros Did Not Prolong the Open Society</title>
       <description>Brivael Le Pogam traces how George Soros, a student of Karl Popper, kept the label 'Open Society' but inverted its meaning — turning the philosopher's call for piecemeal reform and rejection of historicism into top-down global planning through vast philanthropic networks, most visibly in his prescriptions for European immigration policy.
 

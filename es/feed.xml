@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Sat, 04 Jul 2026 23:28:21 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2026 00:30:00 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-      <item>
+            <item>
+    <title>La deconstrucción que detuvo el progreso</title>
+    <description>Brivael Le Pogam, que construye IA, rastrea su viaje desde la economía hasta la filosofía y revela cómo la Teoría Francesa —las ideas de Foucault, Derrida y Deleuze— desmanteló los fundamentos de la verdad, el mérito y la herencia, explicando por qué rechazamos soluciones obvias y por qué solo los constructores pueden restaurar el progreso.
+
+https://x.com/brivael/status/2072583068435583374</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/07/14-la-deconstruccion-que-detuvo-el-progreso.mp3" length="10172568" type="audio/mpeg" />
+    <guid>2026-07-04-14-la-deconstruccion-que-detuvo-el-progreso</guid>
+    <link>https://x.com/brivael/status/2072583068435583374</link>
+    <pubDate>Sat, 04 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>7:03</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>14</itunes:episode>
+    <itunes:summary>Brivael Le Pogam, que construye IA, rastrea su viaje desde la economía hasta la filosofía y revela cómo la Teoría Francesa —las ideas de Foucault, Derrida y Deleuze— desmanteló los fundamentos de la verdad, el mérito y la herencia, explicando por qué rechazamos soluciones obvias y por qué solo los constructores pueden restaurar el progreso.
+
+https://x.com/brivael/status/2072583068435583374</itunes:summary>
+    <itunes:keywords>teoria-francesa,foucault,derrida,deleuze,deconstruccion,constructores,ia,progreso,marxismo,wokismo,thiel,economia</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/07/14-la-deconstruccion-que-detuvo-el-progreso.jpg" />
+  </item>
+<item>
     <title>El gran descenso</title>
     <description>Chamath Palihapitiya explica cómo el costo de la inteligencia está colapsando igual que lo hizo el smartphone antes - descendiendo de la escasez premium a la abundancia ubicua - y por qué esto crea la mayor oportunidad para los constructores que codifican su propia ventaja en lugar de alquilar capacidad genérica.
 
@@ -268,3 +287,4 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
+
