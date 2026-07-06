@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Sun, 05 Jul 2026 00:30:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2026 17:24:33 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-            <item>
+                      <item>
+    <title>El Cristianismo Es la Arquitectura Moral de Occidente</title>
+    <description>Brivael Le Pogam sostiene que el cristianismo ofrece la base moral más perfecta que Occidente haya producido jamás —un sistema de valores centrado en el valor infinito del individuo que se alinea precisamente con el verdadero capitalismo y su énfasis en la responsabilidad personal, el mérito, el riesgo y la creación de valor.
+
+https://x.com/brivael/status/2073865032706719919</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/07/15-el-cristianismo-es-la-arquitectura-moral-de-occidente.mp3" length="9155292" type="audio/mpeg" />
+    <guid>2026-07-06-15-el-cristianismo-es-la-arquitectura-moral-de-occidente</guid>
+    <link>https://x.com/brivael/status/2073865032706719919</link>
+    <pubDate>Mon, 06 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>6:21</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>15</itunes:episode>
+    <itunes:summary>Brivael Le Pogam sostiene que el cristianismo ofrece la base moral más perfecta que Occidente haya producido jamás —un sistema de valores centrado en el valor infinito del individuo que se alinea precisamente con el verdadero capitalismo y su énfasis en la responsabilidad personal, el mérito, el riesgo y la creación de valor.
+
+https://x.com/brivael/status/2073865032706719919</itunes:summary>
+    <itunes:keywords>cristianismo,capitalismo,occidente,individuo,responsabilidad,merito,valores,moral,emprendimiento,comunismo,libertad,fe,capital</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/07/15-el-cristianismo-es-la-arquitectura-moral-de-occidente.jpg" />
+  </item>
+<item>
     <title>La deconstrucción que detuvo el progreso</title>
     <description>Brivael Le Pogam, que construye IA, rastrea su viaje desde la economía hasta la filosofía y revela cómo la Teoría Francesa —las ideas de Foucault, Derrida y Deleuze— desmanteló los fundamentos de la verdad, el mérito y la herencia, explicando por qué rechazamos soluciones obvias y por qué solo los constructores pueden restaurar el progreso.
 
@@ -287,4 +306,5 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
+
 

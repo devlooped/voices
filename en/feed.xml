@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Sun, 05 Jul 2026 00:26:56 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2026 17:24:22 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-          <item>
+                    <item>
+    <title>Christianity Is the Moral Architecture of the West</title>
+    <description>Brivael Le Pogam argues that Christianity provides the most perfect moral foundation the West has ever produced — a system of values centered on the infinite worth of the individual that aligns precisely with true capitalism's emphasis on personal responsibility, merit, risk, and value creation.
+
+https://x.com/brivael/status/2073865032706719919</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/15-christianity-is-the-moral-architecture-of-the-west.mp3" length="9567646" type="audio/mpeg" />
+    <guid>2026-07-06-15-christianity-is-the-moral-architecture-of-the-west</guid>
+    <link>https://x.com/brivael/status/2073865032706719919</link>
+    <pubDate>Mon, 06 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>6:38</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>15</itunes:episode>
+    <itunes:summary>Brivael Le Pogam argues that Christianity provides the most perfect moral foundation the West has ever produced — a system of values centered on the infinite worth of the individual that aligns precisely with true capitalism's emphasis on personal responsibility, merit, risk, and value creation.
+
+https://x.com/brivael/status/2073865032706719919</itunes:summary>
+    <itunes:keywords>christianity,capitalism,west,individual,responsibility,merit,values,morality,entrepreneurship,communism,liberty,faith,capital</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/15-christianity-is-the-moral-architecture-of-the-west.jpg" />
+  </item>
+<item>
     <title>The Deconstruction That Stopped Progress</title>
     <description>Brivael Le Pogam, who builds AI, traces his journey from economics to philosophy and reveals how French Theory — the ideas of Foucault, Derrida, and Deleuze — dismantled the foundations of truth, merit, and heritage, explaining why we refuse obvious solutions and why only builders can restore progress.
 
@@ -287,3 +306,4 @@ https://x.com/brivael/status/2069203589692805440</itunes:summary>
     </item>
   </channel>
 </rss>
+
