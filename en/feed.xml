@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Mon, 06 Jul 2026 17:24:22 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jul 2026 13:42:57 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,45 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+                    <item>
+    <title>The Reverse Information Paradox</title>
+    <description>Satya Nadella describes the Reverse Information Paradox of the AI age: enterprises pay twice for intelligence—once with money, and again with proprietary knowledge that leaks through prompts, corrections, and evals—and argues firms need a real trust boundary so their learning compounds inside their own walls.
+
+https://x.com/satyanadella/status/2076323181154230284</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/17-the-reverse-information-paradox.mp3" length="7672036" type="audio/mpeg" />
+    <guid>2026-07-13-17-the-reverse-information-paradox</guid>
+    <link>https://x.com/satyanadella/status/2076323181154230284</link>
+    <pubDate>Mon, 13 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>5:19</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>17</itunes:episode>
+    <itunes:summary>Satya Nadella describes the Reverse Information Paradox of the AI age: enterprises pay twice for intelligence—once with money, and again with proprietary knowledge that leaks through prompts, corrections, and evals—and argues firms need a real trust boundary so their learning compounds inside their own walls.
+
+https://x.com/satyanadella/status/2076323181154230284</itunes:summary>
+    <itunes:keywords>ai,ip,information-paradox,enterprise,trust-boundary,evals,models,satya-nadella,microsoft,learning,data,orchestration</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/17-the-reverse-information-paradox.jpg" />
+  </item>
+
+                    <item>
+    <title>Why the World of Bankers Is Dying, and Why the Builders Will Inherit the Century</title>
+    <description>Brivael Le Pogam argues that the old alliance of bankers and takers is dying, and that builders who create real value — led by figures like Elon Musk and accelerated by AI collapsing the monopoly on narrative — will inherit the century in what he calls the Great Great Reset.
+
+https://x.com/brivael/status/2074396867467645169</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/16-why-the-world-of-bankers-is-dying-and-why-the-builders-will-inherit-the-century.mp3" length="14648530" type="audio/mpeg" />
+    <guid>2026-07-13-16-why-the-world-of-bankers-is-dying-and-why-the-builders-will-inherit-the-century</guid>
+    <link>https://x.com/brivael/status/2074396867467645169</link>
+    <pubDate>Mon, 13 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>10:10</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>16</itunes:episode>
+    <itunes:summary>Brivael Le Pogam argues that the old alliance of bankers and takers is dying, and that builders who create real value — led by figures like Elon Musk and accelerated by AI collapsing the monopoly on narrative — will inherit the century in what he calls the Great Great Reset.
+
+https://x.com/brivael/status/2074396867467645169</itunes:summary>
+    <itunes:keywords>builders,bankers,elon-musk,ai,reset,naval,silicon-valley,elites,capitalism,entrepreneurs,ycombinator,narrative</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/16-why-the-world-of-bankers-is-dying-and-why-the-builders-will-inherit-the-century.jpg" />
+  </item>
                     <item>
     <title>Christianity Is the Moral Architecture of the West</title>
     <description>Brivael Le Pogam argues that Christianity provides the most perfect moral foundation the West has ever produced — a system of values centered on the infinite worth of the individual that aligns precisely with true capitalism's emphasis on personal responsibility, merit, risk, and value creation.

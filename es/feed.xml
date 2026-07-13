@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Mon, 06 Jul 2026 17:24:33 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jul 2026 13:42:57 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,45 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+                    <item>
+    <title>La paradoja inversa de la información</title>
+    <description>Satya Nadella describe la paradoja inversa de la información en la era de la IA: las empresas pagan dos veces por la inteligencia—una con dinero y otra con el conocimiento propietario que se filtra en prompts, correcciones y evaluaciones—y argumenta que necesitan un verdadero límite de confianza para que su aprendizaje se acumule dentro de sus propios muros.
+
+https://x.com/satyanadella/status/2076323181154230284</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/07/17-la-paradoja-inversa-de-la-informacion.mp3" length="8313843" type="audio/mpeg" />
+    <guid>2026-07-13-17-la-paradoja-inversa-de-la-informacion</guid>
+    <link>https://x.com/satyanadella/status/2076323181154230284</link>
+    <pubDate>Mon, 13 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>5:46</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>17</itunes:episode>
+    <itunes:summary>Satya Nadella describe la paradoja inversa de la información en la era de la IA: las empresas pagan dos veces por la inteligencia—una con dinero y otra con el conocimiento propietario que se filtra en prompts, correcciones y evaluaciones—y argumenta que necesitan un verdadero límite de confianza para que su aprendizaje se acumule dentro de sus propios muros.
+
+https://x.com/satyanadella/status/2076323181154230284</itunes:summary>
+    <itunes:keywords>ia,pi,paradoja-informacion,empresa,limite-confianza,evaluaciones,modelos,satya-nadella,microsoft,aprendizaje,datos,orquestacion</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/07/17-la-paradoja-inversa-de-la-informacion.jpg" />
+  </item>
+
+                    <item>
+    <title>Por qué el mundo de los banqueros está muriendo, y por qué los constructores heredarán el siglo</title>
+    <description>Brivael Le Pogam argumenta que la vieja alianza de banqueros y tomadores está muriendo, y que los constructores que crean valor real — liderados por figuras como Elon Musk y acelerados por la IA que derrumba el monopolio de la narrativa — heredarán el siglo en lo que él llama el Gran Gran Reinicio.
+
+https://x.com/brivael/status/2074396867467645169</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/07/16-por-que-el-mundo-de-los-banqueros-esta-muriendo-y-por-que-los-constructores-heredaran-el-siglo.mp3" length="14210352" type="audio/mpeg" />
+    <guid>2026-07-13-16-por-que-el-mundo-de-los-banqueros-esta-muriendo-y-por-que-los-constructores-heredaran-el-siglo</guid>
+    <link>https://x.com/brivael/status/2074396867467645169</link>
+    <pubDate>Mon, 13 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>9:52</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>16</itunes:episode>
+    <itunes:summary>Brivael Le Pogam argumenta que la vieja alianza de banqueros y tomadores está muriendo, y que los constructores que crean valor real — liderados por figuras como Elon Musk y acelerados por la IA que derrumba el monopolio de la narrativa — heredarán el siglo en lo que él llama el Gran Gran Reinicio.
+
+https://x.com/brivael/status/2074396867467645169</itunes:summary>
+    <itunes:keywords>constructores,banqueros,elon-musk,ia,reinicio,naval,silicon-valley,elites,capitalismo,emprendedores,ycombinator,narrativa</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/07/16-por-que-el-mundo-de-los-banqueros-esta-muriendo-y-por-que-los-constructores-heredaran-el-siglo.jpg" />
+  </item>
                       <item>
     <title>El Cristianismo Es la Arquitectura Moral de Occidente</title>
     <description>Brivael Le Pogam sostiene que el cristianismo ofrece la base moral más perfecta que Occidente haya producido jamás —un sistema de valores centrado en el valor infinito del individuo que se alinea precisamente con el verdadero capitalismo y su énfasis en la responsabilidad personal, el mérito, el riesgo y la creación de valor.
