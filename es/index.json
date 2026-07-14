@@ -1,7 +1,22 @@
 {
-  "description": "Publicaciones y artículos seleccionados de la comunidad de X.",
   "title": "Voces de X",
   "episodes": [
+    {
+      "mp3": "2026/07/19-los-dsl-permiten-un-uso-confiable-de-los-llm.mp3",
+      "title": "Los DSL permiten un uso confiable de los LLM",
+      "date": "2026-07-14",
+      "byline": "By Unmesh Joshi",
+      "n": 19,
+      "md": "2026/07/19-los-dsl-permiten-un-uso-confiable-de-los-llm.md"
+    },
+    {
+      "date": "2026-07-14",
+      "n": 18,
+      "byline": "By Demis Hassabis (@demishassabis)",
+      "mp3": "2026/07/18-un-marco-para-la-ia-de-frontera-y-el-amanecer-de-una-nueva-era.mp3",
+      "md": "2026/07/18-un-marco-para-la-ia-de-frontera-y-el-amanecer-de-una-nueva-era.md",
+      "title": "Un marco para la IA de frontera y el amanecer de una nueva era"
+    },
     {
       "n": 17,
       "title": "La paradoja inversa de la información",
@@ -138,5 +153,6 @@
       "md": "2026/04/2-esperanza-el-futuro-es-radiante.md",
       "mp3": "2026/04/2-esperanza-el-futuro-es-radiante.mp3"
     }
-  ]
+  ],
+  "description": "Publicaciones y artículos seleccionados de la comunidad de X."
 }

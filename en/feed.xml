@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Mon, 13 Jul 2026 13:42:57 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2026 21:33:04 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,44 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+                    <item>
+    <title>DSLs Enable Reliable Use of LLMs</title>
+    <description>Unmesh Joshi argues that domain-specific languages and shared semantic models give LLMs clear boundaries so they generate reliable code—illustrated with PlantUML presentation tooling and the Tickloom framework for distributed systems.
+
+https://martinfowler.com/articles/llm-and-dsls.html</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/19-dsls-enable-reliable-use-of-llms.mp3" length="26924108" type="audio/mpeg" />
+    <guid>2026-07-14-19-dsls-enable-reliable-use-of-llms</guid>
+    <link>https://martinfowler.com/articles/llm-and-dsls.html</link>
+    <pubDate>Tue, 14 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>18:41</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>19</itunes:episode>
+    <itunes:summary>Unmesh Joshi argues that domain-specific languages and shared semantic models give LLMs clear boundaries so they generate reliable code—illustrated with PlantUML presentation tooling and the Tickloom framework for distributed systems.
+
+https://martinfowler.com/articles/llm-and-dsls.html</itunes:summary>
+    <itunes:keywords>dsl,llm,domain-specific-languages,abstractions,tickloom,distributed-systems,unmesh-joshi,semantic-model,ai,code-generation,domain-driven-design,testing</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/19-dsls-enable-reliable-use-of-llms.jpg" />
+  </item>
+                    <item>
+    <title>A Framework for Frontier AI and the Dawning of a New Age</title>
+    <description>Demis Hassabis argues AGI is only a few short years away and proposes a US-led Frontier AI Standards Body—modeled on a public-private partnership like FINRA—to rigorously test frontier models for national-security risks while still supporting innovation.
+
+https://x.com/demishassabis/status/2076957440109625718</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/18-a-framework-for-frontier-ai-and-the-dawning-of-a-new-age.mp3" length="12686030" type="audio/mpeg" />
+    <guid>2026-07-14-18-a-framework-for-frontier-ai-and-the-dawning-of-a-new-age</guid>
+    <link>https://x.com/demishassabis/status/2076957440109625718</link>
+    <pubDate>Tue, 14 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>8:48</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>18</itunes:episode>
+    <itunes:summary>Demis Hassabis argues AGI is only a few short years away and proposes a US-led Frontier AI Standards Body—modeled on a public-private partnership like FINRA—to rigorously test frontier models for national-security risks while still supporting innovation.
+
+https://x.com/demishassabis/status/2076957440109625718</itunes:summary>
+    <itunes:keywords>agi,frontier-ai,standards,demis-hassabis,deepmind,safety,regulation,finra,cybersecurity,bio-risk,singularity,governance</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/18-a-framework-for-frontier-ai-and-the-dawning-of-a-new-age.jpg" />
+  </item>
                     <item>
     <title>The Reverse Information Paradox</title>
     <description>Satya Nadella describes the Reverse Information Paradox of the AI age: enterprises pay twice for intelligence—once with money, and again with proprietary knowledge that leaks through prompts, corrections, and evals—and argues firms need a real trust boundary so their learning compounds inside their own walls.

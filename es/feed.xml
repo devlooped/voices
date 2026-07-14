@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Mon, 13 Jul 2026 13:42:57 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2026 21:33:04 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,44 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+                    <item>
+    <title>Los DSL permiten un uso confiable de los LLM</title>
+    <description>Unmesh Joshi sostiene que los lenguajes específicos de dominio y los modelos semánticos compartidos dan a los LLM límites claros para generar código de forma fiable, ilustrado con herramientas de presentaciones PlantUML y el framework Tickloom para sistemas distribuidos.
+
+https://martinfowler.com/articles/llm-and-dsls.html</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/07/19-los-dsl-permiten-un-uso-confiable-de-los-llm.mp3" length="28961503" type="audio/mpeg" />
+    <guid>2026-07-14-19-los-dsl-permiten-un-uso-confiable-de-los-llm</guid>
+    <link>https://martinfowler.com/articles/llm-and-dsls.html</link>
+    <pubDate>Tue, 14 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>20:06</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>19</itunes:episode>
+    <itunes:summary>Unmesh Joshi sostiene que los lenguajes específicos de dominio y los modelos semánticos compartidos dan a los LLM límites claros para generar código de forma fiable, ilustrado con herramientas de presentaciones PlantUML y el framework Tickloom para sistemas distribuidos.
+
+https://martinfowler.com/articles/llm-and-dsls.html</itunes:summary>
+    <itunes:keywords>dsl,llm,lenguajes-especificos-de-dominio,abstracciones,tickloom,sistemas-distribuidos,unmesh-joshi,modelo-semantico,ia,generacion-de-codigo,diseno-dirigido-por-dominio,pruebas</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/07/19-los-dsl-permiten-un-uso-confiable-de-los-llm.jpg" />
+  </item>
+                    <item>
+    <title>Un marco para la IA de frontera y el amanecer de una nueva era</title>
+    <description>Demis Hassabis sostiene que la AGI está a solo unos pocos años de distancia y propone un Organismo de Estándares de IA de Frontera liderado por EE.UU., inspirado en una asociación público-privada como FINRA, para evaluar con rigor los modelos de frontera ante riesgos de seguridad nacional sin frenar la innovación.
+
+https://x.com/demishassabis/status/2076957440109625718</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/07/18-un-marco-para-la-ia-de-frontera-y-el-amanecer-de-una-nueva-era.mp3" length="14350795" type="audio/mpeg" />
+    <guid>2026-07-14-18-un-marco-para-la-ia-de-frontera-y-el-amanecer-de-una-nueva-era</guid>
+    <link>https://x.com/demishassabis/status/2076957440109625718</link>
+    <pubDate>Tue, 14 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>9:57</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>18</itunes:episode>
+    <itunes:summary>Demis Hassabis sostiene que la AGI está a solo unos pocos años de distancia y propone un Organismo de Estándares de IA de Frontera liderado por EE.UU., inspirado en una asociación público-privada como FINRA, para evaluar con rigor los modelos de frontera ante riesgos de seguridad nacional sin frenar la innovación.
+
+https://x.com/demishassabis/status/2076957440109625718</itunes:summary>
+    <itunes:keywords>agi,ia-de-frontera,estandares,demis-hassabis,deepmind,seguridad,regulacion,finra,ciberseguridad,riesgo-biologico,singularidad,gobernanza</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/07/18-un-marco-para-la-ia-de-frontera-y-el-amanecer-de-una-nueva-era.jpg" />
+  </item>
                     <item>
     <title>La paradoja inversa de la información</title>
     <description>Satya Nadella describe la paradoja inversa de la información en la era de la IA: las empresas pagan dos veces por la inteligencia—una con dinero y otra con el conocimiento propietario que se filtra en prompts, correcciones y evaluaciones—y argumenta que necesitan un verdadero límite de confianza para que su aprendizaje se acumule dentro de sus propios muros.
