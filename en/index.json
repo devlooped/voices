@@ -1,21 +1,30 @@
 {
   "title": "Voices from X",
+  "description": "Selected long-form posts and articles from the X community.",
   "episodes": [
     {
-      "mp3": "2026/07/19-dsls-enable-reliable-use-of-llms.mp3",
+      "n": 20,
+      "title": "Maybe Intelligence Ain't All That",
+      "date": "2026-07-19",
+      "byline": "By Clifford Sosin (@CliffordSosin)",
+      "md": "2026/07/20-maybe-intelligence-aint-all-that.md",
+      "mp3": "2026/07/20-maybe-intelligence-aint-all-that.mp3"
+    },
+    {
+      "n": 19,
       "title": "DSLs Enable Reliable Use of LLMs",
       "date": "2026-07-14",
       "byline": "By Unmesh Joshi",
-      "n": 19,
-      "md": "2026/07/19-dsls-enable-reliable-use-of-llms.md"
+      "md": "2026/07/19-dsls-enable-reliable-use-of-llms.md",
+      "mp3": "2026/07/19-dsls-enable-reliable-use-of-llms.mp3"
     },
     {
-      "date": "2026-07-14",
       "n": 18,
+      "title": "A Framework for Frontier AI and the Dawning of a New Age",
+      "date": "2026-07-14",
       "byline": "By Demis Hassabis (@demishassabis)",
-      "mp3": "2026/07/18-a-framework-for-frontier-ai-and-the-dawning-of-a-new-age.mp3",
       "md": "2026/07/18-a-framework-for-frontier-ai-and-the-dawning-of-a-new-age.md",
-      "title": "A Framework for Frontier AI and the Dawning of a New Age"
+      "mp3": "2026/07/18-a-framework-for-frontier-ai-and-the-dawning-of-a-new-age.mp3"
     },
     {
       "n": 17,
@@ -153,6 +162,5 @@
       "md": "2026/04/2-hope-the-future-is-bright.md",
       "mp3": "2026/04/2-hope-the-future-is-bright.mp3"
     }
-  ],
-  "description": "Selected long-form posts and articles from the X community."
+  ]
 }

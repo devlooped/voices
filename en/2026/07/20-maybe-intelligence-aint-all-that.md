@@ -1,0 +1,23 @@
+---
+title: "Maybe Intelligence Ain't All That"
+summary: "Clifford Sosin argues that superintelligence arrived incrementally and that intelligence was overrated — the real limit is contact with reality, not pure reasoning power."
+date: "2026-07-19"
+link: "https://x.com/CliffordSosin/status/2078594661359194500"
+author: "Clifford Sosin"
+---
+Maybe Intelligence Ain't All That
+by Clifford Sosin, posted on July 18th, 2026
+
+Superintelligence arrived. You probably didn't notice, because it turned out to be kind of incremental.
+Don't believe me? Run the test. Talk to Fable 5 for an hour, then talk to your ten smartest friends. Which one is smarter? Don't worry, they won't be offended.
+We were told to expect something bigger. Once machines crossed some line, the system's IQ would climb to heights we couldn't follow, and we'd be sharing the planet with something that designs warp drives and thinks thoughts as far past us as mine are past my dog.
+What we got is a tool that writes excellent code, beats people at a startling range of tasks, and will clearly reshape the economy. It's also, somehow, incremental. No takeoff. No explosion. That's the strange part.
+I think we overrated intelligence, or misread what it is.
+Here's how I'd define it. We hold a thin scatter of facts about the world, and intelligence or reasoning is whatever fills the space between them. It extrapolates between things we already know, and LLMs are incredible at that. In studying our words, they learned the structure of our thoughts. We will soon have it in unlimited supply, at 200 IQ, for close to nothing.
+Where the space between the facts behaves well, this is close to godlike. Real estate law isn't hard. We made it up, it's internally consistent, and a model holding every statute and ruling should beat any lawyer for free. Coding, math and most administrative work are similarly benign. What makes them easy is that they have relatively smooth solution spaces and are tractably verifiable.
+Most of what matters doesn't behave like that. The universe is mostly the emergent behavior of complex systems. Stir cream into coffee. Watch a storm build out of nothing but atmospheric temperature differences and water vapor. The local rules are simple and the tornado is not. In systems like these, no amount of reasoning delivers the answer, because there's no shortcut hiding in the gaps. You have to run the thing. And running it has a ceiling of its own, since small errors compound, which is why no supercomputer will ever give you a clean two-week forecast. The smallest object that can perfectly simulate the universe is the universe. Human systems are similarly complex. We can't even predict our own behaviors reliably, let alone the emergent properties of large groups of people acting over time.
+That, I suspect, is why the explosion never came. The takeoff story assumed the limit was thinking. It isn't. The limit is contact with reality. A smarter reasoner fills the gaps between known facts in simple areas faster and better, but it doesn't produce new facts.
+An AI will hand you a genuinely clever design for a jet turbine blade. It might be far more likely to work than anything your engineers came up with. It'll still probably fail, because that's the base rate at the edge of what anyone knows. The only way to find out is to build the blade and try to break it.
+That's the real limit on learning, and it doesn't care how smart you are. Coming up with ideas was never the hard part. The hard part is how fast reality answers them.
+None of this should worry you. Anything a person could work out at a desk by thinking, a computer will now work out for free. That's a lot, and these tools will increase our living standards a great deal. But most problems can't be worked out at a desk by thinking. Those stay bound by how fast we can build the thing and see if it holds, and that clock barely moves.
+To be clear, I'm very optimistic! 200 IQ reasoning on tap will be a godsend, just as mechanized strength was. If the work of the mind is as valuable as the work of the muscle, the changes could be on the order of the industrial revolution. My grandchildren will marvel at my poverty just as I marvel at that of my great-grandparents. But we aren't going to see some weird "takeoff" with warp drives and thoughts we'd understand the way my dog understands mine. The future is bright. And comprehensible

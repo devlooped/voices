@@ -1,21 +1,30 @@
 {
   "title": "Voces de X",
+  "description": "Publicaciones y artículos seleccionados de la comunidad de X.",
   "episodes": [
     {
-      "mp3": "2026/07/19-los-dsl-permiten-un-uso-confiable-de-los-llm.mp3",
+      "n": 20,
+      "title": "Quizá la inteligencia no sea para tanto",
+      "date": "2026-07-19",
+      "byline": "By Clifford Sosin (@CliffordSosin)",
+      "md": "2026/07/20-quiza-la-inteligencia-no-sea-para-tanto.md",
+      "mp3": "2026/07/20-quiza-la-inteligencia-no-sea-para-tanto.mp3"
+    },
+    {
+      "n": 19,
       "title": "Los DSL permiten un uso confiable de los LLM",
       "date": "2026-07-14",
       "byline": "By Unmesh Joshi",
-      "n": 19,
-      "md": "2026/07/19-los-dsl-permiten-un-uso-confiable-de-los-llm.md"
+      "md": "2026/07/19-los-dsl-permiten-un-uso-confiable-de-los-llm.md",
+      "mp3": "2026/07/19-los-dsl-permiten-un-uso-confiable-de-los-llm.mp3"
     },
     {
-      "date": "2026-07-14",
       "n": 18,
+      "title": "Un marco para la IA de frontera y el amanecer de una nueva era",
+      "date": "2026-07-14",
       "byline": "By Demis Hassabis (@demishassabis)",
-      "mp3": "2026/07/18-un-marco-para-la-ia-de-frontera-y-el-amanecer-de-una-nueva-era.mp3",
       "md": "2026/07/18-un-marco-para-la-ia-de-frontera-y-el-amanecer-de-una-nueva-era.md",
-      "title": "Un marco para la IA de frontera y el amanecer de una nueva era"
+      "mp3": "2026/07/18-un-marco-para-la-ia-de-frontera-y-el-amanecer-de-una-nueva-era.mp3"
     },
     {
       "n": 17,
@@ -153,6 +162,5 @@
       "md": "2026/04/2-esperanza-el-futuro-es-radiante.md",
       "mp3": "2026/04/2-esperanza-el-futuro-es-radiante.mp3"
     }
-  ],
-  "description": "Publicaciones y artículos seleccionados de la comunidad de X."
+  ]
 }

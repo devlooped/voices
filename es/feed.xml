@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Tue, 14 Jul 2026 21:33:04 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2026 00:30:48 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+                    <item>
+    <title>Quizá la inteligencia no sea para tanto</title>
+    <description>Clifford Sosin sostiene que la superinteligencia llegó de forma incremental y que se sobrevaloró la inteligencia: el límite real es el contacto con la realidad, no el razonamiento puro.
+
+https://x.com/CliffordSosin/status/2078594661359194500</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/07/20-quiza-la-inteligencia-no-sea-para-tanto.mp3" length="6936282" type="audio/mpeg" />
+    <guid>2026-07-19-20-quiza-la-inteligencia-no-sea-para-tanto</guid>
+    <link>https://x.com/CliffordSosin/status/2078594661359194500</link>
+    <pubDate>Sun, 19 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>4:48</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>20</itunes:episode>
+    <itunes:summary>Clifford Sosin sostiene que la superinteligencia llegó de forma incremental y que se sobrevaloró la inteligencia: el límite real es el contacto con la realidad, no el razonamiento puro.
+
+https://x.com/CliffordSosin/status/2078594661359194500</itunes:summary>
+    <itunes:keywords>superinteligencia,IA,inteligencia,LLM,razonamiento,realidad,innovacion,Clifford Sosin,despegue,revolucion industrial</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/07/20-quiza-la-inteligencia-no-sea-para-tanto.jpg" />
+  </item>
+
                     <item>
     <title>Los DSL permiten un uso confiable de los LLM</title>
     <description>Unmesh Joshi sostiene que los lenguajes específicos de dominio y los modelos semánticos compartidos dan a los LLM límites claros para generar código de forma fiable, ilustrado con herramientas de presentaciones PlantUML y el framework Tickloom para sistemas distribuidos.

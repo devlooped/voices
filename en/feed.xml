@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Tue, 14 Jul 2026 21:33:04 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2026 00:30:48 GMT</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+                    <item>
+    <title>Maybe Intelligence Ain&apos;t All That</title>
+    <description>Clifford Sosin argues that superintelligence arrived incrementally and that intelligence was overrated — the real limit is contact with reality, not pure reasoning power.
+
+https://x.com/CliffordSosin/status/2078594661359194500</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/20-maybe-intelligence-aint-all-that.mp3" length="6003087" type="audio/mpeg" />
+    <guid>2026-07-19-20-maybe-intelligence-aint-all-that</guid>
+    <link>https://x.com/CliffordSosin/status/2078594661359194500</link>
+    <pubDate>Sun, 19 Jul 2026 12:00:00 GMT</pubDate>
+    <itunes:duration>4:10</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>20</itunes:episode>
+    <itunes:summary>Clifford Sosin argues that superintelligence arrived incrementally and that intelligence was overrated — the real limit is contact with reality, not pure reasoning power.
+
+https://x.com/CliffordSosin/status/2078594661359194500</itunes:summary>
+    <itunes:keywords>superintelligence,AI,intelligence,LLMs,reasoning,reality,innovation,Clifford Sosin,takeoff,industrial revolution</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/20-maybe-intelligence-aint-all-that.jpg" />
+  </item>
+
                     <item>
     <title>DSLs Enable Reliable Use of LLMs</title>
     <description>Unmesh Joshi argues that domain-specific languages and shared semantic models give LLMs clear boundaries so they generate reliable code—illustrated with PlantUML presentation tooling and the Tickloom framework for distributed systems.
