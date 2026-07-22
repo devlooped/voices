@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 22 Jul 2026 02:51:50 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jul 2026 03:29:19 +0000</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+                    <item>
+    <title>They Accuse X of Manipulating the Algo. The Code Is Public. They Still Haven&apos;t Read It.</title>
+    <description>Brivael Le Pogam argues that accusations of algorithmic manipulation on X collapse under the open-sourced recommendation code: the real panic is loss of narrative monopoly, not opacity.
+
+https://x.com/brivael/status/2078940564792426577</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/22-they-accuse-x-of-manipulating-the-algo-the-code-is-public-they-still-havent-read-it.mp3" length="15624479" type="audio/mpeg" />
+    <guid>2026-07-22-22-they-accuse-x-of-manipulating-the-algo-the-code-is-public-they-still-havent-read-it</guid>
+    <link>https://x.com/brivael/status/2078940564792426577</link>
+    <pubDate>Wed, 22 Jul 2026 12:00:00 +0000</pubDate>
+    <itunes:duration>10:51</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>22</itunes:episode>
+    <itunes:summary>Brivael Le Pogam argues that accusations of algorithmic manipulation on X collapse under the open-sourced recommendation code: the real panic is loss of narrative monopoly, not opacity.
+
+https://x.com/brivael/status/2078940564792426577</itunes:summary>
+    <itunes:keywords>X algorithm,open source,Elon Musk,France,Marine Le Pen,Home Mixer,Phoenix,transparency,recommendation,Brivael Le Pogam</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/22-they-accuse-x-of-manipulating-the-algo-the-code-is-public-they-still-havent-read-it.jpg" />
+  </item>
+
                     <item>
     <title>Meta Is Already One Of AI&apos;s Biggest Winners</title>
     <description>Austin Koring of ARK argues Meta is already one of AI&apos;s biggest winners—not through a new product category, but via compounding AI gains inside its advertising auction that lift conversions across 3.56 billion daily users.

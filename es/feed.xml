@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 22 Jul 2026 02:51:50 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jul 2026 03:29:19 +0000</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+                    <item>
+    <title>Acusan a X de manipular el algo. El código es público. Aún no lo han leído.</title>
+    <description>Brivael Le Pogam sostiene que las acusaciones de manipulación algorítmica en X se derrumban ante el código de recomendación abierto: el pánico real es la pérdida del monopolio del relato, no la opacidad.
+
+https://x.com/brivael/status/2078940564792426577</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/07/22-acusan-a-x-de-manipular-el-algo-el-codigo-es-publico-aun-no-lo-han-leido.mp3" length="16466312" type="audio/mpeg" />
+    <guid>2026-07-22-22-acusan-a-x-de-manipular-el-algo-el-codigo-es-publico-aun-no-lo-han-leido</guid>
+    <link>https://x.com/brivael/status/2078940564792426577</link>
+    <pubDate>Wed, 22 Jul 2026 12:00:00 +0000</pubDate>
+    <itunes:duration>11:26</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>22</itunes:episode>
+    <itunes:summary>Brivael Le Pogam sostiene que las acusaciones de manipulación algorítmica en X se derrumban ante el código de recomendación abierto: el pánico real es la pérdida del monopolio del relato, no la opacidad.
+
+https://x.com/brivael/status/2078940564792426577</itunes:summary>
+    <itunes:keywords>algoritmo de X,código abierto,Elon Musk,Francia,Marine Le Pen,Home Mixer,Phoenix,transparencia,recomendación,Brivael Le Pogam</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/07/22-acusan-a-x-de-manipular-el-algo-el-codigo-es-publico-aun-no-lo-han-leido.jpg" />
+  </item>
+
                     <item>
     <title>Meta ya es uno de los grandes ganadores de la IA</title>
     <description>Austin Koring de ARK sostiene que Meta ya es uno de los grandes ganadores de la IA: no por una nueva categoría de producto, sino por mejoras de IA en su subasta publicitaria que elevan las conversiones entre 3.560 millones de usuarios diarios.
