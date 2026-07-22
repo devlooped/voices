@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Mon, 20 Jul 2026 00:30:48 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jul 2026 02:51:50 +0000</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,6 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
+                    <item>
+    <title>Meta ya es uno de los grandes ganadores de la IA</title>
+    <description>Austin Koring de ARK sostiene que Meta ya es uno de los grandes ganadores de la IA: no por una nueva categoría de producto, sino por mejoras de IA en su subasta publicitaria que elevan las conversiones entre 3.560 millones de usuarios diarios.
+
+https://x.com/AustinKoringARK/status/2078213465781817670</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/07/21-meta-ya-es-uno-de-los-grandes-ganadores-de-la-ia.mp3" length="15853996" type="audio/mpeg" />
+    <guid>2026-07-21-21-meta-ya-es-uno-de-los-grandes-ganadores-de-la-ia</guid>
+    <link>https://x.com/AustinKoringARK/status/2078213465781817670</link>
+    <pubDate>Tue, 21 Jul 2026 12:00:00 +0000</pubDate>
+    <itunes:duration>11:01</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>21</itunes:episode>
+    <itunes:summary>Austin Koring de ARK sostiene que Meta ya es uno de los grandes ganadores de la IA: no por una nueva categoría de producto, sino por mejoras de IA en su subasta publicitaria que elevan las conversiones entre 3.560 millones de usuarios diarios.
+
+https://x.com/AustinKoringARK/status/2078213465781817670</itunes:summary>
+    <itunes:keywords>Meta,IA,publicidad,Andromeda,GEM,Lattice,Advantage+,ROAS,Instagram,Facebook,ARK,Austin Koring,subasta publicitaria</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/07/21-meta-ya-es-uno-de-los-grandes-ganadores-de-la-ia.jpg" />
+  </item>
+
                     <item>
     <title>Quizá la inteligencia no sea para tanto</title>
     <description>Clifford Sosin sostiene que la superinteligencia llegó de forma incremental y que se sobrevaloró la inteligencia: el límite real es el contacto con la realidad, no el razonamiento puro.
