@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 22 Jul 2026 03:29:19 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jul 2026 01:33:47 +0000</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-                    <item>
+                                        <item>
+    <title>They’re Not Rape Gangs…</title>
+    <description>Dr Jordan B Peterson argues that Britain&apos;s so-called grooming gangs are better understood as sexual conquest gangs: organized networks that systematically raped and degraded vulnerable girls while authorities covered it up to protect multiculturalism.
+
+https://x.com/jordanbpeterson/status/2079970018914381974</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/23-theyre-not-rape-gangs.mp3" length="37243519" type="audio/mpeg" />
+    <guid>2026-07-28-23-theyre-not-rape-gangs</guid>
+    <link>https://x.com/jordanbpeterson/status/2079970018914381974</link>
+    <pubDate>Tue, 28 Jul 2026 12:00:00 +0000</pubDate>
+    <itunes:duration>25:51</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>23</itunes:episode>
+    <itunes:summary>Dr Jordan B Peterson argues that Britain&apos;s so-called grooming gangs are better understood as sexual conquest gangs: organized networks that systematically raped and degraded vulnerable girls while authorities covered it up to protect multiculturalism.
+
+https://x.com/jordanbpeterson/status/2079970018914381974</itunes:summary>
+    <itunes:keywords>Jordan Peterson,rape gangs,grooming gangs,sexual conquest,Rupert Lowe,Rotherham,UK,multiculturalism,inquiry,Pakistan</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/23-theyre-not-rape-gangs.jpg" />
+  </item>
+<item>
     <title>They Accuse X of Manipulating the Algo. The Code Is Public. They Still Haven&apos;t Read It.</title>
     <description>Brivael Le Pogam argues that accusations of algorithmic manipulation on X collapse under the open-sourced recommendation code: the real panic is loss of narrative monopoly, not opacity.
 

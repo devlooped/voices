@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 22 Jul 2026 03:29:19 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jul 2026 01:40:46 +0000</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-                    <item>
+                                        <item>
+    <title>No son bandas de violadores…</title>
+    <description>El Dr. Jordan B. Peterson sostiene que las llamadas bandas de captación en Gran Bretaña se entienden mejor como bandas de conquista sexual: redes organizadas que violaron y degradaron sistemáticamente a muchachas vulnerables mientras las autoridades lo encubrían para proteger el multiculturalismo.
+
+https://x.com/jordanbpeterson/status/2079970018914381974</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/07/23-no-son-bandas-de-violadores.mp3" length="39060012" type="audio/mpeg" />
+    <guid>2026-07-28-23-no-son-bandas-de-violadores</guid>
+    <link>https://x.com/jordanbpeterson/status/2079970018914381974</link>
+    <pubDate>Tue, 28 Jul 2026 12:00:00 +0000</pubDate>
+    <itunes:duration>27:07</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>23</itunes:episode>
+    <itunes:summary>El Dr. Jordan B. Peterson sostiene que las llamadas bandas de captación en Gran Bretaña se entienden mejor como bandas de conquista sexual: redes organizadas que violaron y degradaron sistemáticamente a muchachas vulnerables mientras las autoridades lo encubrían para proteger el multiculturalismo.
+
+https://x.com/jordanbpeterson/status/2079970018914381974</itunes:summary>
+    <itunes:keywords>Jordan Peterson,bandas de violación,conquista sexual,Rupert Lowe,Rotherham,Reino Unido,multiculturalismo,investigación,Pakistán</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/07/23-no-son-bandas-de-violadores.jpg" />
+  </item>
+<item>
     <title>Acusan a X de manipular el algo. El código es público. Aún no lo han leído.</title>
     <description>Brivael Le Pogam sostiene que las acusaciones de manipulación algorítmica en X se derrumban ante el código de recomendación abierto: el pánico real es la pérdida del monopolio del relato, no la opacidad.
 
