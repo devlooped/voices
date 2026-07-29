@@ -106,23 +106,51 @@ If no usable auth: tell the user to run `xurl auth oauth2` (or appropriate) **ou
 - **Capture noisy / long output first**: For `dnx ...`, `az ...`, and help commands, use `... 2>&1 | Out-File $tmp` (or `> $tmp`), then inspect with `Get-Content $tmp`. Direct `| cat`, `| head`, `| Select` on dnx often triggers harness "Get-Content cannot bind" spam.
 - **Prefer PowerShell cmdlets**: `Get-ChildItem` / `Get-Content -Raw` / `Out-File -Encoding utf8` / `ConvertFrom-Json` / `Select-String` over `ls`, `cat`, Unix pipes for reliability on Windows pwsh.
 - **Run synthesis in the current pwsh session**: Define helper functions inline and call them directly. Avoid spawning a nested `powershell -File` for TTS — it adds failure modes and makes chunk-array bugs harder to spot.
-- **Reliable dnx synthesize with keys**:
-  - Do **not** rely on `--key $key --region $region` on the synthesize command line. It often results in the input ( `--file` / `--ssml`) being ignored (`x.input.path=@none`) and a NullReferenceException inside the CLI.
-  - Instead: run `dnx ... config @key --set $key` and `@region --set $region` once, then invoke `dnx ... synthesize --file ...` without the key/region flags.
+- **az CLI path**: Some agent shells do not have `az` on `PATH`. Prefer the full path when needed:
+  `"C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd"`. Capture key/region to files with `-o tsv` and `Set-Content ... -NoNewline` (or `Out-File` + `.Trim()`); never print the speech key to the chat.
+- **Reliable dnx / Speech CLI with keys (CRITICAL — three layers of `@` traps)**:
+  - Do **not** rely on `--key $key --region $region` on the synthesize command line. It often results in the input (`--file` / `--ssml`) being ignored (`x.input.path=@none`) and a NullReferenceException inside the CLI.
+  - Prefer config-then-synthesize. **Never call `dnx ... config @key` directly from PowerShell** — see traps below. Use **cmd.exe** so neither PowerShell nor `dotnet dnx` mis-parses `@`:
+    ```pwsh
+    # $key / $region already loaded (trimmed, no secrets printed)
+    # Write a one-shot .cmd so the secret is not re-parsed by pwsh splat rules
+    $setCmd = Join-Path $env:TEMP "spx-set-key.cmd"
+    @"
+    @echo off
+    dnx Microsoft.CognitiveServices.Speech.CLI -- config @key --set $key
+    dnx Microsoft.CognitiveServices.Speech.CLI -- config @region --set $region
+    "@ | Set-Content $setCmd -Encoding ascii
+    cmd /c $setCmd 2>&1 | Out-File "$env:TEMP\spx-config.log" -Encoding utf8
+    # Then synthesize (also via cmd + -- separator):
+    cmd /c "dnx Microsoft.CognitiveServices.Speech.CLI -- synthesize --file `"$ssmlFile`" --audio output `"$partMp3`" --format audio-48khz-192kbitrate-mono-mp3" 2>&1 | Out-File $log -Encoding utf8
+    ```
+  - **Trap 1 — PowerShell splat**: In pwsh, bare `@key` / `@region` is array splatting of `$key` / `$region`. A string splat expands to **one character per argument** (`w e s t u s 2`). Symptom: `Invalid command line argument(s) at "w e s t u s 2 --set westus2"`.
+  - **Trap 2 — dnx response files**: Quoting as `'@key'` (or passing `@key` through `dotnet dnx` without `--`) makes **dotnet treat `@key` as a response file**. Symptom: `Response file 'key' does not exist.`
+  - **Trap 3 — missing `--`**: Modern `dnx` needs `dnx Microsoft.CognitiveServices.Speech.CLI -- <spx-args...>` so remaining args are forwarded to the Speech CLI (SPX), not consumed by the dnx host.
+  - **Side effect of `config @key`**: SPX writes plaintext `key` and `region` files into the **current working directory** (often the repo root). They are listed in `.gitignore`, but still delete them in §4.9 (`Remove-Item key, region, log-*.log -ErrorAction SilentlyContinue` at repo root). Never commit them; never dump their contents into chat.
 - **SSML file writing**:
   - Always start the file with `<?xml version="1.0" encoding="utf-8"?>`.
   - Write with no-BOM UTF8: `[System.Text.UTF8Encoding]::new($false)`.
   - Use `--file` (not `--ssml`) when pointing at a `.ssml` file in the config-based flow.
-- **UTF-8**: When writing SSML or .md files use `-Encoding utf8` (or `[System.IO.File]::WriteAllText` with UTF-8 no BOM for SSML). When reading xurl JSON use `-Raw | ConvertFrom-Json`.
+- **UTF-8 and mojibake (xurl → PowerShell)**:
+  - When writing SSML or `.md` files use `[System.IO.File]::WriteAllText(..., [System.Text.UTF8Encoding]::new($false))`. Prefer that over `Out-File -Encoding utf8` for long article bodies (avoids BOM / re-encoding surprises).
+  - Save `xurl read` JSON to a temp file; parse with `Get-Content -Raw -Encoding utf8 | ConvertFrom-Json`. **Do not trust console display** of curly quotes / em-dashes.
+  - After parse, **verify** a known punctuation codepoint (e.g. title or first em-dash). If you see CP437-style mojibake such as `ΓÇö` / `ΓÇÖ` / `ΓÇ£` instead of `—` / `'` / `"`, fix by reinterpreting the string as CP437 bytes decoded as UTF-8:
+    ```pwsh
+    $enc437 = [System.Text.Encoding]::GetEncoding(437)
+    $fixed = [System.Text.Encoding]::UTF8.GetString($enc437.GetBytes($bad))
+    # Confirm: $fixed.Contains([char]0x2014)  # em-dash
+    ```
+  - Re-check after any intermediate `Out-File` / `Set-Content` round-trip of article text.
 - **Non-ASCII / accented text in commands** (e.g. Spanish translation for .md or SSML): Embedding long strings with ó, í, ñ etc. directly inside a single long `run_terminal_command` can get mangled by the harness. Prefer:
-  - Write content to a small helper `.py` or `.ps1` file using `\u00f3` escapes (or Python raw strings), then execute the helper.
-  - Or build the file content inside PowerShell using here-strings in a file written with explicit `[System.Text.UTF8Encoding]::new($false)`.
+  - Write content with Python using a **normal** (non-raw) string and real Unicode, or `\u00f3` escapes that you **decode** (`codecs.decode(s, 'unicode_escape')` only if the file still contains literal backslash-u sequences). **Do not** use a Python raw string `r'...\u00fa...'` expecting escapes to expand — they stay as the six characters `\`, `u`, `0`, `0`, `f`, `a`.
+  - Or build the file content inside PowerShell using here-strings written with explicit `[System.Text.UTF8Encoding]::new($false)`.
 - **Duration**: Use `[TimeSpan]::FromSeconds([double]$raw).ToString("m\:ss")`.
-- **Temporary files**: Use `$env:TEMP\...` for ssml, logs, and json. Clean up in §4.8 unless debugging.
+- **Temporary files**: Use `$env:TEMP\...` for ssml, logs, and json. Clean up in §4.9 unless debugging.
 - **Synth temp directories**: Create a fresh `$synthDir = Join-Path $env:TEMP ("synth-" + [guid]::NewGuid()...)` as a **local variable inside the same command/script block**. Do not write the path to a file with Out-File and read it back in a later command — whitespace/newlines can corrupt the path and produce errors like `synth-xxx\n\part-0.mp3`.
-- **Long synthesis**: Expect many "SYNTHESIZING: audio.length=..." messages — redirect or tail as needed. Always chunk long text (see §4.5); never feed the full `.md` body in one SSML call when it exceeds ~2200 chars.
-- **Chunked TTS temp files**: Keep per-chunk `.ssml` / `part-*.mp3` / `concat.txt` under `$env:TEMP` until merge succeeds; delete in §4.8.
-- **Verify before synthesizing**: Log each chunk's character count. If a chunk reports `1` char (or audio is ~0:00) on a multi-paragraph article, the PowerShell single-element array unwrap bug fired — see §4.5 and Troubleshooting.
+- **Long synthesis**: Expect many "SYNTHESIZING: audio.length=..." messages — redirect or tail as needed. Always chunk long text (see §4.5); never feed the full `.md` body in one SSML call when it exceeds ~2200 chars. Long articles (~20k+ chars) may take **10–15+ minutes** for EN+ES; run chunk loops with a high tool timeout and keep chunk progress logs.
+- **Chunked TTS temp files**: Keep per-chunk `.ssml` / `part-*.mp3` / `concat.txt` under `$env:TEMP` until merge succeeds; delete in §4.9.
+- **Verify before synthesizing**: Log each chunk's character count. If a chunk reports `1` char (or audio is ~0:00) on a multi-paragraph article, the PowerShell single-element array unwrap bug fired — see §4.5 and Troubleshooting. After `@($raw)`, if still nested (`$chunks[0] -is [array]`), flatten with `$chunks = @($chunks[0])`.
 
 ## Re-rendering an existing episode MP3
 
@@ -141,7 +169,8 @@ When the user asks to re-render/regen MP3s for existing `.md` files (no new X fe
 - [ ] Accept X post URL (or ID); extract ID if needed
 - [ ] Ensure xurl (@kzu fork) + auth (app preferred); verify version ends "by @kzu"
 - [ ] xurl read the post; save JSON; check for errors
-- [ ] Inspect JSON for `data.article.cover_media` (articles) or `data.attachments.media_keys` (regular posts with images); if present resolve first photo URL from `includes.media` (store for artwork decision)
+- [ ] Inspect JSON for `data.article.cover_media` (articles) or `data.attachments.media_keys` (regular posts with images); resolve photo URL from `includes.media` when present; if `cover_media` is set but `includes.media` is missing, fall back to public post HTML scrape for `pbs.twimg.com/media/...` (see Step 1)
+- [ ] After extracting title/body, verify UTF-8 (em-dash / curly apostrophe codepoints); apply CP437→UTF-8 fix if mojibake
 - [ ] Extract full body (note_tweet priority → article → text) + author line + $postTitle (from data.article.title if present)
 - [ ] Archive original attributed text to posts/<date>-<id>.md (yaml + raw)
 - [ ] Infer author gender from name (default male) for voice selection
@@ -151,7 +180,7 @@ When the user asks to re-render/regen MP3s for existing `.md` files (no new X fe
     - [ ] Compute yyyy/MM from **episode date** (today), slug (kebab), next N for (lang, episode-year) from feed
     - [ ] Write <lang>/<yyyy>/<MM>/<N>-<slug>.md (yaml `date` = episode date yyyy-MM-dd; spoken body: episode title (post title if present) + localized byline with long-form **post date**, e.g. en `by <name>, posted on April 3rd, 2026` / es `por <name>, publicado el 3 de Abril de 2026`, then content)
     - [ ] If no artwork determined yet: if a post photo URL (article cover or attachment) was resolved earlier, download it and center-crop to square 1024x1024 via ffmpeg as <N>-<slug>.jpg (skip /imagine); else (if imagine in this JSON) start subagent `/imagine <imagine>, 1:1 aspect ratio`; copy result (or cover-derived jpg) as <N>-<slug>.jpg into *this* language's dir (and later for other langs too)
-    - [ ] Resolve voices.<lang>.<gender> + chunk spoken body (≤ ~2200 chars, sentence boundaries) + synthesize each chunk via dnx (`--format audio-48khz-192kbitrate-mono-mp3`) + ffmpeg-concat into final .mp3; verify per-chunk char counts and total duration is not exactly 10:00 on long posts
+    - [ ] Resolve voices.<lang>.<gender> + chunk spoken body (≤ ~2200 chars, sentence boundaries) + synthesize each chunk via `cmd /c "dnx Microsoft.CognitiveServices.Speech.CLI -- synthesize ..."` (`--format audio-48khz-192kbitrate-mono-mp3`) after SPX config via cmd (never bare pwsh `@key`) + ffmpeg-concat into final .mp3; verify per-chunk char counts and total duration is not exactly 10:00 on long posts
     - [ ] Embed ID3v2.3 tags (§4.6) into final .mp3; verify file starts with `ID3` magic bytes
     - [ ] Probe duration/size with ffprobe (after tagging — file size includes ID3 header)
     - [ ] Update <lang>/feed.xml (prepend item + itunes:image + current lastBuildDate)
@@ -172,8 +201,14 @@ When the user asks to re-render/regen MP3s for existing `.md` files (no new X fe
   ```
   xurl [--auth app] [--app NAME] read <url-or-id>
   ```
-- Save full JSON to a temp file (e.g. `$env:TEMP\podcast-<id>.json`). **Do not rely on terminal display** — xurl output can appear garbled for non-ASCII in the console. Always read the saved file with `ConvertFrom-Json` (or `jq`) using UTF-8.
+- Save full JSON to a temp file (e.g. `$env:TEMP\podcast-<id>.json`). Prefer:
+  ```pwsh
+  xurl --auth app read $url 2>$null | Set-Content -Path $tmp -Encoding utf8NoBOM
+  # or: redirect and then Get-Content -Raw -Encoding utf8
+  ```
+  **Do not rely on terminal display** — xurl output can appear garbled for non-ASCII in the console. Always read the saved file with `ConvertFrom-Json` (or `jq`) using UTF-8.
 - Validate: no top-level `errors`; `data` present.
+- **Sanity-check Unicode** on `$postTitle` / `$body` (see Robust patterns — CP437 mojibake). If title shows `U+0393` (Γ) where an apostrophe should be, fix before archiving or writing episode `.md`.
 
 **Extract body (strict priority):**
 1. `data.note_tweet.text` (long-form, preferred for full posts)
@@ -209,7 +244,15 @@ if (-not $coverPhotoUrl -and $json.data.attachments -and $json.data.attachments.
     }
 }
 ```
-Store `$coverPhotoUrl` (may be $null). Plain `xurl read` (with the @kzu fork) includes `includes.media` (and attachments for image posts).
+Store `$coverPhotoUrl` (may be $null).
+
+**`includes.media` is often missing for X Articles** even when `data.article.cover_media` is present (e.g. only `includes.users` is returned). Do **not** treat that as "no artwork":
+
+1. Prefer `includes.media` URL when available (above).
+2. **Fallback — public HTML scrape** (no auth; works for public posts): open the canonical status URL (or `web_fetch` / HTTP GET) and extract the article cover image URL matching `https://pbs.twimg.com/media/<id>.jpg` (look for `Article cover image` / `og:image` / first `pbs.twimg.com/media/` in the page). Use the `.jpg` (or strip query params to a stable media URL).
+3. Only if both fail: leave `$coverPhotoUrl = $null` and use the LLM `imagine` path in §4.3.1.
+
+Raw `xurl get /2/tweets?...expansions=...` is **not** a reliable substitute in this environment (often returns empty / `request failed`); prefer read JSON + HTML fallback.
 
 **Author:** From `includes.users` matching `data.author_id`:
 - `$authorName` — display `name` if present, else `username` (this is the YAML `author` value and the spoken byline name; **no `@handle`** — the handle is already in `link`).
@@ -327,7 +370,7 @@ https://x.com/elonmusk/status/1234567890123456789
 Performed the first time an episode needs artwork (cover or generated) during language processing. The resulting image is language-agnostic and will be copied for every language.
 
 **Precedence (decide once):**
-- If a `$coverPhotoUrl` was resolved in Step 1 (from `data.article.cover_media` for articles, or from a `photo` in `data.attachments.media_keys` + matching in `includes.media` for regular posts):
+- If a `$coverPhotoUrl` was resolved in Step 1 (from `includes.media`, or from the public HTML `pbs.twimg.com/media/` fallback when `cover_media` is set but `includes.media` is absent):
   - Download to a temp file: `Invoke-WebRequest -Uri $coverPhotoUrl -OutFile "$env:TEMP\cover-$postId.jpg"` (public pbs.twimg.com URLs; no auth needed).
   - Ensure the target episode directory exists.
   - Center-crop to square and scale to 1024x1024 (matching existing episode artwork) using ffmpeg:
@@ -413,10 +456,16 @@ Resolve effective config for `voices.<lang>.<gender>` (hierarchical merge):
 
 Extract `voice` (e.g. `en-us-Andrew3:DragonHDLatestNeural`) and parameters (`temperature=0.85;top_p=1.0;...`).
 
-Fetch credentials (inline only):
+Fetch credentials (inline only; do not print `$key`):
 ```pwsh
-$key = az cognitiveservices account keys list --name <speech> --resource-group <rg> --query key1 -o tsv
-$region = az cognitiveservices account show --name <speech> --resource-group <rg> --query location -o tsv
+$az = "C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd"  # fallback if az not on PATH
+# From voices.toml [azure]: speech name + rg
+& $az cognitiveservices account keys list --name <speech> --resource-group <rg> --query key1 -o tsv 2>$null |
+  Set-Content "$env:TEMP\az-key.out" -Encoding ascii -NoNewline
+& $az cognitiveservices account show --name <speech> --resource-group <rg> --query location -o tsv 2>$null |
+  Set-Content "$env:TEMP\az-region.out" -Encoding ascii -NoNewline
+$key = (Get-Content "$env:TEMP\az-key.out" -Raw).Trim()       # expect length ~84
+$region = (Get-Content "$env:TEMP\az-region.out" -Raw).Trim() # e.g. westus2
 ```
 
 Build SSML (use correct `xml:lang`):
@@ -506,19 +555,19 @@ Short posts (single chunk under the limit) copy `part-0.mp3` directly to the fin
 
 **Per-chunk synthesize (reliable pattern)**:
 
-Inline `--key` / `--region` on the synthesize line frequently causes "x.input.path=@none" and "Object reference not set to an instance of an object." 
+Inline `--key` / `--region` on the synthesize line frequently causes "x.input.path=@none" and "Object reference not set to an instance of an object."
 
-**Preferred reliable flow** (config first, then plain synthesize):
+**Preferred reliable flow** — config once via **cmd.exe** (avoids PowerShell `@` splat and dnx response-file traps; see Robust patterns), then synthesize each chunk the same way:
+
 ```pwsh
-# Once per session (or once per language block)
-dnx Microsoft.CognitiveServices.Speech.CLI config @key --set $key
-dnx Microsoft.CognitiveServices.Speech.CLI config @region --set $region
+# Once per session: write spx-set-key.cmd with @key/@region (see Robust patterns) and:
+cmd /c $setCmd 2>&1 | Out-File "$env:TEMP\spx-config.log" -Encoding utf8
+# Confirm: log contains "key (saved at ...)" and region westus2 — never echo the key value
 
 $format = "audio-48khz-192kbitrate-mono-mp3"
-dnx Microsoft.CognitiveServices.Speech.CLI synthesize `
-    --file $ssmlFile `
-    --audio output $partMp3 `
-    --format $format 2>&1 | Out-File "$env:TEMP\synth-chunk-$i.log"
+# Each chunk — note the "--" after the package id:
+cmd /c "dnx Microsoft.CognitiveServices.Speech.CLI -- synthesize --file `"$ssmlFile`" --audio output `"$partMp3`" --format $format" `
+  2>&1 | Out-File "$env:TEMP\synth-chunk-$i.log" -Encoding utf8
 ```
 
 Use `--file` (not `--ssml`) when the input is a `.ssml` file containing full SSML.
@@ -762,6 +811,15 @@ This file is never uploaded to the podcast feed; it is for human convenience whe
 ### 4.9 Cleanup
 Delete temporary SSML, per-chunk `part-*.mp3`, `concat.txt`, synth chunk logs, JSON, downloaded cover photos (`$env:TEMP\cover-*.jpg`), and any intermediate image files from the subagent unless the user wants them kept for debugging. Keep the final merged .mp3 + .md + .jpg (the .jpg must remain next to the mp3 for every language).
 
+**Also remove Speech CLI local secret/log artifacts from the repo root** (written by `config @key` / `@region` when cwd is the workspace):
+
+```pwsh
+Remove-Item -Force -ErrorAction SilentlyContinue key, region
+Remove-Item -Force -ErrorAction SilentlyContinue (Join-Path (Get-Location) "log-*.log")
+```
+
+These are gitignored (`key`, `region`, `log-*.log`) but must not remain on disk after the run.
+
 ---
 
 ## Step 5 — Report to the user
@@ -813,7 +871,7 @@ See current file. Hierarchical:
 
 HD parameters go on the `parameters` attribute of `<voice>`.
 
-**Invocation note**: Use the config-then-synthesize pattern documented in §4.5 (set `@key`/`@region` via config, then `dnx ... synthesize --file ...`). The literal `dnx ... -- synthesize --key ...` form is brittle.
+**Invocation note**: Use the config-then-synthesize pattern documented in §4.5 — **via `cmd /c` + `dnx ... -- config @key`** (see Robust patterns for PowerShell splat / response-file traps). Then `cmd /c "dnx Microsoft.CognitiveServices.Speech.CLI -- synthesize --file ..."`. Do **not** put `--key` / `--region` on the synthesize line; do **not** run bare `dnx ... config @key` from PowerShell.
 
 Default podcast MP3 encoding: `audio-48khz-192kbitrate-mono-mp3` (see §4.5). Do not use bare `--format mp3`.
 
@@ -842,19 +900,27 @@ Always insert newest item first.
 | dnx not found / `dnx --version` fails | Use `dotnet --version`; dnx is invoked as `dnx <Package>` (it is `dotnet dnx` under the hood). Confirm `C:\Program Files\dotnet\dnx.cmd` exists. |
 | dnx help or output piped with `| cat` / `| head` produces repeated "Get-Content cannot be bound" spam | Always redirect first: `... 2>&1 | Out-File $tmp`; then `Get-Content $tmp`. The harness is sensitive to certain pipe patterns with verbose CLIs. |
 | Duration formatting error in PowerShell (`Format specifier was invalid`) | Use `[TimeSpan]::FromSeconds($dur).ToString("m\:ss")` instead of custom `{0}:{1:D2}` -f patterns. |
-| xurl JSON looks garbled (├⌐ etc.) in terminal | Save to file (`> $json`), then `Get-Content $json -Raw | ConvertFrom-Json`. Never trust raw console for accented text. |
+| xurl JSON looks garbled (├⌐ / `ΓÇö` etc.) in terminal or after parse | Save to file; parse with UTF-8. If body still has `ΓÇö`/`ΓÇÖ` (CP437 mojibake of UTF-8 em-dash/apostrophe), apply `UTF8.GetString(CP437.GetBytes($s))` (see Robust patterns). Never trust raw console for accented text. |
+| Title/body has `U+0393` (Γ) where `'` or `—` should be | Same CP437→UTF-8 fix; re-write archive + episode `.md` before TTS. |
+| `article.cover_media` set but no `includes.media` | Expected for many X Articles. Scrape `pbs.twimg.com/media/...` from the public post HTML (Step 1 fallback); do not skip to /imagine solely because includes is empty. |
+| `az` not recognized | Use `"C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin\az.cmd"`. |
+| Speech key length wrong (e.g. 27) after file read | Capture with `Set-Content -NoNewline` or trim carefully; avoid double-encoding / partial reads of the key file. |
+| SPX error: args like `"w e s t u s 2 --set westus2"` | PowerShell splatted `@region` (string → chars). Use `cmd /c` + `dnx ... -- config @region --set ...` (Robust patterns). |
+| `Response file 'key' does not exist` | `dotnet dnx` ate `@key` as a response file. Pass SPX args after `--`, and invoke via **cmd.exe**, not quoted `'@key'` alone under dnx without `--`. |
+| `key` / `region` files appear in repo root | Normal SPX side effect of `config @key`. Delete in §4.9; already gitignored — never commit or print. |
 | Voice not found / flat output | Verify full voice name from voices.toml includes `:DragonHDLatestNeural` / `:DragonHDOmniLatestNeural`; parameters on `<voice>` |
 | MP3 sounds muffled / low fidelity | Confirm `--format audio-48khz-192kbitrate-mono-mp3`, not bare `--format mp3` (16 kHz / 128 kbps default). Verify with `ffprobe` (expect `sample_rate=48000`, `bit_rate=192000`). |
 | MP3 duration exactly `10:00` / `600.000000` s on a long article | Azure truncated the synthesis. Re-chunk at sentence boundaries (≤ ~2200 chars); do **not** rely on paragraph splits (X articles use single newlines). Merge parts with `ffmpeg -f concat -c copy`. |
 | One chunk has >9000 chars, others tiny | Paragraph-based splitting failed — switch to sentence-boundary splitting (see §4.5). |
-| Log shows `chunk 0 : 1 chars` or ~0:00 audio on a full article | PowerShell single-element array unwrap (see §4.5). Use the robust call site: `$raw = Split-TextChunks $body; $chunks = @($raw)`. Immediately log count + lengths after assignment. |
-| `Object reference not set to an instance of an object` + `x.input.path=@none` during dnx synthesize | Inline `--key` / `--region` with the synthesize command is unreliable. Set config first (`dnx ... config @key --set $key; ... @region --set $region`), then run `dnx ... synthesize --file $ssml ...` without key/region flags. |
+| Log shows `chunk 0 : 1 chars` or ~0:00 audio on a full article | PowerShell single-element array unwrap (see §4.5). Use the robust call site: `$raw = Split-TextChunks $body; $chunks = @($raw)`. Flatten if `$chunks[0] -is [array]`. Immediately log count + lengths after assignment. |
+| `Object reference not set to an instance of an object` + `x.input.path=@none` during dnx synthesize | Inline `--key` / `--region` with synthesize is unreliable. Set config first via cmd/`--` pattern, then `synthesize --file ...` without key/region flags. |
 | `Data at the root level is invalid. Line 1, position 1.` (SSML) | Add `<?xml version="1.0" encoding="utf-8"?>` at the very top of the SSML. Write the file with no-BOM UTF8. Try `--file` instead of `--ssml`. |
+| Spanish `.md` shows literal `\u00fa` / `contin\u00faa` | Python raw string did not expand escapes. Write real Unicode or decode with `codecs.decode(..., 'unicode_escape')` after writing escapes as normal (non-raw) strings. |
 | ffmpeg concat fails | Use `concat.txt` with `file 'path/with/forward/slashes'` and `-safe 0`. All parts must share the same codec/format (identical `--format` on every synthesize call). |
 | Feed validation: `No ID3v2 headers found` / `Could not detect bitrate mode` | Azure output lacks ID3. Run §4.6 `Add-EpisodeId3Tags` with `ffmpeg -c copy -id3v2_version 3`, then re-probe size and update enclosure `length`. |
 | Wrong episode number | Check that feed parsing looks only at items with matching `itunes:season` year. When the feed has no `<item>` yet, N=1. |
 | index.json (or index.html) stale | Re-write index.json from the current episodes (scan dirs or feed) and embed the data inside the index.html template as a JSON data island |
-| Secret leakage risk | Never pass --bearer* etc.; never cat ~/.xurl |
+| Secret leakage risk | Never pass --bearer* etc.; never cat ~/.xurl; never echo speech key; delete root `key`/`region` after config |
 | `ls -la`, `cat`, Unix pipes failing | This is PowerShell on Windows (pwsh). Prefer `Get-ChildItem`, `Get-Content`, `Out-File`, `Select-String`. |
 
 ## Agent freedom
