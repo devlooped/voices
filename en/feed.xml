@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Wed, 29 Jul 2026 02:10:16 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 01 Aug 2026 00:19:12 +0000</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -28,6 +28,25 @@
       <itunes:category text="Business News" />
     </itunes:category>
                                         <item>
+    <title>Introducing Gemini Robotics ER 2</title>
+    <description>Google AI Studio introduces Gemini Robotics ER 2, a step change in video understanding, task orchestration, and multi-robot collaboration that brings faster spatial reasoning and more capable physical-world robots.
+
+https://x.com/GoogleAIStudio/status/2082846204262531310</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/07/25-introducing-gemini-robotics-er-2.mp3" length="10541253" type="audio/mpeg" />
+    <guid>2026-07-31-25-introducing-gemini-robotics-er-2</guid>
+    <link>https://x.com/GoogleAIStudio/status/2082846204262531310</link>
+    <pubDate>Fri, 31 Jul 2026 12:00:00 +0000</pubDate>
+    <itunes:duration>7:19</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>25</itunes:episode>
+    <itunes:summary>Google AI Studio introduces Gemini Robotics ER 2, a step change in video understanding, task orchestration, and multi-robot collaboration that brings faster spatial reasoning and more capable physical-world robots.
+
+https://x.com/GoogleAIStudio/status/2082846204262531310</itunes:summary>
+    <itunes:keywords>Gemini,Robotics,Google AI Studio,Gemini Robotics ER 2,video understanding,task orchestration,multi-robot,spatial reasoning,AI,robots</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/07/25-introducing-gemini-robotics-er-2.jpg" />
+  </item>
+<item>
     <title>Everything You Touched Today Is a Law of the Universe in Disguise.</title>
     <description>Stefan. decompiles six ordinary moments from a single day — unlocking a phone, cooling coffee, leaning on a table, standing in sunlight, eating lunch, looking at the sky — to show how relativity, entropy, quantum rules, stellar fusion, and light delay run constantly through everyday life.
 
