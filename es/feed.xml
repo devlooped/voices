@@ -7,7 +7,7 @@
     <language>es</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Sat, 01 Aug 2026 00:19:12 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2026 12:01:49 +0000</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-                                        <item>
+                                                                                <item>
+    <title>Minimanifiesto: por qué el socialismo no puede servir al bien común</title>
+    <description>Brivael Le Pogam sostiene que el socialismo no puede lograr el bien común: los incentivos, el conocimiento disperso y los precios de mercado hacen fracasar la planificación central, y los datos históricos de Corea del Norte a Venezuela muestran catástrofe, no buenas intenciones mal aplicadas.
+
+https://x.com/brivael/status/2083933065458405379</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/es/2026/08/26-minimanifiesto-por-que-el-socialismo-no-puede-servir-al-bien-comun.mp3" length="7119724" type="audio/mpeg" />
+    <guid>2026-08-03-26-minimanifiesto-por-que-el-socialismo-no-puede-servir-al-bien-comun</guid>
+    <link>https://x.com/brivael/status/2083933065458405379</link>
+    <pubDate>Mon, 03 Aug 2026 12:00:00 +0000</pubDate>
+    <itunes:duration>4:56</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>26</itunes:episode>
+    <itunes:summary>Brivael Le Pogam sostiene que el socialismo no puede lograr el bien común: los incentivos, el conocimiento disperso y los precios de mercado hacen fracasar la planificación central, y los datos históricos de Corea del Norte a Venezuela muestran catástrofe, no buenas intenciones mal aplicadas.
+
+https://x.com/brivael/status/2083933065458405379</itunes:summary>
+    <itunes:keywords>socialismo,bien común,liberalismo,mercados libres,Hayek,Mises,incentivos,Venezuela,Corea del Norte,pobreza,planificación central,manifiesto</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/es/2026/08/26-minimanifiesto-por-que-el-socialismo-no-puede-servir-al-bien-comun.jpg" />
+  </item>
+<item>
     <title>Presentamos Gemini Robotics ER 2</title>
     <description>Google AI Studio presenta Gemini Robotics ER 2, un salto en comprensión de video, orquestación de tareas y colaboración multi-robot que acerca un razonamiento espacial más rápido y robots más capaces en el mundo físico.
 

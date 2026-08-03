@@ -7,7 +7,7 @@
     <language>en</language>
     <copyright>Copyright © Kzu</copyright>
     <pubDate>Wed, 17 Jun 2026 18:09:51 GMT</pubDate>
-    <lastBuildDate>Sat, 01 Aug 2026 00:19:12 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2026 12:01:49 +0000</lastBuildDate>
     <webMaster>daniel@cazzulino.com</webMaster>
     <managingEditor>daniel@cazzulino.com</managingEditor>
     <generator>Daniel Cazzulino</generator>
@@ -27,7 +27,26 @@
     <itunes:category text="News">
       <itunes:category text="Business News" />
     </itunes:category>
-                                        <item>
+                                                                                <item>
+    <title>Mini-Manifesto: Why Socialism Cannot Serve the Common Good</title>
+    <description>Brivael Le Pogam argues that socialism cannot deliver the common good: incentives, dispersed knowledge, and market prices make central planning fail, while historical data from North Korea to Venezuela show catastrophe—not good intentions gone wrong.
+
+https://x.com/brivael/status/2083933065458405379</description>
+    <enclosure url="https://kzu.blob.core.windows.net/voices/en/2026/08/26-mini-manifesto-why-socialism-cannot-serve-the-common-good.mp3" length="7951306" type="audio/mpeg" />
+    <guid>2026-08-03-26-mini-manifesto-why-socialism-cannot-serve-the-common-good</guid>
+    <link>https://x.com/brivael/status/2083933065458405379</link>
+    <pubDate>Mon, 03 Aug 2026 12:00:00 +0000</pubDate>
+    <itunes:duration>5:31</itunes:duration>
+    <itunes:season>2026</itunes:season>
+    <itunes:episode>26</itunes:episode>
+    <itunes:summary>Brivael Le Pogam argues that socialism cannot deliver the common good: incentives, dispersed knowledge, and market prices make central planning fail, while historical data from North Korea to Venezuela show catastrophe—not good intentions gone wrong.
+
+https://x.com/brivael/status/2083933065458405379</itunes:summary>
+    <itunes:keywords>socialism,common good,liberalism,free markets,Hayek,Mises,incentives,Venezuela,North Korea,poverty,central planning,manifesto</itunes:keywords>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:image href="https://kzu.blob.core.windows.net/voices/en/2026/08/26-mini-manifesto-why-socialism-cannot-serve-the-common-good.jpg" />
+  </item>
+<item>
     <title>Introducing Gemini Robotics ER 2</title>
     <description>Google AI Studio introduces Gemini Robotics ER 2, a step change in video understanding, task orchestration, and multi-robot collaboration that brings faster spatial reasoning and more capable physical-world robots.
 
